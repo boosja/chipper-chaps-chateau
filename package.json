@@ -1,0 +1,8 @@
+{
+  "name": "chipper-chaps-chateau",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "shadow-cljs": "2.28.19"
+  }
+}
