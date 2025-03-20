@@ -1,0 +1,9 @@
+{:deps true
+ :dev-http {2000 "public"}
+
+ :compiler-options {:externs ["datascript/externs.js"]}
+
+ :builds
+ {:chipper-chaps-chateau
+  {:target :browser
+   :modules {:main {:init-fn chipper-chaps-chateau.app/init}}}}}

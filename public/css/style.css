@@ -1,0 +1,141 @@
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: system-ui;
+    background-image: url('/imgs/bg_light.svg');
+    background-size: 50px;
+}
+
+#app {
+    height: 100vh;
+    padding-top: 3rem;
+}
+
+h1 {
+    color: black;
+    text-align: center;
+}
+
+.box {
+    margin: 2rem auto;
+    display: flex;
+    place-items: center;
+    gap: 1rem;
+    height: 3rem;
+}
+
+.box::before,
+.box::after {
+    flex: 1;
+    content: "";
+}
+
+.tada {
+    font-size: 2rem;
+}
+
+.current {
+    display: grid;
+    width: 16rem;
+    height: 2rem;
+    border-radius: 4px;
+    border: 1px solid;
+    place-items: center;
+    color: white;
+    text-transform: uppercase;
+}
+
+.wrapper {
+    display: grid;
+    place-items: center;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 12rem);
+    border-radius: 10%;
+    padding: 3rem;
+    background-color: #e7eff8;
+    border: 1px solid lightsteelblue;
+}
+
+.cell {
+    width: 12rem;
+    height: 12rem;
+    display: grid;
+    place-items: center;
+}
+
+.chip {
+    border-radius: 50%;
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+    text-align: center;
+    border: 1px solid #787878;
+    box-shadow: -4px 4px 0px #00000070;
+}
+
+.large {
+    width: 90%;
+    height: 90%;
+    z-index: 1;
+}
+.medium {
+    width: 60%;
+    height: 60%;
+    margin-top: -1.5rem;
+    margin-right: -1.5rem;
+    z-index: 2;
+}
+.small {
+    width: 30%;
+    height: 30%;
+    margin-top: -3rem;
+    margin-right: -3rem;
+    z-index: 3;
+}
+
+.white { background-color: snow; }
+.blue {
+    background-color: #4169E1;
+    border-color: #1a1a70;
+    color: white;
+}
+.red {
+    background-color: #DC143C;
+    border-color: #530c0c;
+    color: white;
+}
+.green {
+    background-color: #289d4f;
+    border-color: #135313;
+    color: white;
+}
+.yellow {
+    background-color: #FFD700;
+    border-color: #5d5d14;
+    color: black;
+}
+
+.chip:active {
+    box-shadow: none;
+    filter: brightness(75%);
+}
+
+.large:active {
+    margin-top: 8px;
+    margin-right: 8px;
+}
+
+.medium:active {
+    margin-top: calc(-1.5rem + 8px);
+    margin-right: calc(-1.5rem + 8px);
+}
+.small:active {
+    margin-top: calc(-3rem + 8px);
+    margin-right: calc(-3rem + 8px);
+}
