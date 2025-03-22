@@ -1,23 +1,14 @@
 (ns chipper-chaps-chateau.std-page
   (:require [chipper-chaps-chateau.la-visual :as vis]
             [chipper-chaps-chateau.victory :as victory]
-            [chipper-chaps-chateau.db :as db]))
+            [chipper-chaps-chateau.db :as db]
+            [clojure.string :as str]))
 
 (def next-color
   {:blue :red
    :red :green
    :green :yellow
    :yellow :blue})
-
-(defn ->cells [chips get-actions]
-  (->> chips
-       (partition 3)
-       (mapv
-        #(mapv (fn [{:keys [chip/size chip/color] :as chip}]
-                 {:size size
-                  :color color
-                  :actions (get-actions chip)})
-               %))))
 
 (defn render [db]
   (let [current-color (db/get-global db :current-color)
@@ -31,11 +22,15 @@
                            :chip/color current-color}
                           (db/->global-tx :current-color
                                           (next-color current-color))]]]))]
-    (list (vis/player-box (or winner current-color)
-                          winner)
+    (list (if winner
+            (vis/icon-box {:color winner
+                           :icon "🎉"
+                           :text (str (str/capitalize (name winner)) " is the winner")})
+            (vis/box {:color current-color
+                      :text "Current player"}))
           [:div.wrapper
            [::vis/board.board
             {::vis/data
-             (->cells chips get-actions)}
+             (db/->cells chips get-actions)}
             [::vis/cell.cell
              [::vis/chip.chip]]]])))

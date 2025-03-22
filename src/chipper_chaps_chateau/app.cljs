@@ -1,5 +1,6 @@
 (ns chipper-chaps-chateau.app
   (:require [chipper-chaps-chateau.db :as db]
+            [chipper-chaps-chateau.rules-page :as rules-page]
             [chipper-chaps-chateau.std-page :as std-page]
             [chipper-chaps-chateau.victory :as victory]
             [datascript.core :as ds]
@@ -16,16 +17,15 @@
 
 (def locations #{:std :rules :4d})
 
-(def txes (concat [{:db/ident :current-color
-                    :current-color :blue}
-                   {:db/ident :location
-                    :location :std}
+(def txes (concat [{:db/ident :current-color :current-color :blue}
+                   {:db/ident :location :location :std}
+                   {:db/ident :rules/show-all? :rules/show-all? false}
                    {:db/id "player one"
                     :player/color :blue
                     :chip.lg/count 3
                     :chip.md/count 3
                     :chip.sm/count 3}]
-                  (db/chips-txes)))
+                  (db/create-chips)))
 
 (def schema {:chip/idx {:db/cardinality :db.cardinality/one
                         :db/unique :db.unique/identity}})
@@ -56,11 +56,8 @@
 
   )
 
-(defn render-rules [state]
-  [:div "Rules"])
-
 (def pages {:std #'std-page/render
-            :rules #'render-rules
+            :rules #'rules-page/render
             :4d (fn [_] [:div "Coming soon..."])})
 
 (defn app [db]
@@ -68,7 +65,7 @@
         render (get pages location)]
     [:main
      [:h1 "Chipper Chap's Chateau"]
-     [:div.box.mt-1
+     [:div.box.m-1
       [:button.nav-btn
        {:on {:click [[:action/transact [(db/->global-tx :location
                                                         (if (= location :rules)
