@@ -6,13 +6,13 @@
 (defn player-box [color game-won?]
   (let [clr (name color)]
     (if game-won?
-      [:div.box
+      [:div.box.m-2.h-3
        [:span.tada "🎉"]
        [:div.current {:class clr}
         (str (str/capitalize clr) " is the winner")]
        [:span.tada "🎉"]]
 
-      [:div.box
+      [:div.box.m-2.h-3
        [:div.current {:class clr}
         "Current player"]])))
 
