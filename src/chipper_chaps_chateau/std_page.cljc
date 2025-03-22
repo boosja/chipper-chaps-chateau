@@ -36,7 +36,7 @@
 
             :else
             (vis/box {:color current-color
-                      :text "Current player"}))
+                      :text (str (name current-color) " player's turn")}))
           [:div.wrapper
            [::vis/board.board
             {::vis/data
