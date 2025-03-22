@@ -2,7 +2,8 @@
   (:require [chipper-chaps-chateau.la-visual :as vis]
             [chipper-chaps-chateau.victory :as victory]
             [chipper-chaps-chateau.db :as db]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [chipper-chaps-chateau.chips :as chips]))
 
 (def next-color
   {:blue :red
@@ -31,6 +32,6 @@
           [:div.wrapper
            [::vis/board.board
             {::vis/data
-             (db/->cells chips get-actions)}
+             (chips/->cells chips get-actions)}
             [::vis/cell.cell
              [::vis/chip.chip]]]])))
