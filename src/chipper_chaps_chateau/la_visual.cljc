@@ -1,20 +1,19 @@
 (ns chipper-chaps-chateau.la-visual
-  (:require [clojure.string :as str]
-            [replicant.alias :refer [defalias]]
+  (:require [replicant.alias :refer [defalias]]
             [replicant.hiccup :as hiccup]))
 
-(defn player-box [color game-won?]
-  (let [clr (name color)]
-    (if game-won?
-      [:div.box.m-2.h-3
-       [:span.tada "🎉"]
-       [:div.current {:class clr}
-        (str (str/capitalize clr) " is the winner")]
-       [:span.tada "🎉"]]
+(defn box [{:keys [color text actions]}]
+  [:div.box.m-2.h-3 {:class (when actions ["pointer" "darken"])
+                     :on {:click actions}}
+   [:div.current {:class (name color)}
+    text]])
 
-      [:div.box.m-2.h-3
-       [:div.current {:class clr}
-        "Current player"]])))
+(defn icon-box [{:keys [color text icon]}]
+  [:div.box.m-2.h-3
+   [:span.tada icon]
+   [:div.current {:class (name color)}
+    text]
+   [:span.tada icon]])
 
 (defalias board [{::keys [data] :as attrs} children]
   (into
@@ -38,7 +37,7 @@
 
 (defalias chip [{::keys [data] :as attrs}]
   (hiccup/update-attrs
-   [:div attrs]
+   [:button attrs]
    (fn [attrs-map]
      (-> attrs-map
          (update :class conj
