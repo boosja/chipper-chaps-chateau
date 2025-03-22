@@ -1,7 +1,6 @@
 (ns chipper-chaps-chateau.app
   (:require [chipper-chaps-chateau.db :as db]
-            [chipper-chaps-chateau.el-prepare :as el-prepare]
-            [chipper-chaps-chateau.la-visual :as vis]
+            [chipper-chaps-chateau.std-page :as std-page]
             [chipper-chaps-chateau.victory :as victory]
             [datascript.core :as ds]
             [replicant.dom :as d]))
@@ -15,8 +14,12 @@
 ;; show color on hover?
 ;; clean up and alias ✓
 
+(def locations #{:std :rules :4d})
+
 (def txes (concat [{:db/ident :current-color
                     :current-color :blue}
+                   {:db/ident :location
+                    :location :std}
                    {:db/id "player one"
                     :player/color :blue
                     :chip.lg/count 3
@@ -53,17 +56,28 @@
 
   )
 
+(defn render-rules [state]
+  [:div "Rules"])
+
+(def pages {:std #'std-page/render
+            :rules #'render-rules
+            :4d (fn [_] [:div "Coming soon..."])})
+
 (defn app [db]
-  (let [state (el-prepare/prepare db)]
+  (let [location (db/get-global db :location)
+        render (get pages location)]
     [:main
      [:h1 "Chipper Chap's Chateau"]
-     (vis/player-box (:current-color state)
-                     (:game-won? state))
-     [:div.wrapper
-      [::vis/board.board
-       {::vis/data (:cells state)}
-       [::vis/cell.cell
-        [::vis/chip.chip]]]]]))
+     [:div.box.mt-1
+      [:button.nav-btn
+       {:on {:click [[:action/transact [(db/->global-tx :location
+                                                        (if (= location :rules)
+                                                          :std
+                                                          :rules))]]]}}
+       (if (= location :rules)
+         "< Back"
+         "Rules")]]
+     (render db)]))
 
 (defn ^:dev/after-load start []
   (js/console.log "[START]")
