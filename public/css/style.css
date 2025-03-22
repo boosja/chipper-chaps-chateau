@@ -122,6 +122,10 @@ h1 {
 }
 
 .white { background-color: snow; }
+.tie {
+    background-color: #70adbd;
+    border-color: #8192a5;
+}
 .blue {
     background-color: #4169E1;
     border-color: #1a1a70;

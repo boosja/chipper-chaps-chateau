@@ -23,10 +23,18 @@
                            :chip/color current-color}
                           (db/->global-tx :current-color
                                           (next-color current-color))]]]))]
-    (list (if winner
+    (list (cond
+            (= winner :tie)
+            (vis/icon-box {:color winner
+                           :icon "💪"
+                           :text "Wow, you tied!"})
+
+            winner
             (vis/icon-box {:color winner
                            :icon "🎉"
                            :text (str (str/capitalize (name winner)) " is the winner")})
+
+            :else
             (vis/box {:color current-color
                       :text "Current player"}))
           [:div.wrapper

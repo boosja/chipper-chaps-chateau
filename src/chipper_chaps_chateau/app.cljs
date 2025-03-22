@@ -12,8 +12,8 @@
 ;; score moves (bot)
 ;; time barrier
 ;; know when game is won ✓
-;; - also when tied
-;; show color on hover?
+;; - also when tied ✓
+;; show color on hover? no
 ;; clean up and alias ✓
 
 (def locations #{:std :rules :4d})

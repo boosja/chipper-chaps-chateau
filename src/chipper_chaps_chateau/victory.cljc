@@ -67,13 +67,22 @@
   (some #(set/subset? % chips) wins))
 
 (defn did-someone-win? [chips]
-  (let [grouped (->> chips
-                     (filter :chip/color)
+  (let [filtered (filter :chip/color chips)
+        grouped (->> filtered
                      (group-by :chip/color)
-                     (vals->sets))]
-    (reduce (fn [winner [color chips]]
-              (if (has-three-in-a-row? chips)
-                color
-                winner))
-            false
-            grouped)))
+                     (vals->sets))
+        winner (reduce (fn [winner [color chips]]
+                               (if (has-three-in-a-row? chips)
+                                 color
+                                 winner))
+                             false
+                             grouped)]
+    (cond
+      winner
+      winner
+
+      (= (count chips) (count filtered))
+      :tie
+
+      :else
+      false)))
