@@ -66,10 +66,10 @@
 (defn has-three-in-a-row? [chips]
   (some #(set/subset? % chips) wins))
 
-(defn did-someone-win? [cells]
-  (let [grouped (->> cells
-                     (filter :colored)
-                     (group-by :colored)
+(defn did-someone-win? [chips]
+  (let [grouped (->> chips
+                     (filter :chip/color)
+                     (group-by :chip/color)
                      (vals->sets))]
     (reduce (fn [winner [color chips]]
               (if (has-three-in-a-row? chips)
