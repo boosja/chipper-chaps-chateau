@@ -10,7 +10,7 @@
         filtered [0 4 8 10 22 28 42 47 35]]
     (list
      (vis/box {:color :green
-               :text (if show-all? "All scenarios" "How to win")
+               :text (if show-all? "Every possible win" "How to win")
                :actions [[:action/transact [(db/->global-tx :rules/show-all?
                                                             (not show-all?))]]]})
      [:div.rules
