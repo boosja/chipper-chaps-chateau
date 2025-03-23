@@ -1,9 +1,13 @@
 {:deps true
- :dev-http {2000 "public"}
+ :dev-http {2000 ["public"
+                  "dev-resources/public"
+                  "classpath:public"]}
 
  :compiler-options {:externs ["datascript/externs.js"]}
 
  :builds
  {:chipper-chaps-chateau
   {:target :browser
-   :modules {:main {:init-fn chipper-chaps-chateau.app/init}}}}}
+   :modules {:main {:init-fn chipper-chaps-chateau.app/init}}
+   :dev {:output-dir "dev-resources/public/js"}
+   :release {:output-dir "target/chipper-chaps-chateau/public/js"}}}}
