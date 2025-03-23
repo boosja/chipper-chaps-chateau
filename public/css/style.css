@@ -148,7 +148,7 @@ h1 {
     color: black;
 }
 
-.chip:active {
+.board .chip:active {
     box-shadow: none;
     filter: brightness(75%);
 }
