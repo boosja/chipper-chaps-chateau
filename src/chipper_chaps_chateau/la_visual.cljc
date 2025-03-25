@@ -44,3 +44,20 @@
                  (size->class (:size data))
                  (name (or (:color data) "white")))
          (assoc-in [:on :click] (:actions data))))))
+
+(defn el-chateau [chips get-actions]
+  [:svg {:viewBox "0 0 1800 1800" :xmlns "http://www.w3.org/2000/svg"
+         :stroke-width "4"
+         :stroke "grey"
+         :fill "white"}
+   (->> chips
+        (map (fn [chip]
+               (let [[shadow circle] (:svg/circle chip)]
+                 [:g
+                  (hiccup/update-attrs shadow assoc
+                                       :class "shadow")
+                  (hiccup/update-attrs circle assoc
+                                       :class (name (or (:chip/color chip) "white"))
+                                       :on {:click (get-actions chip)})])))
+        )])
+
