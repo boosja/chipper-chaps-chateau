@@ -19,6 +19,7 @@ html {
 
 main {
     max-width: 674px;
+    width: 100%;
 }
 
 h1 {
@@ -213,4 +214,36 @@ h1 {
 .board-sm .small:active {
     margin-top: calc(-.75rem + 2px);
     margin-right: calc(-.75rem + 2px);
+}
+
+
+/* SVG */
+
+.shadow {
+    fill: #00000070;
+    stroke-width: 0;
+}
+
+svg .white {
+    fill: snow;
+}
+svg .tie {
+    fill: #70adbd;
+    stroke: #8192a5;
+}
+svg .blue {
+    fill: #4169E1;
+    stroke: #1a1a70;
+}
+svg .red {
+    fill: #DC143C;
+    stroke: #530c0c;
+}
+svg .green {
+    fill: #289d4f;
+    stroke: #135313;
+}
+svg .yellow {
+    fill: #FFD700;
+    stroke: #5d5d14;
 }
