@@ -16,13 +16,13 @@
         chips (db/get-chips db)
         winner (victory/did-someone-win? chips)
         get-actions (fn [chip]
-                     (when (and (not winner)
-                                (nil? (:chip/color chip)))
-                       [[:action/transact
-                         [{:chip/idx (:chip/idx chip)
-                           :chip/color current-color}
-                          (db/->global-tx :current-color
-                                          (next-color current-color))]]]))]
+                      (when (and (not winner)
+                                 (nil? (:chip/color chip)))
+                        [[:action/transact
+                          [{:chip/idx (:chip/idx chip)
+                            :chip/color current-color}
+                           (db/->global-tx :current-color
+                                           (next-color current-color))]]]))]
     (list (cond
             (= winner :tie)
             (vis/icon-box {:color winner
