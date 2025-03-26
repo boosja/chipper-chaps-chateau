@@ -66,15 +66,6 @@
         render (get pages location)]
     [:main
      [:h1 "Chipper Chap's Chateau"]
-     [:div.box.m-1
-      [:button.nav-btn
-       {:on {:click [[:action/transact [(db/->global-tx :location
-                                                        (if (= location :rules)
-                                                          :std
-                                                          :rules))]]]}}
-       (if (= location :rules)
-         "< Back"
-         "Rules")]]
      (render db)]))
 
 (defn ^:dev/after-load start []

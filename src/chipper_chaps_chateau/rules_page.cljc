@@ -5,14 +5,24 @@
             [chipper-chaps-chateau.chips :as chips]))
 
 (defn render [db]
-  (let [show-all? (db/get-global db :rules/show-all?)
+  (let [location (db/get-global db :location)
+        show-all? (db/get-global db :rules/show-all?)
         chips (chips/create-chips)
         filtered [0 4 8 10 22 28 42 47 35]]
-    (list
-     (vis/box {:color :green
-               :text (if show-all? "Every possible win" "How to win")
-               :actions [[:action/transact [(db/->global-tx :rules/show-all?
-                                                            (not show-all?))]]]})
+    (list [:div.flex.m-1
+           [:span.icon.pointer
+            {:on {:click [[:action/transact [(db/->global-tx :location
+                                                             (if (= location :rules)
+                                                               :std
+                                                               :rules))]]]}}
+            "🙅‍♂️"]
+           [:span.expand]
+           [:div.current.green.pointer.lighten
+            {:on {:click [[:action/transact [(db/->global-tx :rules/show-all?
+                                                             (not show-all?))]]]}}
+            (if show-all? "Every possible win" "How to win")]
+           [:span.expand]
+           [:span.icon "⚙️"]]
 
           [:div.rules
            (if show-all?
