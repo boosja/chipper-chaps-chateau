@@ -122,10 +122,20 @@ h1 {
     grid-template-columns: 1fr 1fr 1fr;
     gap: 1rem;
     padding-bottom: 1rem;
+    margin: 0 .5rem;
+}
+
+.rules svg {
+    background-color: #e7eff8;
+    border: 1px solid lightsteelblue;
+    border-radius: 1rem;
+    padding: .5rem;
+    stroke-width: 8;
 }
 
 .pointer { cursor: pointer; }
-.darken:hover { filter: brightness(110%); }
+.lighten:hover { filter: brightness(110%); }
+.darken:hover { filter: brightness(95%); }
 
 /* Small board */
 .board.board-sm {
