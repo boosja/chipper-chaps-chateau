@@ -28,34 +28,6 @@ h1 {
 }
 
 .m-1 { margin: .5rem; }
-.m-2 { margin: 2rem; }
-.h-3 { height: 3rem; }
-
-.box {
-    display: flex;
-    place-items: center;
-    gap: 1rem;
-    user-select: none;
-}
-
-.box::before,
-.box::after {
-    flex: 1;
-    content: "";
-}
-
-.nav-btn {
-    background-color: transparent;
-    border: none;
-    color: #62656c;
-    cursor: pointer;
-    text-decoration: underline;
-    text-transform: uppercase;
-    padding: 4px;
-}
-.nav-btn:hover {
-    color: black;
-}
 
 .current {
     display: grid;
@@ -94,25 +66,6 @@ h1 {
     color: black;
 }
 
-.board .chip:active {
-    box-shadow: none;
-    filter: brightness(75%);
-}
-
-.large:active {
-    margin-top: 8px;
-    margin-right: 8px;
-}
-
-.medium:active {
-    margin-top: calc(-1.5rem + 8px);
-    margin-right: calc(-1.5rem + 8px);
-}
-.small:active {
-    margin-top: calc(-3rem + 8px);
-    margin-right: calc(-3rem + 8px);
-}
-
 .rules {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -132,45 +85,6 @@ h1 {
 .pointer { cursor: pointer; }
 .lighten:hover { filter: brightness(110%); }
 .darken:hover { filter: brightness(95%); }
-
-/* Small board */
-.board.board-sm {
-    grid-template-columns: repeat(3, 3rem);
-    padding: .5rem;
-}
-
-.board-sm .cell {
-    width: 3rem;
-    height: 3rem;
-}
-
-.board-sm .chip {
-    box-shadow: -1px 1px 0px #00000070;
-}
-
-.board-sm .medium {
-    margin-top: -.375rem;
-    margin-right: -.375rem;
-}
-
-.board-sm .small {
-    margin-top: -.75rem;
-    margin-right: -.75rem;
-}
-
-.board-sm .large:active {
-    margin-top: 2px;
-    margin-right: 2px;
-}
-.board-sm .medium:active {
-    margin-top: calc(-.375rem + 2px);
-    margin-right: calc(-.375rem + 2px);
-}
-.board-sm .small:active {
-    margin-top: calc(-.75rem + 2px);
-    margin-right: calc(-.75rem + 2px);
-}
-
 
 /* SVG */
 
