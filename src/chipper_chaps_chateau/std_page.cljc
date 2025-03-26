@@ -43,3 +43,5 @@
              (chips/->cells chips get-actions)}
             [::vis/cell.cell
              [::vis/chip.chip]]]])))
+
+          (vis/el-chateau chips get-actions))))

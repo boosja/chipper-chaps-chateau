@@ -13,20 +13,12 @@
                :text (if show-all? "Every possible win" "How to win")
                :actions [[:action/transact [(db/->global-tx :rules/show-all?
                                                             (not show-all?))]]]})
-     [:div.rules
-      (if show-all?
-        (for [winning-line victory/wins]
-          [:div.wrapper
-           [::vis/board.board.board-sm
-            {::vis/data (chips/->cells (chips/replace-with chips winning-line)
-                                    (fn [_]))}
-            [::vis/cell.cell
-             [::vis/chip.chip]]]])
 
-        (for [w-idx filtered]
-          [:div.wrapper
-           [::vis/board.board.board-sm
-            {::vis/data (chips/->cells (chips/replace-with chips (nth victory/wins w-idx))
-                                    (fn [_]))}
-            [::vis/cell.cell
-             [::vis/chip.chip]]]]))])))
+          [:div.rules
+           (if show-all?
+             (for [winning-line victory/wins]
+               (vis/el-chateau (chips/replace-with chips winning-line)
+                               (fn [_])))
+             (for [w-idx filtered]
+               (vis/el-chateau (chips/replace-with chips (nth victory/wins w-idx))
+                               (fn [_]))))])))
