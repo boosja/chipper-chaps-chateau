@@ -3,7 +3,7 @@
             [replicant.hiccup :as hiccup]))
 
 (defn box [{:keys [color text actions]}]
-  [:div.box.m-2.h-3 {:class (when actions ["pointer" "darken"])
+  [:div.box.m-2.h-3 {:class (when actions ["pointer" "lighten"])
                      :on {:click actions}}
    [:div.current {:class (name color)}
     text]])
@@ -57,7 +57,7 @@
                   (hiccup/update-attrs shadow assoc
                                        :class "shadow")
                   (hiccup/update-attrs circle assoc
-                                       :class (name (or (:chip/color chip) "white"))
+                                       :class [(name (or (:chip/color chip) "white")) "pointer" "darken"]
                                        :on {:click (get-actions chip)})])))
         )])
 
