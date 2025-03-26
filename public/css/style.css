@@ -72,57 +72,6 @@ h1 {
     text-transform: uppercase;
 }
 
-.wrapper {
-    display: grid;
-    place-items: center;
-}
-
-.board {
-    display: grid;
-    grid-template-columns: repeat(3, 12rem);
-    border-radius: 10%;
-    padding: 3rem;
-    background-color: #e7eff8;
-    border: 1px solid lightsteelblue;
-}
-
-.cell {
-    width: 12rem;
-    height: 12rem;
-    display: grid;
-    place-items: center;
-}
-
-.chip {
-    border-radius: 50%;
-    grid-column: 1 / -1;
-    grid-row: 1 / -1;
-    text-align: center;
-    border: 1px solid #787878;
-    box-shadow: -4px 4px 0px #00000070;
-    cursor: pointer;
-}
-
-.large {
-    width: 90%;
-    height: 90%;
-    z-index: 1;
-}
-.medium {
-    width: 60%;
-    height: 60%;
-    margin-top: -1.5rem;
-    margin-right: -1.5rem;
-    z-index: 2;
-}
-.small {
-    width: 30%;
-    height: 30%;
-    margin-top: -3rem;
-    margin-right: -3rem;
-    z-index: 3;
-}
-
 .white { background-color: snow; }
 .tie {
     background-color: #70adbd;
