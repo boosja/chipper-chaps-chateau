@@ -20,6 +20,8 @@ html {
 main {
     max-width: 674px;
     width: 100%;
+    display: grid;
+    grid-auto-rows: min-content;
 }
 
 h1 {
@@ -70,6 +72,8 @@ svg {
     background-color: #e7eff8;
     border: 1px solid lightsteelblue;
     border-radius: 4rem;
+    max-height: 85vh;
+    justify-self: center;
 }
 
 .rules {
