@@ -2,7 +2,7 @@
   (:require [replicant.hiccup :as hiccup]))
 
 (defn el-chateau [get-actions chips]
-  [:svg {:viewBox "0 0 1800 1800" :xmlns "http://www.w3.org/2000/svg"
+  [:svg.board {:viewBox "0 0 1800 1800" :xmlns "http://www.w3.org/2000/svg"
          :stroke-width "4"
          :stroke "grey"
          :fill "white"}
