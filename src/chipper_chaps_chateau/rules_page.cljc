@@ -27,8 +27,6 @@
           [:div.rules
            (if show-all?
              (for [winning-line victory/wins]
-               (vis/el-chateau (chips/replace-with chips winning-line)
-                               (fn [_])))
+               (vis/el-chateau (chips/replace-with chips winning-line) nil))
              (for [w-idx filtered]
-               (vis/el-chateau (chips/replace-with chips (nth victory/wins w-idx))
-                               (fn [_]))))])))
+               (vis/el-chateau (chips/replace-with chips (nth victory/wins w-idx)) nil)))])))

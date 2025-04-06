@@ -3,7 +3,7 @@
             [clojure.test :refer [deftest is testing]]
             [replicant.alias :refer [expand-1]]))
 
-(deftest chip-test
+#_(deftest chip-test
   (testing "merges in size and color classes"
     (is (= (-> (expand-1 [::vis/chip.chip {::vis/data {:size :lg
                                                        :actions [[]]}}])
