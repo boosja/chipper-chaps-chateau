@@ -13,6 +13,8 @@
                   (hiccup/update-attrs shadow assoc
                                        :class "shadow")
                   (hiccup/update-attrs circle assoc
-                                       :class [(name (or (:chip/color chip) "white")) "pointer" "darken"]
-                                       :on {:click (get-actions chip)})])))
+                                       :class [(name (or (:chip/color chip) "white"))
+                                               "pointer" "darken"]
+                                       :on {:click (when get-actions
+                                                     (get-actions chip))})])))
         )])
