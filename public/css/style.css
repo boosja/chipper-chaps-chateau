@@ -68,7 +68,7 @@ h1 {
     color: black;
 }
 
-svg {
+svg.board {
     background-color: #e7eff8;
     border: 1px solid lightsteelblue;
     border-radius: 4rem;
