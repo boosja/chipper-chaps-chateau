@@ -59,4 +59,4 @@
              [:span.expand]
              [:span.icon "⚙️"]])
 
-          (vis/el-chateau chips get-actions))))
+          (vis/el-chateau get-actions chips))))
