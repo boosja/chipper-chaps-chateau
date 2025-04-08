@@ -57,16 +57,16 @@
 
   )
 
-(def pages {:std #'std-page/render
-            :rules #'rules-page/render
+(def pages {:std [std-page/el-prepzi std-page/render]
+            :rules [rules-page/el-prepzi rules-page/render]
             :4d (fn [_] [:div "Coming soon..."])})
 
 (defn app [db]
   (let [location (db/get-global db :location)
-        render (get pages location)]
+        [prep render] (get pages location)]
     [:main
      [:h1 "Chipper Chap's Chateau"]
-     (render db)]))
+     (render (prep db))]))
 
 (defn ^:dev/after-load start []
   (js/console.log "[START]")
