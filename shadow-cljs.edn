@@ -1,4 +1,4 @@
-{:deps true
+{:deps {:aliases [:shadow]}
  :dev-http {2000 ["public"
                   "dev-resources/public"
                   "classpath:public"]}
@@ -10,4 +10,8 @@
   {:target :browser
    :modules {:main {:init-fn chipper-chaps-chateau.app/init}}
    :dev {:output-dir "dev-resources/public/js"}
-   :release {:output-dir "target/chipper-chaps-chateau/public/js"}}}}
+   :release {:output-dir "target/chipper-chaps-chateau/public/js"}}
+
+  :portfolio {:target :browser
+              :modules {:main {:init-fn chipper-chaps-chateau.scenes/init}}
+              :dev {:output-dir "dev-resources/public/portfolio-js"}}}}

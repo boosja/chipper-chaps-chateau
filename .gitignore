@@ -1,6 +1,7 @@
 node_modules/
 public/js
 dev-resources/public/js
+dev-resources/public/portfolio-js
 
 /target
 /checkouts

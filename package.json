@@ -4,5 +4,8 @@
   "private": true,
   "devDependencies": {
     "shadow-cljs": "2.28.19"
+  },
+  "dependencies": {
+    "snabbdom": "3.5.1"
   }
 }
