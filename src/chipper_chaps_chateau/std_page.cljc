@@ -2,7 +2,29 @@
   (:require [chipper-chaps-chateau.la-visual :as vis]
             [chipper-chaps-chateau.victory :as victory]
             [chipper-chaps-chateau.db :as db]
+            [chipper-chaps-chateau.components.bar :refer [bar]]
             [clojure.string :as str]))
+
+(defn prepare-bar [location winner current-color]
+  {:left {:icon "🤨"
+          :actions [[:action/transact
+                     [(db/->global-tx :location (if (= location :rules)
+                                                  :std :rules))]]]}
+   :right {:icon "⚙️"
+           :actions [[:action/transact [(db/->global-tx :location :settings)]]]}
+   :revelry (cond (= winner :tie) "💪"
+                  winner "🎉")
+   :banner {:text (cond (= winner :tie)
+                        "Wow, you tied"
+
+                        winner
+                        (str (str/capitalize (name winner)) " is the winner")
+
+                        :else
+                        (str (name current-color) " player's turn"))
+            :class (if winner
+                     (name winner)
+                     (name current-color))}})
 
 (def next-color
   {:blue :red
@@ -15,14 +37,8 @@
         current-color (db/get-global db :current-color)
         chips (db/get-chips db)
         winner (victory/did-someone-win? chips)]
-    {:current-color current-color
+    {:bar-props (prepare-bar location winner current-color)
      :chips chips
-     :winner winner
-     :navigation [[:action/transact [(db/->global-tx :location
-                                                     (if (= location :rules)
-                                                       :std
-                                                       :rules))]]]
-     :->settings-page [[:action/transact [(db/->global-tx :location :settings)]]]
      :get-actions (fn [chip]
                     (when (and (not winner)
                                (nil? (:chip/color chip)))
@@ -32,37 +48,6 @@
                          (db/->global-tx :current-color
                                          (next-color current-color))]]]))}))
 
-(defn render [{:keys [current-color chips winner navigation ->settings-page get-actions]}]
-  (list (cond
-          (= winner :tie)
-          [:div.flex
-           [:span.icon.pointer {:on {:click navigation}} "🤨"]
-           [:span.expand]
-           [:span.icon.revelry "💪"]
-           [:div.current {:class (name winner)}
-            "Wow, you tied"]
-           [:span.icon.revelry "💪"]
-           [:span.expand]
-           [:span.icon {:on {:click ->settings-page}} "⚙️"]]
-
-          winner
-          [:div.flex
-           [:span.icon.pointer {:on {:click navigation}} "🤨"]
-           [:span.expand]
-           [:span.icon.revelry "🎉"]
-           [:div.current {:class (name winner)}
-            (str (str/capitalize (name winner)) " is the winner")]
-           [:span.icon.revelry "🎉"]
-           [:span.expand]
-           [:span.icon {:on {:click ->settings-page}} "⚙️"]]
-
-          :else
-          [:div.flex
-           [:span.icon.pointer {:on {:click navigation}} "🤨"]
-           [:span.expand]
-           [:div.current {:class (name current-color)}
-            (str (name current-color) " player's turn")]
-           [:span.expand]
-           [:span.icon {:on {:click ->settings-page}} "⚙️"]])
-
+(defn render [{:keys [bar-props chips get-actions]}]
+  (list (bar bar-props)
         (vis/el-chateau get-actions chips)))
