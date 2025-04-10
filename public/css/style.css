@@ -29,6 +29,10 @@ h1 {
     text-align: center;
 }
 
+button {
+    font-size: 1rem;
+}
+
 .m-1 { margin: .5rem; }
 
 .current {
