@@ -7,8 +7,12 @@
    [:span.expand]
    (when revelry
      [:span.icon.revelry revelry])
-   [:div.current {:class (:class banner)}
-    (:text banner)]
+   (if (:actions banner)
+     [:button.current.pointer.lighten {:class (:class banner)
+                                       :on {:click (:actions banner)}}
+      (:text banner)]
+     [:div.current {:class (:class banner)}
+      (:text banner)])
    (when revelry
      [:span.icon.revelry revelry])
    [:span.expand]

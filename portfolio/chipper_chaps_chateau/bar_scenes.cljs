@@ -8,6 +8,13 @@
             :banner {:text "Bar text"
                      :class "blue"}}))
 
+(defscene with-banner-action
+  (bar/bar {:left {:icon "🤨"}
+            :right {:icon "⚙️"}
+            :banner {:text "You can click me"
+                     :class "blue"
+                     :actions [[:action/dummy :one]]}}))
+
 (defscene with-revelry
   (bar/bar {:left {:icon "🤨"}
             :right {:icon "⚙️"}
