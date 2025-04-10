@@ -5,11 +5,9 @@
             [chipper-chaps-chateau.components.bar :refer [bar]]
             [clojure.string :as str]))
 
-(defn prepare-bar [location winner current-color]
+(defn prepare-bar [winner current-color]
   {:left {:icon "🤨"
-          :actions [[:action/transact
-                     [(db/->global-tx :location (if (= location :rules)
-                                                  :std :rules))]]]}
+          :actions [[:action/transact [(db/->global-tx :location :rules)]]]}
    :right {:icon "⚙️"
            :actions [[:action/transact [(db/->global-tx :location :settings)]]]}
    :revelry (cond (= winner :tie) "💪"
@@ -33,11 +31,10 @@
    :yellow :blue})
 
 (defn el-prepzi [db]
-  (let [location (db/get-global db :location)
-        current-color (db/get-global db :current-color)
+  (let [current-color (db/get-global db :current-color)
         chips (db/get-chips db)
         winner (victory/did-someone-win? chips)]
-    {:bar-props (prepare-bar location winner current-color)
+    {:bar-props (prepare-bar winner current-color)
      :chips chips
      :get-actions (fn [chip]
                     (when (and (not winner)
