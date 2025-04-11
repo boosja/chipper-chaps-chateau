@@ -6,8 +6,7 @@
 
 html {
     font-family: system-ui;
-    background-image: url('/imgs/bg_light.svg');
-    background-size: 50px;
+    background-color: #e7eff8;
 }
 
 #app {
@@ -73,8 +72,6 @@ button {
 }
 
 svg.board {
-    background-color: #e7eff8;
-    border: 1px solid lightsteelblue;
     border-radius: 4rem;
     max-height: 85vh;
     justify-self: center;
@@ -89,6 +86,7 @@ svg.board {
 }
 
 .rules svg {
+    border: 1px solid lightsteelblue;
     border-radius: 1rem;
     padding: .5rem;
     stroke-width: 8;
