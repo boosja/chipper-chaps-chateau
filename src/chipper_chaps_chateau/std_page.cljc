@@ -5,6 +5,20 @@
             [chipper-chaps-chateau.components.bar :refer [bar]]
             [clojure.string :as str]))
 
+(def next-color
+  {:blue :red
+   :red :green
+   :green :yellow
+   :yellow :blue})
+
+(defn perform-action [db [action & args]]
+  (when (= ::pick action)
+    (let [current-color (db/get-global db :current-color)]
+      [[:effect/transact [{:chip/idx (:chip/idx (first args))
+                           :chip/color current-color}
+                          (db/->global-tx :current-color
+                                          (next-color current-color))]]])))
+
 (defn prepare-bar [winner current-color]
   {:left {:icon "🤨"
           :actions [[:action/transact [(db/->global-tx :location :rules)]]]}
@@ -24,12 +38,6 @@
                      (name winner)
                      (name current-color))}})
 
-(def next-color
-  {:blue :red
-   :red :green
-   :green :yellow
-   :yellow :blue})
-
 (defn el-prepzi [db]
   (let [current-color (db/get-global db :current-color)
         chips (db/get-chips db)
@@ -39,11 +47,7 @@
      :get-actions (fn [chip]
                     (when (and (not winner)
                                (nil? (:chip/color chip)))
-                      [[:action/transact
-                        [{:chip/idx (:chip/idx chip)
-                          :chip/color current-color}
-                         (db/->global-tx :current-color
-                                         (next-color current-color))]]]))}))
+                      [[::pick chip]]))}))
 
 (defn render [{:keys [bar-props chips get-actions]}]
   (list (bar bar-props)
