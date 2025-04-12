@@ -45,8 +45,7 @@
      :y y
      :z z
      :chip/size (get {1 :lg 2 :md 3 :sm} z)
-     :svg/circle (get svg-circles (str y x z))
-     :chip/idx (+ (* 100 y) (* 10 x) (* 1 z))}))
+     :svg/circle (get svg-circles (str y x z))}))
 
 (defn ->xyz [chip]
   (select-keys chip [:x :y :z]))

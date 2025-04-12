@@ -14,7 +14,7 @@
 (defn perform-action [db [action & args]]
   (when (= ::pick action)
     (let [current-color (db/get-global db :current-color)]
-      [[:effect/transact [{:chip/idx (:chip/idx (first args))
+      [[:effect/transact [{:chip/id (:chip/id (first args))
                            :chip/color current-color}
                           (db/->global-tx :current-color
                                           (next-color current-color))]]])))
