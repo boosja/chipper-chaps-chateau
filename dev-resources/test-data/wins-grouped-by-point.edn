@@ -1,0 +1,147 @@
+{{:y 3, :x 1, :z 1} (#{{:y 3, :x 1, :z 1} {:y 2, :x 2, :z 2, :chip/color :green} {:y 1, :x 3, :z 3}}
+                     #{{:y 3, :x 1, :z 1} {:y 1, :x 1, :z 3} {:y 2, :x 1, :z 2, :chip/color :red}}
+                     #{{:y 3, :x 1, :z 1} {:y 3, :x 2, :z 2, :chip/color :yellow} {:y 3, :x 3, :z 3}}
+                     #{{:y 3, :x 1, :z 1} {:y 2, :x 2, :z 1} {:y 1, :x 3, :z 1}}
+                     #{{:y 3, :x 1, :z 1} {:y 3, :x 1, :z 3} {:y 3, :x 1, :z 2}}
+                     #{{:y 3, :x 1, :z 1} {:y 1, :x 1, :z 1, :chip/color :blue} {:y 2, :x 1, :z 1}}
+                     #{{:y 3, :x 1, :z 1} {:y 3, :x 3, :z 1} {:y 3, :x 2, :z 1}}),
+ {:y 3, :x 2, :z 3} (#{{:y 3, :x 2, :z 3} {:y 2, :x 2, :z 2, :chip/color :green} {:y 1, :x 2, :z 1, :chip/color :green}}
+                     #{{:y 3, :x 2, :z 3} {:y 3, :x 2, :z 2, :chip/color :yellow} {:y 3, :x 2, :z 1}}
+                     #{{:y 3, :x 2, :z 3} {:y 1, :x 2, :z 3} {:y 2, :x 2, :z 3, :chip/color :red}}
+                     #{{:y 3, :x 2, :z 3} {:y 3, :x 1, :z 3} {:y 3, :x 3, :z 3}}),
+ {:y 1, :x 1, :z 3} (#{{:y 1, :x 1, :z 3} {:y 2, :x 2, :z 2, :chip/color :green} {:y 3, :x 3, :z 1}}
+                     #{{:y 3, :x 1, :z 1} {:y 1, :x 1, :z 3} {:y 2, :x 1, :z 2, :chip/color :red}}
+                     #{{:y 1, :x 1, :z 3} {:y 1, :x 2, :z 2} {:y 1, :x 3, :z 1}}
+                     #{{:y 1, :x 1, :z 3} {:y 2, :x 2, :z 3, :chip/color :red} {:y 3, :x 3, :z 3}}
+                     #{{:y 1, :x 1, :z 3} {:y 1, :x 1, :z 2, :chip/color :blue} {:y 1, :x 1, :z 1, :chip/color :blue}}
+                     #{{:y 1, :x 1, :z 3} {:y 3, :x 1, :z 3} {:y 2, :x 1, :z 3}}
+                     #{{:y 1, :x 1, :z 3} {:y 1, :x 2, :z 3} {:y 1, :x 3, :z 3}}),
+ {:y 2, :x 3, :z 1, :chip/color :blue} (#{{:y 2, :x 3, :z 1, :chip/color :blue} {:y 2, :x 2, :z 2, :chip/color :green} {:y 2, :x 1, :z 3}}
+                                        #{{:y 2, :x 3, :z 1, :chip/color :blue} {:y 2, :x 3, :z 3} {:y 2, :x 3, :z 2}}
+                                        #{{:y 2, :x 3, :z 1, :chip/color :blue} {:y 3, :x 3, :z 1} {:y 1, :x 3, :z 1}}
+                                        #{{:y 2, :x 3, :z 1, :chip/color :blue} {:y 2, :x 2, :z 1} {:y 2, :x 1, :z 1}}),
+ {:y 2, :x 2, :z 2, :chip/color :green} (#{{:y 2, :x 2, :z 2, :chip/color :green} {:y 3, :x 1, :z 3} {:y 1, :x 3, :z 1}}
+                                         #{{:y 3, :x 1, :z 1} {:y 2, :x 2, :z 2, :chip/color :green} {:y 1, :x 3, :z 3}}
+                                         #{{:y 1, :x 1, :z 3} {:y 2, :x 2, :z 2, :chip/color :green} {:y 3, :x 3, :z 1}}
+                                         #{{:y 2, :x 2, :z 2, :chip/color :green} {:y 1, :x 1, :z 1, :chip/color :blue} {:y 3, :x 3, :z 3}}
+                                         #{{:y 2, :x 2, :z 2, :chip/color :green} {:y 1, :x 2, :z 3} {:y 3, :x 2, :z 1}}
+                                         #{{:y 3, :x 2, :z 3} {:y 2, :x 2, :z 2, :chip/color :green} {:y 1, :x 2, :z 1, :chip/color :green}}
+                                         #{{:y 2, :x 3, :z 1, :chip/color :blue} {:y 2, :x 2, :z 2, :chip/color :green} {:y 2, :x 1, :z 3}}
+                                         #{{:y 2, :x 2, :z 2, :chip/color :green} {:y 2, :x 3, :z 3} {:y 2, :x 1, :z 1}}
+                                         #{{:y 2, :x 2, :z 2, :chip/color :green} {:y 3, :x 1, :z 2} {:y 1, :x 3, :z 2}}
+                                         #{{:y 2, :x 2, :z 2, :chip/color :green} {:y 1, :x 1, :z 2, :chip/color :blue} {:y 3, :x 3, :z 2, :chip/color :yellow}}
+                                         #{{:y 2, :x 2, :z 2, :chip/color :green} {:y 2, :x 2, :z 1} {:y 2, :x 2, :z 3, :chip/color :red}}
+                                         #{{:y 2, :x 2, :z 2, :chip/color :green} {:y 1, :x 2, :z 2} {:y 3, :x 2, :z 2, :chip/color :yellow}}
+                                         #{{:y 2, :x 2, :z 2, :chip/color :green} {:y 2, :x 1, :z 2, :chip/color :red} {:y 2, :x 3, :z 2}}),
+ {:y 1, :x 2, :z 1, :chip/color :green} (#{{:y 3, :x 2, :z 3} {:y 2, :x 2, :z 2, :chip/color :green} {:y 1, :x 2, :z 1, :chip/color :green}}
+                                         #{{:y 1, :x 2, :z 1, :chip/color :green} {:y 1, :x 2, :z 2} {:y 1, :x 2, :z 3}}
+                                         #{{:y 1, :x 2, :z 1, :chip/color :green} {:y 2, :x 2, :z 1} {:y 3, :x 2, :z 1}}
+                                         #{{:y 1, :x 2, :z 1, :chip/color :green} {:y 1, :x 1, :z 1, :chip/color :blue} {:y 1, :x 3, :z 1}}),
+ {:y 2, :x 3, :z 3} (#{{:y 2, :x 2, :z 2, :chip/color :green} {:y 2, :x 3, :z 3} {:y 2, :x 1, :z 1}}
+                     #{{:y 2, :x 3, :z 1, :chip/color :blue} {:y 2, :x 3, :z 3} {:y 2, :x 3, :z 2}}
+                     #{{:y 2, :x 3, :z 3} {:y 3, :x 3, :z 3} {:y 1, :x 3, :z 3}}
+                     #{{:y 2, :x 3, :z 3} {:y 2, :x 1, :z 3} {:y 2, :x 2, :z 3, :chip/color :red}}),
+ {:y 1, :x 2, :z 2} (#{{:y 1, :x 1, :z 3} {:y 1, :x 2, :z 2} {:y 1, :x 3, :z 1}}
+                     #{{:y 1, :x 2, :z 2} {:y 1, :x 1, :z 1, :chip/color :blue} {:y 1, :x 3, :z 3}}
+                     #{{:y 1, :x 2, :z 1, :chip/color :green} {:y 1, :x 2, :z 2} {:y 1, :x 2, :z 3}}
+                     #{{:y 2, :x 2, :z 2, :chip/color :green} {:y 1, :x 2, :z 2} {:y 3, :x 2, :z 2, :chip/color :yellow}}
+                     #{{:y 1, :x 2, :z 2} {:y 1, :x 1, :z 2, :chip/color :blue} {:y 1, :x 3, :z 2}}),
+ {:y 1, :x 1, :z 2, :chip/color :blue} (#{{:y 2, :x 2, :z 2, :chip/color :green} {:y 1, :x 1, :z 2, :chip/color :blue} {:y 3, :x 3, :z 2, :chip/color :yellow}}
+                                        #{{:y 1, :x 1, :z 3} {:y 1, :x 1, :z 2, :chip/color :blue} {:y 1, :x 1, :z 1, :chip/color :blue}}
+                                        #{{:y 1, :x 1, :z 2, :chip/color :blue} {:y 3, :x 1, :z 2} {:y 2, :x 1, :z 2, :chip/color :red}}
+                                        #{{:y 1, :x 2, :z 2} {:y 1, :x 1, :z 2, :chip/color :blue} {:y 1, :x 3, :z 2}}),
+ {:y 3, :x 1, :z 3} (#{{:y 2, :x 2, :z 2, :chip/color :green} {:y 3, :x 1, :z 3} {:y 1, :x 3, :z 1}}
+                     #{{:y 3, :x 1, :z 3} {:y 1, :x 1, :z 1, :chip/color :blue} {:y 2, :x 1, :z 2, :chip/color :red}}
+                     #{{:y 3, :x 1, :z 3} {:y 3, :x 3, :z 1} {:y 3, :x 2, :z 2, :chip/color :yellow}}
+                     #{{:y 3, :x 1, :z 3} {:y 2, :x 2, :z 3, :chip/color :red} {:y 1, :x 3, :z 3}}
+                     #{{:y 3, :x 1, :z 1} {:y 3, :x 1, :z 3} {:y 3, :x 1, :z 2}}
+                     #{{:y 1, :x 1, :z 3} {:y 3, :x 1, :z 3} {:y 2, :x 1, :z 3}}
+                     #{{:y 3, :x 2, :z 3} {:y 3, :x 1, :z 3} {:y 3, :x 3, :z 3}}),
+ {:y 2, :x 1, :z 3} (#{{:y 2, :x 3, :z 1, :chip/color :blue} {:y 2, :x 2, :z 2, :chip/color :green} {:y 2, :x 1, :z 3}}
+                     #{{:y 2, :x 1, :z 3} {:y 2, :x 1, :z 1} {:y 2, :x 1, :z 2, :chip/color :red}}
+                     #{{:y 1, :x 1, :z 3} {:y 3, :x 1, :z 3} {:y 2, :x 1, :z 3}}
+                     #{{:y 2, :x 3, :z 3} {:y 2, :x 1, :z 3} {:y 2, :x 2, :z 3, :chip/color :red}}),
+ {:y 1, :x 2, :z 3} (#{{:y 2, :x 2, :z 2, :chip/color :green} {:y 1, :x 2, :z 3} {:y 3, :x 2, :z 1}}
+                     #{{:y 1, :x 2, :z 1, :chip/color :green} {:y 1, :x 2, :z 2} {:y 1, :x 2, :z 3}}
+                     #{{:y 3, :x 2, :z 3} {:y 1, :x 2, :z 3} {:y 2, :x 2, :z 3, :chip/color :red}}
+                     #{{:y 1, :x 1, :z 3} {:y 1, :x 2, :z 3} {:y 1, :x 3, :z 3}}),
+ {:y 2, :x 2, :z 1} (#{{:y 3, :x 1, :z 1} {:y 2, :x 2, :z 1} {:y 1, :x 3, :z 1}}
+                     #{{:y 2, :x 2, :z 1} {:y 3, :x 3, :z 1} {:y 1, :x 1, :z 1, :chip/color :blue}}
+                     #{{:y 2, :x 2, :z 2, :chip/color :green} {:y 2, :x 2, :z 1} {:y 2, :x 2, :z 3, :chip/color :red}}
+                     #{{:y 1, :x 2, :z 1, :chip/color :green} {:y 2, :x 2, :z 1} {:y 3, :x 2, :z 1}}
+                     #{{:y 2, :x 3, :z 1, :chip/color :blue} {:y 2, :x 2, :z 1} {:y 2, :x 1, :z 1}}),
+ {:y 3, :x 3, :z 1} (#{{:y 1, :x 1, :z 3} {:y 2, :x 2, :z 2, :chip/color :green} {:y 3, :x 3, :z 1}}
+                     #{{:y 3, :x 3, :z 1} {:y 1, :x 3, :z 3} {:y 2, :x 3, :z 2}}
+                     #{{:y 3, :x 1, :z 3} {:y 3, :x 3, :z 1} {:y 3, :x 2, :z 2, :chip/color :yellow}}
+                     #{{:y 2, :x 2, :z 1} {:y 3, :x 3, :z 1} {:y 1, :x 1, :z 1, :chip/color :blue}}
+                     #{{:y 3, :x 3, :z 1} {:y 3, :x 3, :z 2, :chip/color :yellow} {:y 3, :x 3, :z 3}}
+                     #{{:y 2, :x 3, :z 1, :chip/color :blue} {:y 3, :x 3, :z 1} {:y 1, :x 3, :z 1}}
+                     #{{:y 3, :x 1, :z 1} {:y 3, :x 3, :z 1} {:y 3, :x 2, :z 1}}),
+ {:y 3, :x 2, :z 2, :chip/color :yellow} (#{{:y 3, :x 1, :z 3} {:y 3, :x 3, :z 1} {:y 3, :x 2, :z 2, :chip/color :yellow}}
+                                          #{{:y 3, :x 1, :z 1} {:y 3, :x 2, :z 2, :chip/color :yellow} {:y 3, :x 3, :z 3}}
+                                          #{{:y 3, :x 2, :z 3} {:y 3, :x 2, :z 2, :chip/color :yellow} {:y 3, :x 2, :z 1}}
+                                          #{{:y 2, :x 2, :z 2, :chip/color :green} {:y 1, :x 2, :z 2} {:y 3, :x 2, :z 2, :chip/color :yellow}}
+                                          #{{:y 3, :x 2, :z 2, :chip/color :yellow} {:y 3, :x 3, :z 2, :chip/color :yellow} {:y 3, :x 1, :z 2}}),
+ {:y 3, :x 3, :z 2, :chip/color :yellow} (#{{:y 2, :x 2, :z 2, :chip/color :green} {:y 1, :x 1, :z 2, :chip/color :blue} {:y 3, :x 3, :z 2, :chip/color :yellow}}
+                                          #{{:y 3, :x 3, :z 1} {:y 3, :x 3, :z 2, :chip/color :yellow} {:y 3, :x 3, :z 3}}
+                                          #{{:y 3, :x 3, :z 2, :chip/color :yellow} {:y 1, :x 3, :z 2} {:y 2, :x 3, :z 2}}
+                                          #{{:y 3, :x 2, :z 2, :chip/color :yellow} {:y 3, :x 3, :z 2, :chip/color :yellow} {:y 3, :x 1, :z 2}}),
+ {:y 3, :x 2, :z 1} (#{{:y 2, :x 2, :z 2, :chip/color :green} {:y 1, :x 2, :z 3} {:y 3, :x 2, :z 1}}
+                     #{{:y 3, :x 2, :z 3} {:y 3, :x 2, :z 2, :chip/color :yellow} {:y 3, :x 2, :z 1}}
+                     #{{:y 1, :x 2, :z 1, :chip/color :green} {:y 2, :x 2, :z 1} {:y 3, :x 2, :z 1}}
+                     #{{:y 3, :x 1, :z 1} {:y 3, :x 3, :z 1} {:y 3, :x 2, :z 1}}),
+ {:y 2, :x 2, :z 3, :chip/color :red} (#{{:y 3, :x 1, :z 3} {:y 2, :x 2, :z 3, :chip/color :red} {:y 1, :x 3, :z 3}}
+                                       #{{:y 1, :x 1, :z 3} {:y 2, :x 2, :z 3, :chip/color :red} {:y 3, :x 3, :z 3}}
+                                       #{{:y 2, :x 2, :z 2, :chip/color :green} {:y 2, :x 2, :z 1} {:y 2, :x 2, :z 3, :chip/color :red}}
+                                       #{{:y 3, :x 2, :z 3} {:y 1, :x 2, :z 3} {:y 2, :x 2, :z 3, :chip/color :red}}
+                                       #{{:y 2, :x 3, :z 3} {:y 2, :x 1, :z 3} {:y 2, :x 2, :z 3, :chip/color :red}}),
+ {:y 1, :x 1, :z 1, :chip/color :blue} (#{{:y 2, :x 2, :z 2, :chip/color :green} {:y 1, :x 1, :z 1, :chip/color :blue} {:y 3, :x 3, :z 3}}
+                                        #{{:y 3, :x 1, :z 3} {:y 1, :x 1, :z 1, :chip/color :blue} {:y 2, :x 1, :z 2, :chip/color :red}}
+                                        #{{:y 1, :x 2, :z 2} {:y 1, :x 1, :z 1, :chip/color :blue} {:y 1, :x 3, :z 3}}
+                                        #{{:y 2, :x 2, :z 1} {:y 3, :x 3, :z 1} {:y 1, :x 1, :z 1, :chip/color :blue}}
+                                        #{{:y 1, :x 1, :z 3} {:y 1, :x 1, :z 2, :chip/color :blue} {:y 1, :x 1, :z 1, :chip/color :blue}}
+                                        #{{:y 3, :x 1, :z 1} {:y 1, :x 1, :z 1, :chip/color :blue} {:y 2, :x 1, :z 1}}
+                                        #{{:y 1, :x 2, :z 1, :chip/color :green} {:y 1, :x 1, :z 1, :chip/color :blue} {:y 1, :x 3, :z 1}}),
+ {:y 3, :x 3, :z 3} (#{{:y 2, :x 2, :z 2, :chip/color :green} {:y 1, :x 1, :z 1, :chip/color :blue} {:y 3, :x 3, :z 3}}
+                     #{{:y 3, :x 3, :z 3} {:y 1, :x 3, :z 1} {:y 2, :x 3, :z 2}}
+                     #{{:y 3, :x 1, :z 1} {:y 3, :x 2, :z 2, :chip/color :yellow} {:y 3, :x 3, :z 3}}
+                     #{{:y 1, :x 1, :z 3} {:y 2, :x 2, :z 3, :chip/color :red} {:y 3, :x 3, :z 3}}
+                     #{{:y 3, :x 3, :z 1} {:y 3, :x 3, :z 2, :chip/color :yellow} {:y 3, :x 3, :z 3}}
+                     #{{:y 2, :x 3, :z 3} {:y 3, :x 3, :z 3} {:y 1, :x 3, :z 3}}
+                     #{{:y 3, :x 2, :z 3} {:y 3, :x 1, :z 3} {:y 3, :x 3, :z 3}}),
+ {:y 1, :x 3, :z 1} (#{{:y 2, :x 2, :z 2, :chip/color :green} {:y 3, :x 1, :z 3} {:y 1, :x 3, :z 1}}
+                     #{{:y 3, :x 3, :z 3} {:y 1, :x 3, :z 1} {:y 2, :x 3, :z 2}}
+                     #{{:y 1, :x 1, :z 3} {:y 1, :x 2, :z 2} {:y 1, :x 3, :z 1}}
+                     #{{:y 3, :x 1, :z 1} {:y 2, :x 2, :z 1} {:y 1, :x 3, :z 1}}
+                     #{{:y 1, :x 3, :z 1} {:y 1, :x 3, :z 2} {:y 1, :x 3, :z 3}}
+                     #{{:y 2, :x 3, :z 1, :chip/color :blue} {:y 3, :x 3, :z 1} {:y 1, :x 3, :z 1}}
+                     #{{:y 1, :x 2, :z 1, :chip/color :green} {:y 1, :x 1, :z 1, :chip/color :blue} {:y 1, :x 3, :z 1}}),
+ {:y 3, :x 1, :z 2} (#{{:y 2, :x 2, :z 2, :chip/color :green} {:y 3, :x 1, :z 2} {:y 1, :x 3, :z 2}}
+                     #{{:y 3, :x 1, :z 1} {:y 3, :x 1, :z 3} {:y 3, :x 1, :z 2}}
+                     #{{:y 1, :x 1, :z 2, :chip/color :blue} {:y 3, :x 1, :z 2} {:y 2, :x 1, :z 2, :chip/color :red}}
+                     #{{:y 3, :x 2, :z 2, :chip/color :yellow} {:y 3, :x 3, :z 2, :chip/color :yellow} {:y 3, :x 1, :z 2}}),
+ {:y 1, :x 3, :z 2} (#{{:y 2, :x 2, :z 2, :chip/color :green} {:y 3, :x 1, :z 2} {:y 1, :x 3, :z 2}}
+                     #{{:y 1, :x 3, :z 1} {:y 1, :x 3, :z 2} {:y 1, :x 3, :z 3}}
+                     #{{:y 3, :x 3, :z 2, :chip/color :yellow} {:y 1, :x 3, :z 2} {:y 2, :x 3, :z 2}}
+                     #{{:y 1, :x 2, :z 2} {:y 1, :x 1, :z 2, :chip/color :blue} {:y 1, :x 3, :z 2}}),
+ {:y 2, :x 1, :z 1} (#{{:y 2, :x 2, :z 2, :chip/color :green} {:y 2, :x 3, :z 3} {:y 2, :x 1, :z 1}}
+                     #{{:y 2, :x 1, :z 3} {:y 2, :x 1, :z 1} {:y 2, :x 1, :z 2, :chip/color :red}}
+                     #{{:y 3, :x 1, :z 1} {:y 1, :x 1, :z 1, :chip/color :blue} {:y 2, :x 1, :z 1}}
+                     #{{:y 2, :x 3, :z 1, :chip/color :blue} {:y 2, :x 2, :z 1} {:y 2, :x 1, :z 1}}),
+ {:y 2, :x 1, :z 2, :chip/color :red} (#{{:y 3, :x 1, :z 1} {:y 1, :x 1, :z 3} {:y 2, :x 1, :z 2, :chip/color :red}}
+                                       #{{:y 3, :x 1, :z 3} {:y 1, :x 1, :z 1, :chip/color :blue} {:y 2, :x 1, :z 2, :chip/color :red}}
+                                       #{{:y 2, :x 1, :z 3} {:y 2, :x 1, :z 1} {:y 2, :x 1, :z 2, :chip/color :red}}
+                                       #{{:y 1, :x 1, :z 2, :chip/color :blue} {:y 3, :x 1, :z 2} {:y 2, :x 1, :z 2, :chip/color :red}}
+                                       #{{:y 2, :x 2, :z 2, :chip/color :green} {:y 2, :x 1, :z 2, :chip/color :red} {:y 2, :x 3, :z 2}}),
+ {:y 1, :x 3, :z 3} (#{{:y 3, :x 1, :z 1} {:y 2, :x 2, :z 2, :chip/color :green} {:y 1, :x 3, :z 3}}
+                     #{{:y 3, :x 3, :z 1} {:y 1, :x 3, :z 3} {:y 2, :x 3, :z 2}}
+                     #{{:y 1, :x 2, :z 2} {:y 1, :x 1, :z 1, :chip/color :blue} {:y 1, :x 3, :z 3}}
+                     #{{:y 3, :x 1, :z 3} {:y 2, :x 2, :z 3, :chip/color :red} {:y 1, :x 3, :z 3}}
+                     #{{:y 1, :x 3, :z 1} {:y 1, :x 3, :z 2} {:y 1, :x 3, :z 3}}
+                     #{{:y 2, :x 3, :z 3} {:y 3, :x 3, :z 3} {:y 1, :x 3, :z 3}}
+                     #{{:y 1, :x 1, :z 3} {:y 1, :x 2, :z 3} {:y 1, :x 3, :z 3}}),
+ {:y 2, :x 3, :z 2} (#{{:y 3, :x 3, :z 1} {:y 1, :x 3, :z 3} {:y 2, :x 3, :z 2}}
+                     #{{:y 3, :x 3, :z 3} {:y 1, :x 3, :z 1} {:y 2, :x 3, :z 2}}
+                     #{{:y 2, :x 3, :z 1, :chip/color :blue} {:y 2, :x 3, :z 3} {:y 2, :x 3, :z 2}}
+                     #{{:y 3, :x 3, :z 2, :chip/color :yellow} {:y 1, :x 3, :z 2} {:y 2, :x 3, :z 2}}
+                     #{{:y 2, :x 2, :z 2, :chip/color :green} {:y 2, :x 1, :z 2, :chip/color :red} {:y 2, :x 3, :z 2}})}
