@@ -42,12 +42,20 @@
     (ds/transact! conn txes)
     conn))
 
-(defn actions-handler [metadata actions]
-  (let [_ (:replicant/js-event metadata)]
-    (doseq [[action & args] actions]
-      (apply prn 'Execute action args)
-      (case action
-        :action/transact (apply ds/transact conn args)))))
+(defn process-effect [conn [effect & args]]
+  (apply prn 'Execute effect args)
+  (case effect
+    :effect/transact (apply ds/transact conn args)))
+
+(defn perform-actions [db actions]
+  (mapcat (fn [action]
+            (or (std-page/perform-action db action)
+                (case (first action)
+                  :action/transact
+                  [(into [:effect/transact] (rest action))]
+
+                  (prn "⚠️ Unknown action"))))
+          actions))
 
 (comment
   (def db (ds/db conn))
@@ -55,12 +63,7 @@
   (def cs (db/get-chips db))
   cs
 
-  (->> cs (partition 3) (mapv (fn [[l m s]] [{:size :lg :color (:chip/color l :white)}
-                                             {:size :md :color (:chip/color m :white)}
-                                             {:size :sm :color (:chip/color s :white)}])))
-
   (victory/did-someone-win? cs)
-
   )
 
 (def pages {:std [std-page/el-prepzi std-page/render]
@@ -77,7 +80,9 @@
 
 (defn ^:dev/after-load start []
   (js/console.log "[START]")
-  (d/set-dispatch! actions-handler)
+  (d/set-dispatch! (fn [_ actions]
+                     (->> (perform-actions (ds/db conn) actions)
+                          (run! #(process-effect conn %)))))
   (add-watch conn :app
              (fn [_ _ _ _]
                (d/render (js/document.getElementById "app")
