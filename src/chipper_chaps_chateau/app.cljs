@@ -2,6 +2,7 @@
   (:require [chipper-chaps-chateau.chips :as chips]
             [chipper-chaps-chateau.db :as db]
             [chipper-chaps-chateau.rules-page :as rules-page]
+            [chipper-chaps-chateau.settings-page :as settings-page]
             [chipper-chaps-chateau.std-page :as std-page]
             [chipper-chaps-chateau.victory :as victory]
             [datascript.core :as ds]
@@ -15,12 +16,17 @@
 ;; - also when tied ✓
 ;; show color on hover? no
 ;; clean up and alias ✓
+;; play multiple games at the same time (stupid)
 
-(def locations #{:std :rules :4d})
+(def locations #{:std :rules :settings :4d})
+(def variants #{:four-player :two-player})
 
 (def txes (concat [{:db/ident :current-color :current-color :blue}
                    {:db/ident :location :location :std}
                    {:db/ident :rules/show-all? :rules/show-all? false}
+                   {:db/ident :settings
+                    :settings/enable-bot false
+                    :settings/variant :four-player}
                    {:db/id "player one"
                     :player/color :blue
                     :chip.lg/count 3
@@ -59,6 +65,7 @@
 
 (def pages {:std [std-page/el-prepzi std-page/render]
             :rules [rules-page/el-prepzi rules-page/render]
+            :settings [settings-page/el-prepzi settings-page/render]
             :4d (fn [_] [:div "Coming soon..."])})
 
 (defn app [db]
