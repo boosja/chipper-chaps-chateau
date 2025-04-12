@@ -1,7 +1,7 @@
 (ns chipper-chaps-chateau.victory-test
   (:require [chipper-chaps-chateau.chips :as chips]
-            [chipper-chaps-chateau.db :as db]
             [chipper-chaps-chateau.victory :as victory]
+            [clojure.java.io :as io]
             [clojure.test :refer [deftest is testing]]))
 
 (deftest vals->sets-test
@@ -66,5 +66,139 @@
   (map #(victory/did-someone-win?
          (chips/replace-with (chips/create-chips) %))
        victory/wins)
+
+  )
+
+(def board-with-colors '({:x 1 :y 1 :z 1 :chip/color :blue}
+                         {:x 1 :y 1 :z 2 :chip/color :blue}
+                         {:x 1 :y 1 :z 3}
+                         {:x 2 :y 1 :z 1 :chip/color :green}
+                         {:x 2 :y 1 :z 2}
+                         {:x 2 :y 1 :z 3}
+                         {:x 3 :y 1 :z 1}
+                         {:x 3 :y 1 :z 2}
+                         {:x 3 :y 1 :z 3}
+                         {:x 1 :y 2 :z 1}
+                         {:x 1 :y 2 :z 2 :chip/color :red}
+                         {:x 1 :y 2 :z 3}
+                         {:x 2 :y 2 :z 1}
+                         {:x 2 :y 2 :z 2 :chip/color :green}
+                         {:x 2 :y 2 :z 3 :chip/color :red}
+                         {:x 3 :y 2 :z 1 :chip/color :blue}
+                         {:x 3 :y 2 :z 2}
+                         {:x 3 :y 2 :z 3}
+                         {:x 1 :y 3 :z 1}
+                         {:x 1 :y 3 :z 2}
+                         {:x 1 :y 3 :z 3}
+                         {:x 2 :y 3 :z 1}
+                         {:x 2 :y 3 :z 2 :chip/color :yellow}
+                         {:x 2 :y 3 :z 3}
+                         {:x 3 :y 3 :z 1}
+                         {:x 3 :y 3 :z 2 :chip/color :yellow}
+                         {:x 3 :y 3 :z 3}))
+
+(comment
+  (def current-color :blue)
+  (def filled-in (filter :chip/color board-with-colors))
+
+  (->> (map (fn [winning-line]
+              (set (map (fn [winning-xyz]
+                          (or (some-> (filter #(= (chips/->xyz %) winning-xyz) filled-in)
+                                      first)
+                              winning-xyz))
+                        winning-line)))
+            victory/wins)
+       (filter (fn [winning-line]
+                 (some #(= (get % :chip/color) current-color) winning-line)))
+       (sort-by (fn [winning-line]
+                  (count (filter #(= (get % :chip/color) current-color)
+                                 winning-line))))
+       (reverse))
+
+  (->> (victory/insert-chips victory/wins filled-in)
+       (filter #(victory/has-color? % current-color))
+       (sort-by #(victory/count-color % current-color))
+       reverse)
+
+  )
+
+(deftest score-moves
+  (testing "Picks first possible move"
+    (is (not
+         (contains? (victory/pick-next-move victory/wins
+                                            (chips/replace-with (chips/create-chips)
+                                                                #{{:x 1 :y 1 :z 1}})
+                                            :blue)
+                    :chip/color))))
+
+  (testing "Picks first possible move of other color"
+    (is (not
+         (= (victory/pick-next-move victory/wins
+                                    (chips/replace-with (chips/create-chips)
+                                                        #{{:x 1 :y 1 :z 1}})
+                                    :green)
+            :chip/color))))
+
+  (testing "Not nil"
+    (is (not (nil? (victory/pick-next-move victory/wins
+                                           (chips/replace-with (chips/create-chips)
+                                                               #{{:x 1 :y 1 :z 1}})
+                                           :blue)))))
+
+  ;; - (attack) Pick chip in a win that has my color already
+  ;; - (attack) Pick chip in a win that has my color already and does not have any
+  ;; other colors
+  ;; - (defence) Pick chip in a win that has two of the same color that is not
+  ;; mine
+  ;; - (defence) Pick chip in a win that has two of the same color that is not
+  ;; mine and can win right after me
+
+  )
+
+(deftest ->point-color-mapper-test
+  (is (= (victory/->point-color-mapper [{:x 1, :y 1, :z 1 :chip/color :blue}
+                                        {:x 1, :y 1, :z 2}
+                                        {:x 1, :y 1, :z 3 :chip/color :green}
+                                        {:x 2, :y 1, :z 1 :chip/color :blue}
+                                        {:x 2, :y 1, :z 2}
+                                        {:x 2, :y 1, :z 3}
+                                        {:x 3, :y 1, :z 1}
+                                        {:x 3, :y 1, :z 2 :chip/color :red}
+                                        {:x 3, :y 1, :z 3}
+                                        {:x 1, :y 2, :z 1}])
+         {{:x 1, :y 1, :z 1} :blue
+          {:x 1, :y 1, :z 3} :green
+          {:x 2, :y 1, :z 1} :blue
+          {:x 3, :y 1, :z 2} :red})))
+
+(deftest merge-wins-with-colors-test
+  (is (= (victory/merge-wins-with-colors victory/wins board-with-colors)
+         (read-string (slurp (io/resource "test-data/colored-wins.edn"))))))
+
+(deftest group-by-point-test
+  (is (= (victory/group-by-point
+          (victory/merge-wins-with-colors victory/wins board-with-colors))
+         (read-string (slurp (io/resource "test-data/wins-grouped-by-point.edn")))))
+
+  ;; validate the keys are actually in every winning-line assigned to it
+  )
+
+(comment
+
+  ;; sorted wins grouped by point
+  (sort-by #(contains? (first %) :chip/color)
+           (victory/group-by-point
+            (victory/merge-wins-with-colors victory/wins board-with-colors)))
+
+
+  (def stats (victory/stats (victory/group-by-point
+                             (victory/merge-wins-with-colors victory/wins board-with-colors))
+                            ))
+
+  (victory/collapse stats :blue)
+
+  (->> (chips/replace-with (chips/create-chips) #{{:x 1 :y 1 :z 1}})
+       (filter :chip/color))
+
 
   )

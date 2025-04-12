@@ -24,3 +24,5 @@ pom.xml.asc
 .clj-kondo/
 .cpcache/
 .lsp/
+
+.clerk

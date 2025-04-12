@@ -1,5 +1,4 @@
-(ns chipper-chaps-chateau.chips
-  (:require [chipper-chaps-chateau.victory :as victory]))
+(ns chipper-chaps-chateau.chips)
 
 (defn find-circle-center [x y r pad]
   (let [d (* 2 r)]
@@ -49,8 +48,11 @@
      :svg/circle (get svg-circles (str y x z))
      :chip/idx (+ (* 100 y) (* 10 x) (* 1 z))}))
 
+(defn ->xyz [chip]
+  (select-keys chip [:x :y :z]))
+
 (defn is-in? [winning-line chip]
-  (contains? winning-line (select-keys chip [:x :y :z])))
+  (contains? winning-line (->xyz chip)))
 
 (defn replace-with [chips winning-line]
   (mapv (fn [c]
@@ -58,18 +60,3 @@
             (assoc c :chip/color :blue)
             c))
         chips))
-
-(comment
-  (def chips
-    (create-chips))
-
-  (def winning-line
-    (first victory/wins))
-
-  (mapv (fn [c]
-          (if (is-in? winning-line c)
-            (assoc c :chip/color :blue)
-            c))
-        chips)
-
-  )

@@ -1,0 +1,27 @@
+({:x 1 :y 1 :z 1 :chip/color :blue :chip/size :lg :svg/circle [[:circle {:cx 302.94 :cy 327.06 :r 270.0}] [:circle {:id "111" :cx 315.0 :cy 315.0 :r 270.0}]] :chip/idx 111}
+ {:x 1 :y 1 :z 2 :chip/color :blue :chip/size :md :svg/circle [[:circle {:cx 347.94 :cy 282.06 :r 175.5}] [:circle {:id "112" :cx 360.0 :cy 270.0 :r 175.5}]] :chip/idx 112}
+ {:x 1 :y 1 :z 3 :chip/size :sm :svg/circle [[:circle {:cx 392.94 :cy 237.06 :r 81.0}] [:circle {:id "113" :cx 405.0 :cy 225.0 :r 81.0}]] :chip/idx 113}
+ {:x 2 :y 1 :z 1 :chip/color :green :chip/size :lg :svg/circle [[:circle {:cx 887.94 :cy 327.06 :r 270.0}] [:circle {:id "211" :cx 900.0 :cy 315.0 :r 270.0}]] :chip/idx 121}
+ {:x 2 :y 1 :z 2 :chip/size :md :svg/circle [[:circle {:cx 932.94 :cy 282.06 :r 175.5}] [:circle {:id "212" :cx 945.0 :cy 270.0 :r 175.5}]] :chip/idx 122}
+ {:x 2 :y 1 :z 3 :chip/size :sm :svg/circle [[:circle {:cx 977.94 :cy 237.06 :r 81.0}] [:circle {:id "213" :cx 990.0 :cy 225.0 :r 81.0}]] :chip/idx 123}
+ {:x 3 :y 1 :z 1 :chip/size :lg :svg/circle [[:circle {:cx 1472.94 :cy 327.06 :r 270.0}] [:circle {:id "311" :cx 1485.0 :cy 315.0 :r 270.0}]] :chip/idx 131}
+ {:x 3 :y 1 :z 2 :chip/size :md :svg/circle [[:circle {:cx 1517.94 :cy 282.06 :r 175.5}] [:circle {:id "312" :cx 1530.0 :cy 270.0 :r 175.5}]] :chip/idx 132}
+ {:x 3 :y 1 :z 3 :chip/size :sm :svg/circle [[:circle {:cx 1562.94 :cy 237.06 :r 81.0}] [:circle {:id "313" :cx 1575.0 :cy 225.0 :r 81.0}]] :chip/idx 133}
+ {:x 1 :y 2 :z 1 :chip/size :lg :svg/circle [[:circle {:cx 302.94 :cy 912.06 :r 270.0}] [:circle {:id "121" :cx 315.0 :cy 900.0 :r 270.0}]] :chip/idx 211}
+ {:x 1 :y 2 :z 2 :chip/color :red :chip/size :md :svg/circle [[:circle {:cx 347.94 :cy 867.06 :r 175.5}] [:circle {:id "122" :cx 360.0 :cy 855.0 :r 175.5}]] :chip/idx 212}
+ {:x 1 :y 2 :z 3 :chip/size :sm :svg/circle [[:circle {:cx 392.94 :cy 822.06 :r 81.0}] [:circle {:id "123" :cx 405.0 :cy 810.0 :r 81.0}]] :chip/idx 213}
+ {:x 2 :y 2 :z 1 :chip/size :lg :svg/circle [[:circle {:cx 887.94 :cy 912.06 :r 270.0}] [:circle {:id "221" :cx 900.0 :cy 900.0 :r 270.0}]] :chip/idx 221}
+ {:x 2 :y 2 :z 2 :chip/color :green :chip/size :md :svg/circle [[:circle {:cx 932.94 :cy 867.06 :r 175.5}] [:circle {:id "222" :cx 945.0 :cy 855.0 :r 175.5}]] :chip/idx 222}
+ {:x 2 :y 2 :z 3 :chip/color :red :chip/size :sm :svg/circle [[:circle {:cx 977.94 :cy 822.06 :r 81.0}] [:circle {:id "223" :cx 990.0 :cy 810.0 :r 81.0}]] :chip/idx 223}
+ {:x 3 :y 2 :z 1 :chip/color :blue :chip/size :lg :svg/circle [[:circle {:cx 1472.94 :cy 912.06 :r 270.0}] [:circle {:id "321" :cx 1485.0 :cy 900.0 :r 270.0}]] :chip/idx 231}
+ {:x 3 :y 2 :z 2 :chip/size :md :svg/circle [[:circle {:cx 1517.94 :cy 867.06 :r 175.5}] [:circle {:id "322" :cx 1530.0 :cy 855.0 :r 175.5}]] :chip/idx 232}
+ {:x 3 :y 2 :z 3 :chip/size :sm :svg/circle [[:circle {:cx 1562.94 :cy 822.06 :r 81.0}] [:circle {:id "323" :cx 1575.0 :cy 810.0 :r 81.0}]] :chip/idx 233}
+ {:x 1 :y 3 :z 1 :chip/size :lg :svg/circle [[:circle {:cx 302.94 :cy 1497.06 :r 270.0}] [:circle {:id "131" :cx 315.0 :cy 1485.0 :r 270.0}]] :chip/idx 311}
+ {:x 1 :y 3 :z 2 :chip/size :md :svg/circle [[:circle {:cx 347.94 :cy 1452.06 :r 175.5}] [:circle {:id "132" :cx 360.0 :cy 1440.0 :r 175.5}]] :chip/idx 312}
+ {:x 1 :y 3 :z 3 :chip/size :sm :svg/circle [[:circle {:cx 392.94 :cy 1407.06 :r 81.0}] [:circle {:id "133" :cx 405.0 :cy 1395.0 :r 81.0}]] :chip/idx 313}
+ {:x 2 :y 3 :z 1 :chip/size :lg :svg/circle [[:circle {:cx 887.94 :cy 1497.06 :r 270.0}] [:circle {:id "231" :cx 900.0 :cy 1485.0 :r 270.0}]] :chip/idx 321}
+ {:x 2 :y 3 :z 2 :chip/color :yellow :chip/size :md :svg/circle [[:circle {:cx 932.94 :cy 1452.06 :r 175.5}] [:circle {:id "232" :cx 945.0 :cy 1440.0 :r 175.5}]] :chip/idx 322}
+ {:x 2 :y 3 :z 3 :chip/size :sm :svg/circle [[:circle {:cx 977.94 :cy 1407.06 :r 81.0}] [:circle {:id "233" :cx 990.0 :cy 1395.0 :r 81.0}]] :chip/idx 323}
+ {:x 3 :y 3 :z 1 :chip/size :lg :svg/circle [[:circle {:cx 1472.94 :cy 1497.06 :r 270.0}] [:circle {:id "331" :cx 1485.0 :cy 1485.0 :r 270.0}]] :chip/idx 331}
+ {:x 3 :y 3 :z 2 :chip/color :yellow :chip/size :md :svg/circle [[:circle {:cx 1517.94 :cy 1452.06 :r 175.5}] [:circle {:id "332" :cx 1530.0 :cy 1440.0 :r 175.5}]] :chip/idx 332}
+ {:x 3 :y 3 :z 3 :chip/size :sm :svg/circle [[:circle {:cx 1562.94 :cy 1407.06 :r 81.0}] [:circle {:id "333" :cx 1575.0 :cy 1395.0 :r 81.0}]] :chip/idx 333})
