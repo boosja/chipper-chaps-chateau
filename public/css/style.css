@@ -145,3 +145,30 @@ svg .yellow {
         display: none;
     }
 }
+
+/* Settings table */
+
+table.settings {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    border-top: 1px solid lightsteelblue;
+    border-bottom: 1px solid lightsteelblue;
+}
+
+table.settings td {
+    padding: 1rem 0;
+}
+
+table.settings tr:not(:last-child) {
+    border-bottom: 1px solid lightsteelblue;
+}
+
+table.settings tr td:first-child {
+    width: 65%;
+}
+
+table.settings tr td:last-child {
+    width: 35%;
+    user-select: none;
+}
