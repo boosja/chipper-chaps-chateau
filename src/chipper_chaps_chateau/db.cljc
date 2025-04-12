@@ -13,4 +13,4 @@
                [?e :x ?x]]
              db)
        (map #(->> % (ds/entity db) (into {})))
-       (sort-by :chip/idx)))
+       (sort-by (juxt :x :y :z))))

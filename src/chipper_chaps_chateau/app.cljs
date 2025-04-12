@@ -1,6 +1,7 @@
 (ns chipper-chaps-chateau.app
   (:require [chipper-chaps-chateau.chips :as chips]
             [chipper-chaps-chateau.db :as db]
+            [chipper-chaps-chateau.id :as id]
             [chipper-chaps-chateau.rules-page :as rules-page]
             [chipper-chaps-chateau.settings-page :as settings-page]
             [chipper-chaps-chateau.std-page :as std-page]
@@ -32,9 +33,9 @@
                     :chip.lg/count 3
                     :chip.md/count 3
                     :chip.sm/count 3}]
-                  (chips/create-chips)))
+                  (id/-ilize! :chip/id (chips/create-chips))))
 
-(def schema {:chip/idx {:db/cardinality :db.cardinality/one
+(def schema {:chip/id {:db/cardinality :db.cardinality/one
                         :db/unique :db.unique/identity}})
 
 (defonce conn
