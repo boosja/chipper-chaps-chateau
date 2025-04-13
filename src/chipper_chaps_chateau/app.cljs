@@ -63,9 +63,6 @@
             (or (d3-page/perform-action db action)
                 (settings-page/perform-action db action)
                 (case (first action)
-                  :action/transact
-                  [(into [:effect/transact] (rest action))]
-
                   :action/navigate
                   [[:effect/transact [{:db/ident :app/state
                                        :app/location (second action)}]]]
