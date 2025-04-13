@@ -2,6 +2,10 @@
   (:require [chipper-chaps-chateau.la-visual :as vis]
             [datascript.core :as ds]))
 
+(defn perform-action [_db [action & args]]
+  (when (= ::set action)
+    [[:effect/transact [(into [:db/add [:db/ident :settings]] args)]]]))
+
 (defn prepare-bar []
   {:left {:icon "🙅‍♂️"
           :actions [[:action/navigate :route/d3]]}
@@ -17,13 +21,11 @@
     {:bar-props (prepare-bar)
 
      :bot-enabled enable-bot
-     :enable-bot [[:action/transact [{:db/ident :settings
-                                      :settings/enable-bot (not enable-bot)}]]]
+     :enable-bot [[::set :settings/enable-bot (not enable-bot)]]
      :variant variant
-     :set-variant [[:action/transact [{:db/ident :settings
-                                       :settings/variant (if (= :four-player variant)
-                                                           :two-player
-                                                           :four-player)}]]]
+     :set-variant [[::set :settings/variant (if (= :four-player variant)
+                                              :two-player
+                                              :four-player)]]
 
      :settings settings}))
 

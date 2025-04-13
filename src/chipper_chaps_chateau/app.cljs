@@ -61,6 +61,7 @@
 (defn perform-actions [db actions]
   (mapcat (fn [action]
             (or (d3-page/perform-action db action)
+                (settings-page/perform-action db action)
                 (case (first action)
                   :action/transact
                   [(into [:effect/transact] (rest action))]
