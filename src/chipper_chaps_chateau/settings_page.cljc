@@ -1,13 +1,12 @@
 (ns chipper-chaps-chateau.settings-page
-  (:require [chipper-chaps-chateau.db :as db]
-            [chipper-chaps-chateau.la-visual :as vis]
+  (:require [chipper-chaps-chateau.la-visual :as vis]
             [datascript.core :as ds]))
 
 (defn prepare-bar []
   {:left {:icon "🙅‍♂️"
-          :actions [[:action/transact [(db/->global-tx :location :std)]]]}
+          :actions [[:action/navigate :route/d3]]}
    :right {:icon "🙅‍♂️"
-           :actions [[:action/transact [(db/->global-tx :location :std)]]]}
+           :actions [[:action/navigate :route/d3]]}
    :banner {:text "Settings"
             :class "yellow"}})
 
