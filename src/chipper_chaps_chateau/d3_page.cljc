@@ -1,4 +1,4 @@
-(ns chipper-chaps-chateau.std-page
+(ns chipper-chaps-chateau.d3-page
   (:require [chipper-chaps-chateau.la-visual :as vis]
             [chipper-chaps-chateau.victory :as victory]
             [chipper-chaps-chateau.db :as db]
@@ -12,7 +12,7 @@
 
 (defn perform-action [db [action & args]]
   (when (= ::pick action)
-    (let [game (db/get-current-game db)]
+    (let [game (db/current-game db)]
       [[:effect/transact [{:chip/id (:chip/id (first args))
                            :chip/color (:game/current-color game)}
                           {:game/id (:game/id game)
@@ -20,9 +20,9 @@
 
 (defn prepare-bar [winner current-color]
   {:left {:icon "🤨"
-          :actions [[:action/transact [(db/->global-tx :location :rules)]]]}
+          :actions [[:action/navigate :route.rules/summary]]}
    :right {:icon "⚙️"
-           :actions [[:action/transact [(db/->global-tx :location :settings)]]]}
+           :actions [[:action/navigate :route/settings]]}
    :revelry (cond (= winner :tie) "💪"
                   winner "🎉")
    :banner {:text (cond (= winner :tie)
@@ -38,7 +38,7 @@
                      (name current-color))}})
 
 (defn el-prepzi [db]
-  (let [game (db/get-current-game db)
+  (let [game (db/current-game db)
         current-color (:game/current-color game)
         chips (sort-by (juxt :x :y :z) (:game/chips game))
         winner (victory/did-someone-win? chips)]

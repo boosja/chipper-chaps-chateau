@@ -1,10 +1,10 @@
 (ns chipper-chaps-chateau.app
   (:require [chipper-chaps-chateau.chips :as chips]
+            [chipper-chaps-chateau.d3-page :as d3-page]
             [chipper-chaps-chateau.db :as db]
             [chipper-chaps-chateau.id :as id]
             [chipper-chaps-chateau.rules-page :as rules-page]
             [chipper-chaps-chateau.settings-page :as settings-page]
-            [chipper-chaps-chateau.std-page :as std-page]
             [chipper-chaps-chateau.victory :as victory]
             [datascript.core :as ds]
             [replicant.dom :as d]))
@@ -19,12 +19,9 @@
 ;; clean up and alias ✓
 ;; play multiple games at the same time (stupid)
 
-(def locations #{:std :rules :settings :4d})
 (def variants #{:four-player :two-player})
 
-(def txes (concat [{:db/ident :location :location :std}
-                   {:db/ident :rules/show-all? :rules/show-all? false}
-                   {:db/ident :settings
+(def txes (concat [{:db/ident :settings
                     :settings/enable-bot false
                     :settings/variant :four-player}
                    {:db/id "game"
@@ -32,7 +29,8 @@
                     :game/current-color :blue
                     :game/chips (id/-ilize! :chip/id (chips/create-chips))}
                    {:db/ident :app/state
-                    :app/current-game "game"}
+                    :app/current-game "game"
+                    :app/location :route/d3}
                    {:db/id "player one"
                     :player/color :blue
                     :chip.lg/count 3
@@ -62,10 +60,14 @@
 
 (defn perform-actions [db actions]
   (mapcat (fn [action]
-            (or (std-page/perform-action db action)
+            (or (d3-page/perform-action db action)
                 (case (first action)
                   :action/transact
                   [(into [:effect/transact] (rest action))]
+
+                  :action/navigate
+                  [[:effect/transact [{:db/ident :app/state
+                                       :app/location (second action)}]]]
 
                   (prn "⚠️ Unknown action"))))
           actions))
@@ -79,14 +81,15 @@
   (victory/did-someone-win? cs)
   )
 
-(def pages {:std [std-page/el-prepzi std-page/render]
-            :rules [rules-page/el-prepzi rules-page/render]
-            :settings [settings-page/el-prepzi settings-page/render]
-            :4d (fn [_] [:div "Coming soon..."])})
+(def routes {:route/d3 [d3-page/el-prepzi d3-page/render]
+             :route.rules/summary [rules-page/el-prepzi rules-page/render]
+             :route.rules/all [rules-page/el-prepzi rules-page/render]
+             :route/settings [settings-page/el-prepzi settings-page/render]
+             :route/d4 (fn [_] [:div "Coming soon..."])})
 
 (defn app [db]
-  (let [location (db/get-global db :location)
-        [prep render] (get pages location)]
+  (let [location (db/location db)
+        [prep render] (get routes location)]
     [:main
      [:h1 "Chipper Chap's Chateau"]
      (render (prep db))]))

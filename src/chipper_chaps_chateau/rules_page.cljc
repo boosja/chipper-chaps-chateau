@@ -6,16 +6,17 @@
 
 (defn prepare-bar [show-all?]
   {:left {:icon "🙅‍♂️"
-          :actions [[:action/transact [(db/->global-tx :location :std)]]]}
+          :actions [[:action/navigate :route/d3]]}
    :right {:icon "⚙️"
-           :actions [[:action/transact [(db/->global-tx :location :settings)]]]}
+           :actions [[:action/navigate :route/settings]]}
    :banner {:text (if show-all? "Every possible win" "How to win")
             :class "green"
-            :actions [[:action/transact
-                       [(db/->global-tx :rules/show-all? (not show-all?))]]]}})
+            :actions [[:action/navigate (if show-all?
+                                          :route.rules/summary
+                                          :route.rules/all)]]}})
 
 (defn el-prepzi [db]
-  (let [show-all? (db/get-global db :rules/show-all?)
+  (let [show-all? (= :route.rules/all (db/location db))
         chips (chips/create-chips)
         filtered [0 4 8 10 22 28 42 47 35]]
     {:bar-props (prepare-bar show-all?)
