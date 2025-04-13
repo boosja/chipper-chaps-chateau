@@ -6,6 +6,7 @@
             [chipper-chaps-chateau.rules-page :as rules-page]
             [chipper-chaps-chateau.settings-page :as settings-page]
             [chipper-chaps-chateau.victory :as victory]
+            [clojure.walk :as walk]
             [datascript.core :as ds]
             [replicant.dom :as d]))
 
@@ -18,6 +19,7 @@
 ;; show color on hover? no
 ;; clean up and alias ✓
 ;; play multiple games at the same time (stupid)
+;; list all previous games under current
 
 (def variants #{:four-player :two-player})
 
@@ -53,10 +55,14 @@
     (ds/transact! conn txes)
     conn))
 
-(defn process-effect [conn [effect & args]]
-  (apply prn 'Execute effect args)
-  (case effect
-    :effect/transact (apply ds/transact conn args)))
+(comment
+  (def db (ds/db conn))
+
+  (def cs (db/get-chips db))
+  cs
+
+  (victory/did-someone-win? cs)
+  )
 
 (defn perform-actions [db actions]
   (mapcat (fn [action]
@@ -70,14 +76,23 @@
                   (prn "⚠️ Unknown action"))))
           actions))
 
-(comment
-  (def db (ds/db conn))
+(def refiners {:id/gen id/gen!
+               :id.gen/chips #(id/-ilize! :chip/id (chips/create-chips))})
 
-  (def cs (db/get-chips db))
-  cs
+(defn refine [txes]
+  (-> (fn [x]
+        (cond
+          (and (vector? x)
+               (= :data-require (first x)))
+          ((get refiners (second x)))
 
-  (victory/did-someone-win? cs)
-  )
+          :else x))
+      (walk/postwalk txes)))
+
+(defn process-effect [conn [effect & args]]
+  (apply prn 'Execute effect args)
+  (case effect
+    :effect/transact (apply ds/transact conn (refine args))))
 
 (def routes {:route/d3 [d3-page/el-prepzi d3-page/render]
              :route.rules/summary [rules-page/el-prepzi rules-page/render]

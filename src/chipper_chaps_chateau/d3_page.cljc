@@ -11,16 +11,28 @@
    :yellow :blue})
 
 (defn perform-action [db [action & args]]
-  (when (= ::pick action)
-    (let [game (db/current-game db)]
+  (let [game (db/current-game db)]
+    (cond
+      (= ::pick action)
       [[:effect/transact [{:chip/id (:chip/id (first args))
                            :chip/color (:game/current-color game)}
                           {:game/id (:game/id game)
-                           :game/current-color (next-color (:game/current-color game))}]]])))
+                           :game/current-color (next-color (:game/current-color game))}]]]
+
+      (= ::reset-game action)
+      [[:effect/transact [{:db/id "new-game"
+                           :game/id [:data-require :id/gen]
+                           :game/current-color :blue
+                           :game/chips [:data-require :id.gen/chips]}
+                          {:db/ident :app/state
+                           :app/current-game "new-game"}]]])))
 
 (defn prepare-bar [winner current-color]
-  {:left {:icon "🤨"
-          :actions [[:action/navigate :route.rules/summary]]}
+  {:left (if winner
+           {:icon "🔄"
+            :actions [[::reset-game]]}
+           {:icon "🤨"
+            :actions [[:action/navigate :route.rules/summary]]})
    :right {:icon "⚙️"
            :actions [[:action/navigate :route/settings]]}
    :revelry (cond (= winner :tie) "💪"
