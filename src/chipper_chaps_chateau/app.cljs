@@ -22,21 +22,33 @@
 (def locations #{:std :rules :settings :4d})
 (def variants #{:four-player :two-player})
 
-(def txes (concat [{:db/ident :current-color :current-color :blue}
-                   {:db/ident :location :location :std}
+(def txes (concat [{:db/ident :location :location :std}
                    {:db/ident :rules/show-all? :rules/show-all? false}
                    {:db/ident :settings
                     :settings/enable-bot false
                     :settings/variant :four-player}
+                   {:db/id "game"
+                    :game/id (id/gen!)
+                    :game/current-color :blue
+                    :game/chips (id/-ilize! :chip/id (chips/create-chips))}
+                   {:db/ident :app/state
+                    :app/current-game "game"}
                    {:db/id "player one"
                     :player/color :blue
                     :chip.lg/count 3
                     :chip.md/count 3
-                    :chip.sm/count 3}]
-                  (id/-ilize! :chip/id (chips/create-chips))))
+                    :chip.sm/count 3}]))
 
 (def schema {:chip/id {:db/cardinality :db.cardinality/one
-                        :db/unique :db.unique/identity}})
+                        :db/unique :db.unique/identity}
+
+             :app/current-game {:db/type :db.type/ref
+                                  :db/cardinality :db.cardinality/one}
+
+             :game/id {:db/cardinality :db.cardinality/one
+                       :db/unique :db.unique/identity}
+             :game/chips {:db/type :db.type/ref
+                          :db/cardinality :db.cardinality/many}})
 
 (defonce conn
   (let [conn (ds/create-conn schema)]
