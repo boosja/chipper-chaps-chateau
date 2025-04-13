@@ -13,11 +13,11 @@
 
 (defn perform-action [db [action & args]]
   (when (= ::pick action)
-    (let [current-color (db/get-global db :current-color)]
+    (let [game (db/get-current-game db)]
       [[:effect/transact [{:chip/id (:chip/id (first args))
-                           :chip/color current-color}
-                          (db/->global-tx :current-color
-                                          (next-color current-color))]]])))
+                           :chip/color (:game/current-color game)}
+                          {:game/id (:game/id game)
+                           :game/current-color (next-color (:game/current-color game))}]]])))
 
 (defn prepare-bar [winner current-color]
   {:left {:icon "🤨"
@@ -39,8 +39,9 @@
                      (name current-color))}})
 
 (defn el-prepzi [db]
-  (let [current-color (db/get-global db :current-color)
-        chips (db/get-chips db)
+  (let [game (db/get-current-game db)
+        current-color (:game/current-color game)
+        chips (sort-by (juxt :x :y :z) (:game/chips game))
         winner (victory/did-someone-win? chips)]
     {:bar-props (prepare-bar winner current-color)
      :chips chips

@@ -7,6 +7,9 @@
 (defn ->global-tx [k v]
   {:db/ident k k v})
 
+(defn get-current-game [db]
+  (:app/current-game (ds/entity db :app/state)))
+
 (defn get-chips [db]
   (->> (ds/q '[:find [?e ...]
                :where
