@@ -1,7 +1,6 @@
 (ns chipper-chaps-chateau.rules-page
   (:require [chipper-chaps-chateau.la-visual :as vis]
             [chipper-chaps-chateau.db :as db]
-            [chipper-chaps-chateau.components.bar :refer [bar]]
             [chipper-chaps-chateau.victory :as victory]
             [chipper-chaps-chateau.chips :as chips]))
 
@@ -28,7 +27,7 @@
      }))
 
 (defn render [{:keys [rule-boards bar-props]}]
-  (list (bar bar-props)
+  (list (vis/bar bar-props)
         [:div.rules
          (for [chips rule-boards]
            (vis/el-chateau nil chips))]))
