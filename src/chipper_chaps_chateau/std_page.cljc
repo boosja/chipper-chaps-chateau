@@ -2,7 +2,6 @@
   (:require [chipper-chaps-chateau.la-visual :as vis]
             [chipper-chaps-chateau.victory :as victory]
             [chipper-chaps-chateau.db :as db]
-            [chipper-chaps-chateau.components.bar :refer [bar]]
             [clojure.string :as str]))
 
 (def next-color
@@ -51,5 +50,5 @@
                       [[::pick chip]]))}))
 
 (defn render [{:keys [bar-props chips get-actions]}]
-  (list (bar bar-props)
+  (list (vis/bar bar-props)
         (vis/el-chateau get-actions chips)))

@@ -1,6 +1,6 @@
 (ns chipper-chaps-chateau.settings-page
   (:require [chipper-chaps-chateau.db :as db]
-            [chipper-chaps-chateau.components.bar :refer [bar]]
+            [chipper-chaps-chateau.la-visual :as vis]
             [datascript.core :as ds]))
 
 (defn prepare-bar []
@@ -30,7 +30,7 @@
 
 (defn render [{:keys [bar-props bot-enabled enable-bot variant set-variant]}]
   [:div
-   (bar bar-props)
+   (vis/bar bar-props)
 
    [:table.settings
     [:tr
