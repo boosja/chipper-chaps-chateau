@@ -92,7 +92,9 @@
 (defn process-effect [conn [effect & args]]
   (apply prn 'Execute effect args)
   (case effect
-    :effect/transact (apply ds/transact conn (refine args))))
+    :effect/transact (apply ds/transact conn (refine args))
+    :effect/defer (->> (perform-actions (ds/db conn) (first args))
+                       (run! #(process-effect conn %)))))
 
 (def routes {:route/d3 [d3-page/el-prepzi d3-page/render]
              :route.rules/summary [rules-page/el-prepzi rules-page/render]
