@@ -12,20 +12,33 @@
 
 (defn perform-action [db [action & args]]
   (let [game (db/current-game db)]
-    (cond
-      (= ::pick action)
+    (case action
+      ::pick
       [[:effect/transact [{:chip/id (:chip/id (first args))
                            :chip/color (:game/current-color game)}
                           {:game/id (:game/id game)
                            :game/current-color (next-color (:game/current-color game))}]]]
 
-      (= ::reset-game action)
+      ::deferred-bot-move
+      [[:effect/defer [[::bot-move]]]]
+
+      ::bot-move
+      (let [next-move (victory/pick-next-move victory/wins
+                                              (:game/chips game)
+                                              (:game/current-color game))]
+        [[:effect/transact [{:chip/id (:chip/id next-move)
+                             :chip/color (:game/current-color game)}
+                            {:game/id (:game/id game)
+                             :game/current-color (next-color (:game/current-color game))}]]])
+
+      ::reset-game
       [[:effect/transact [{:db/id "new-game"
                            :game/id [:data-require :id/gen]
                            :game/current-color :blue
                            :game/chips [:data-require :id.gen/chips]}
                           {:db/ident :app/state
-                           :app/current-game "new-game"}]]])))
+                           :app/current-game "new-game"}]]]
+      nil)))
 
 (defn prepare-bar [winner current-color]
   {:left (if winner
@@ -50,16 +63,23 @@
                      (name current-color))}})
 
 (defn el-prepzi [db]
-  (let [game (db/current-game db)
+  (let [settings (db/settings db)
+        game (db/current-game db)
         current-color (:game/current-color game)
         chips (sort-by (juxt :x :y :z) (:game/chips game))
         winner (victory/did-someone-win? chips)]
     {:bar-props (prepare-bar winner current-color)
      :chips chips
      :get-actions (fn [chip]
-                    (when (and (not winner)
-                               (nil? (:chip/color chip)))
-                      [[::pick chip]]))}))
+                    (when (and (not winner) (nil? (:chip/color chip)))
+                      (cond-> [[::pick chip]]
+                        (:settings/enable-bot settings)
+                        (conj [::deferred-bot-move])
+
+                        (and (:settings/enable-bot settings)
+                             (= :four-player (:settings/variant settings)))
+                        (conj [::deferred-bot-move]
+                              [::deferred-bot-move]))))}))
 
 (defn render [{:keys [bar-props chips get-actions]}]
   (list (vis/bar bar-props)
