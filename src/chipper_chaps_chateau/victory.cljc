@@ -159,11 +159,13 @@
        ffirst))
 
 (defn pick-next-move [wins chips color]
-  (->> chips
-       (merge-wins-with-colors wins)
-       group-by-point
-       stats
-       (collapse color)))
+  (let [next-move (->> chips
+                       (merge-wins-with-colors wins)
+                       group-by-point
+                       stats
+                       (collapse color))]
+    (first (filter #(= next-move (chips/->xyz %))
+                   chips))))
 
 (comment
 
