@@ -20,6 +20,9 @@
 ;; clean up and alias ✓
 ;; play multiple games at the same time (stupid)
 ;; list all previous games under current
+;; icon-bar that shows settings and better iconicity
+;; remember settings in localstorage
+;; better defer handling
 
 (def variants #{:four-player :two-player})
 
