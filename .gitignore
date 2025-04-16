@@ -20,6 +20,7 @@ pom.xml.asc
 .hgignore
 .hg/
 
+.clerk/
 .clj-kondo/
 .cpcache/
 .lsp/
