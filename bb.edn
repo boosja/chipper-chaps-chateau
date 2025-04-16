@@ -1,0 +1,4 @@
+{:tasks
+ {notebooks
+  (clojure "-X:dev" "nextjournal.clerk/build!"
+           (pr-str {:paths ["notebooks/*"] :out-path "public/clerk"}))}}
