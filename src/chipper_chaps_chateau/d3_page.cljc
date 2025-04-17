@@ -29,13 +29,15 @@
                         [:effect/defer (into [] (repeat amount [::bot-move]))])]))
 
       ::bot-move
-      (let [next-move (victory/pick-next-move victory/wins
-                                              (:game/chips game)
-                                              (:game/current-color game))]
-        [[:effect/transact [{:chip/id (:chip/id next-move)
-                             :chip/color (:game/current-color game)}
-                            {:game/id (:game/id game)
-                             :game/current-color (next-color (:game/current-color game))}]]])
+      (if (victory/did-someone-win? (:game/chips game))
+        []
+        (let [next-move (victory/pick-next-move victory/wins
+                                                (:game/chips game)
+                                                (:game/current-color game))]
+          [[:effect/transact [{:chip/id (:chip/id next-move)
+                               :chip/color (:game/current-color game)}
+                              {:game/id (:game/id game)
+                               :game/current-color (next-color (:game/current-color game))}]]]))
 
       ::reset-game
       [[:effect/transact [{:db/id "new-game"
