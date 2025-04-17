@@ -76,7 +76,7 @@
                   [[:effect/transact [{:db/ident :app/state
                                        :app/location (second action)}]]]
 
-                  (prn "⚠️ Unknown action"))))
+                  (prn "⚠️ Unknown action:" (first action)))))
           actions))
 
 (defn dispatch [_ actions]
