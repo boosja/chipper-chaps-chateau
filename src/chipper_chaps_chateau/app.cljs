@@ -24,7 +24,7 @@
 ;; remember settings in localstorage
 ;; better defer handling
 
-(def variants #{:four-player :two-player})
+(declare process-effect)
 
 (def txes (concat [{:db/ident :settings
                     :settings/enable-bot false
@@ -79,6 +79,10 @@
                   (prn "⚠️ Unknown action"))))
           actions))
 
+(defn dispatch [_ actions]
+  (->> (perform-actions (ds/db conn) actions)
+       (run! #(process-effect conn %))))
+
 (def refiners {:id/gen id/gen!
                :id.gen/chips #(id/-ilize! :chip/id (chips/create-chips))})
 
@@ -92,12 +96,21 @@
           :else x))
       (walk/postwalk txes)))
 
+(defn defer-actions [actions]
+  (letfn [(dispatch-next [remaining idx]
+            (when-let [action (first remaining)]
+              (js/setTimeout
+               #(do
+                  (dispatch nil [action])
+                  (dispatch-next (rest remaining) (inc idx)))
+               300)))]
+    (dispatch-next actions 0)))
+
 (defn process-effect [conn [effect & args]]
   (apply prn 'Execute effect args)
   (case effect
     :effect/transact (apply ds/transact conn (refine args))
-    :effect/defer (->> (perform-actions (ds/db conn) (first args))
-                       (run! #(process-effect conn %)))))
+    :effect/defer (defer-actions (first args))))
 
 (def routes {:route/d3 [d3-page/el-prepzi d3-page/render]
              :route.rules/summary [rules-page/el-prepzi rules-page/render]
@@ -114,9 +127,7 @@
 
 (defn ^:dev/after-load start []
   (js/console.log "[START]")
-  (d/set-dispatch! (fn [_ actions]
-                     (->> (perform-actions (ds/db conn) actions)
-                          (run! #(process-effect conn %)))))
+  (d/set-dispatch! dispatch)
   (add-watch conn :app
              (fn [_ _ _ _]
                (d/render (js/document.getElementById "app")

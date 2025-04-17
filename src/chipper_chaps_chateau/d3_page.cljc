@@ -20,7 +20,13 @@
                            :game/current-color (next-color (:game/current-color game))}]]]
 
       ::deferred-bot-move
-      [[:effect/defer [[::bot-move]]]]
+      (let [settings (db/settings db)
+            amount (cond-> 0
+                       (:settings/enable-bot settings) inc
+                       (and (:settings/enable-bot settings)
+                            (= :four-player (:settings/variant settings))) (+ 2))]
+        (remove nil? [(when (< 0 amount)
+                        [:effect/defer (into [] (repeat amount [::bot-move]))])]))
 
       ::bot-move
       (let [next-move (victory/pick-next-move victory/wins
@@ -63,8 +69,7 @@
                      (name current-color))}})
 
 (defn el-prepzi [db]
-  (let [settings (db/settings db)
-        game (db/current-game db)
+  (let [game (db/current-game db)
         current-color (:game/current-color game)
         chips (sort-by (juxt :x :y :z) (:game/chips game))
         winner (victory/did-someone-win? chips)]
@@ -72,14 +77,8 @@
      :chips chips
      :get-actions (fn [chip]
                     (when (and (not winner) (nil? (:chip/color chip)))
-                      (cond-> [[::pick chip]]
-                        (:settings/enable-bot settings)
-                        (conj [::deferred-bot-move])
-
-                        (and (:settings/enable-bot settings)
-                             (= :four-player (:settings/variant settings)))
-                        (conj [::deferred-bot-move]
-                              [::deferred-bot-move]))))}))
+                      [[::pick chip]
+                       [::deferred-bot-move]]))}))
 
 (defn render [{:keys [bar-props chips get-actions]}]
   (list (vis/bar bar-props)
