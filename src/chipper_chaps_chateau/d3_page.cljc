@@ -2,7 +2,8 @@
   (:require [chipper-chaps-chateau.la-visual :as vis]
             [chipper-chaps-chateau.victory :as victory]
             [chipper-chaps-chateau.db :as db]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [chipper-chaps-chateau.settings :as settings]))
 
 (def next-color
   {:blue :red
@@ -48,34 +49,39 @@
                            :app/current-game "new-game"}]]]
       nil)))
 
-(defn prepare-bar [winner current-color]
-  {:left (if winner
-           {:icon "🔄"
-            :actions [[::reset-game]]}
-           {:icon "🤨"
-            :actions [[:action/navigate :route.rules/summary]]})
-   :right {:icon "⚙️"
-           :actions [[:action/navigate :route/settings]]}
-   :revelry (cond (= winner :tie) "💪"
-                  winner "🎉")
-   :banner {:text (cond (= winner :tie)
-                        "Wow, you tied"
+(defn prepare-showcase [winner current-color]
+  {:class (if winner
+            (name winner)
+            (name current-color))
+   :text (cond (= winner :tie)
+               "Wow, you tied"
 
-                        winner
-                        (str (str/capitalize (name winner)) " is the winner")
+               winner
+               (str (str/capitalize (name winner)) " is the winner")
 
-                        :else
-                        (str (name current-color) " player's turn"))
-            :class (if winner
-                     (name winner)
-                     (name current-color))}})
+               :else
+               (str (name current-color) " player's turn"))})
+
+(defn leftward-icons [winner]
+  [{:icon (cond (= winner :tie) "💪"
+                winner "🎉")}])
+
+(defn rightward-icons [db winner]
+  (into (settings/prepare db)
+        [(if winner
+           {:actions [[::reset-game]]
+            :icon "🔄"}
+           {:actions [[:action/navigate :route.rules/summary]]
+            :icon "⚙️"})]))
 
 (defn el-prepzi [db]
   (let [game (db/current-game db)
         current-color (:game/current-color game)
         chips (sort-by (juxt :x :y :z) (:game/chips game))
         winner (victory/did-someone-win? chips)]
-    {:bar-props (prepare-bar winner current-color)
+    {:bar-props {:showcase (prepare-showcase winner current-color)
+                 :left (leftward-icons winner)
+                 :right (rightward-icons db winner)}
      :chips chips
      :get-actions (fn [chip]
                     (when (and (not winner) (nil? (:chip/color chip)))
@@ -83,5 +89,10 @@
                        [::deferred-bot-move]]))}))
 
 (defn render [{:keys [bar-props chips get-actions]}]
-  (list (vis/bar bar-props)
+  (list [::vis/bartial.flex {::vis/data bar-props}
+         [::vis/showcase]
+         [::vis/icon]
+         [::vis/space]
+         [::vis/icon]]
+
         (vis/el-chateau get-actions chips)))

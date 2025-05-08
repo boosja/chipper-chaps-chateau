@@ -139,6 +139,7 @@ svg .yellow {
 }
 .expand { flex: 1; }
 .icon { font-size: 2rem; }
+.icon-sm { font-size: 1.5rem; }
 
 @media screen and (max-width: 500px) {
     .flex .revelry {
