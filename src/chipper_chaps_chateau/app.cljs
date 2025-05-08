@@ -4,7 +4,7 @@
             [chipper-chaps-chateau.db :as db]
             [chipper-chaps-chateau.id :as id]
             [chipper-chaps-chateau.rules-page :as rules-page]
-            [chipper-chaps-chateau.settings-page :as settings-page]
+            [chipper-chaps-chateau.settings :as settings]
             [chipper-chaps-chateau.victory :as victory]
             [clojure.walk :as walk]
             [datascript.core :as ds]
@@ -70,7 +70,7 @@
 (defn perform-actions [db actions]
   (mapcat (fn [action]
             (or (d3-page/perform-action db action)
-                (settings-page/perform-action db action)
+                (settings/perform-action db action)
                 (case (first action)
                   :action/navigate
                   [[:effect/transact [{:db/ident :app/state
@@ -115,7 +115,6 @@
 (def routes {:route/d3 [d3-page/el-prepzi d3-page/render]
              :route.rules/summary [rules-page/el-prepzi rules-page/render]
              :route.rules/all [rules-page/el-prepzi rules-page/render]
-             :route/settings [settings-page/el-prepzi settings-page/render]
              :route/d4 (fn [_] [:div "Coming soon..."])})
 
 (defn app [db]

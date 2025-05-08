@@ -5,15 +5,13 @@
             [chipper-chaps-chateau.chips :as chips]))
 
 (defn prepare-bar [show-all?]
-  {:left {:icon "🙅‍♂️"
-          :actions [[:action/navigate :route/d3]]}
-   :right {:icon "⚙️"
-           :actions [[:action/navigate :route/settings]]}
-   :banner {:text (if show-all? "Every possible win" "How to win")
-            :class "green"
-            :actions [[:action/navigate (if show-all?
-                                          :route.rules/summary
-                                          :route.rules/all)]]}})
+  {:right [{:icon "🙅‍♂️"
+            :actions [[:action/navigate :route/d3]]}]
+   :showcase {:text (if show-all? "Every possible win" "How to win")
+              :class "green"
+              :actions [[:action/navigate (if show-all?
+                                            :route.rules/summary
+                                            :route.rules/all)]]}})
 
 (defn el-prepzi [db]
   (let [show-all? (= :route.rules/all (db/location db))
@@ -28,7 +26,12 @@
      }))
 
 (defn render [{:keys [rule-boards bar-props]}]
-  (list (vis/bar bar-props)
+  (list [::vis/bartial.flex {::vis/data bar-props}
+         [::vis/showcase]
+         [::vis/icon]
+         [::vis/space]
+         [::vis/icon]]
+
         [:div.rules
          (for [chips rule-boards]
            (vis/el-chateau nil chips))]))
