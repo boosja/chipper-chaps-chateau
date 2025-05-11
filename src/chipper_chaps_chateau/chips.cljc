@@ -59,3 +59,54 @@
             (assoc c :chip/color :blue)
             c))
         chips))
+
+;; ################################################################
+;; ## CUSTOM COLORED BOARDS
+
+(def clridx {0 :blue
+             1 :red
+             2 :green
+             3 :yellow})
+
+(defn colored-chateaus
+  "Each chateau has unique color"
+  []
+  (->> (create-chips)
+       (partition-all 3)
+       (map-indexed (fn [i chateau]
+                      (map #(assoc % :chip/color (get clridx (mod i 4)))
+                           chateau)))
+       flatten))
+
+(defn take-mod [n coll start]
+  (let [len (count coll)]
+    (mapv #(nth coll (mod (+ start %) len))
+          (range n))))
+
+(defn ->idx-mapper [v]
+  [(map-indexed #(vector %2 %1) v)
+   (map-indexed #(vector %1 %2) v)])
+
+(->> [:red :green :yellow]
+     ->idx-mapper
+     (apply concat)
+     (into {}))
+
+(defn colored-chateaus-switch
+  "Each chateau with switching colors (using only 3)"
+  [starting-color]
+  (let [all-colors [:blue :red :green :yellow]
+        colors (->> (take-mod 3 all-colors (.indexOf all-colors starting-color))
+                    ->idx-mapper
+                    (apply concat)
+                    (into {}))
+        starting-color-idx (get colors starting-color)]
+    (->> (create-chips)
+         (sort-by (juxt :y :z :x))
+         (partition-all 3)
+         (map-indexed (fn [i chateau]
+                        (map #(assoc % :chip/color
+                                     (get colors (mod (+ i starting-color-idx)
+                                                      3)))
+                             chateau)))
+         flatten)))
