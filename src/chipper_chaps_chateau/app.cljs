@@ -64,6 +64,24 @@
   (def cs (db/get-chips db))
   cs
 
+  ;; Show custom chips
+  (defn show-custom-chips [chips]
+    (ds/transact conn [{:db/id "new-game"
+                        :game/id (id/gen!)
+                        :game/current-color :blue
+                        :game/chips (id/-ilize! :chip/id chips)}
+                       {:db/ident :app/state
+                        :app/current-game "new-game"}]))
+
+  (show-custom-chips (chips/colored-chateaus))
+  (show-custom-chips (chips/colored-chateaus-switch :blue))
+  (show-custom-chips (chips/colored-chateaus-switch :red))
+  (show-custom-chips (chips/colored-chateaus-switch :green))
+  (show-custom-chips (chips/colored-chateaus-switch :yellow))
+
+  ;; Reset game
+  (show-custom-chips (chips/create-chips))
+
   (victory/did-someone-win? cs)
   )
 
