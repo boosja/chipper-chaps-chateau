@@ -72,7 +72,7 @@
            {:actions [[::reset-game]]
             :icon "🔄"}
            {:actions [[:action/navigate :route.rules/summary]]
-            :icon "⚙️"})]))
+            :icon "📖"})]))
 
 (defn el-prepzi [db]
   (let [game (db/current-game db)
