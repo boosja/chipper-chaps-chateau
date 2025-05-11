@@ -28,7 +28,8 @@
 
 (def txes (concat [{:db/ident :settings
                     :settings/enable-bot false
-                    :settings/variant :four-player}
+                    :settings/variant :four-player
+                    :settings/colorblind? false}
                    {:db/id "game"
                     :game/id (id/gen!)
                     :game/current-color :blue
