@@ -142,8 +142,8 @@
        (into {})))
 
 (def frequency->value {0 1
-                       1 2
-                       2 10})
+                       1 10
+                       2 100})
 
 (defn get-valued-score [freq n]
   (* (get frequency->value freq) n))
@@ -158,12 +158,34 @@
        reverse
        ffirst))
 
+(defn sum-point-color-stats [sum [freq n]]
+  (+ sum (get-valued-score freq n)))
+
+(defn calc-point-scores [point-stats]
+  (reduce-kv (fn [res k v]
+               (assoc res k
+                      (reduce sum-point-color-stats 0 v)))
+             {}
+             point-stats))
+
+(defn compare-point-scores [a b]
+  (< (reduce max (vals b))
+     (reduce max (vals a))))
+
+(defn calc-scores [points-with-stats]
+  (map (fn [[point point-stats]]
+         [point (calc-point-scores point-stats)])
+       points-with-stats))
+
 (defn pick-next-move [wins chips color]
   (let [next-move (->> chips
                        (merge-wins-with-colors wins)
                        group-by-point
                        stats
-                       (collapse color))]
+                       (filter #(nil? (-> % first :chip/color)))
+                       calc-scores
+                       (sort-by second compare-point-scores)
+                       ffirst)]
     (first (filter #(= next-move (chips/->xyz %))
                    chips))))
 
