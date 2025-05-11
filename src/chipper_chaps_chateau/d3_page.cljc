@@ -49,7 +49,16 @@
                            :app/current-game "new-game"}]]]
       nil)))
 
-(defn prepare-showcase [winner current-color]
+(defn get-color-name [color theme]
+  (if theme
+    (name (get {:blue :blue
+                :red :orange
+                :green :teal
+                :yellow :purple}
+               color))
+    (name color)))
+
+(defn prepare-showcase [winner current-color theme]
   {:class (if winner
             (name winner)
             (name current-color))
@@ -57,10 +66,10 @@
                "Wow, you tied"
 
                winner
-               (str (str/capitalize (name winner)) " is the winner")
+               (str (str/capitalize (get-color-name winner theme)) " is the winner")
 
                :else
-               (str (name current-color) " player's turn"))})
+               (str (get-color-name current-color theme) " player's turn"))})
 
 (defn leftward-icons [winner]
   [{:icon (cond (= winner :tie) "💪"
@@ -76,23 +85,28 @@
 
 (defn el-prepzi [db]
   (let [game (db/current-game db)
+        settings (db/settings db)
         current-color (:game/current-color game)
         chips (sort-by (juxt :x :y :z) (:game/chips game))
-        winner (victory/did-someone-win? chips)]
-    {:bar-props {:showcase (prepare-showcase winner current-color)
+        winner (victory/did-someone-win? chips)
+        theme (when (:settings/colorblind? settings)
+                "colorblind")]
+    {:bar-props {:showcase (prepare-showcase winner current-color theme)
                  :left (leftward-icons winner)
                  :right (rightward-icons db winner)}
+     :theme theme
      :chips chips
      :get-actions (fn [chip]
                     (when (and (not winner) (nil? (:chip/color chip)))
                       [[::pick chip]
                        [::deferred-bot-move]]))}))
 
-(defn render [{:keys [bar-props chips get-actions]}]
-  (list [::vis/bartial.flex {::vis/data bar-props}
-         [::vis/showcase]
-         [::vis/icon]
-         [::vis/space]
-         [::vis/icon]]
+(defn render [{:keys [bar-props theme chips get-actions]}]
+  [:section {:class theme}
+   [::vis/bartial.flex {::vis/data bar-props}
+    [::vis/showcase]
+    [::vis/icon]
+    [::vis/space]
+    [::vis/icon]]
 
-        (vis/el-chateau get-actions chips)))
+   (vis/el-chateau get-actions chips)])

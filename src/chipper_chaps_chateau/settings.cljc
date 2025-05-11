@@ -8,7 +8,8 @@
 (defn prepare [db]
   (let [settings (ds/entity db :settings)
         enable-bot (:settings/enable-bot settings)
-        variant (:settings/variant settings)]
+        variant (:settings/variant settings)
+        colorblind? (:settings/colorblind? settings)]
     [{:sm true
       :actions [[::set :settings/enable-bot (not enable-bot)]]
       :icon (if enable-bot "🤖" "🙋‍♂️")}
@@ -16,4 +17,8 @@
       :actions [[::set :settings/variant (if (= :four-player variant)
                                            :two-player :four-player)]]
       :icon (if (= :four-player variant)
-              "🧑‍🧑‍🧒‍🧒" "👥")}]))
+              "🧑‍🧑‍🧒‍🧒" "👥")}
+     {:sm true
+      :actions [[::set :settings/colorblind? (not colorblind?)]]
+      :icon (if colorblind?
+              "🖌️" "🎨")}]))
