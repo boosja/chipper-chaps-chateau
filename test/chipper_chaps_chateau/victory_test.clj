@@ -195,7 +195,12 @@
                              (victory/merge-wins-with-colors victory/wins board-with-colors))
                             ))
 
-  (victory/collapse stats :blue)
+  (victory/collapse :blue stats)
+
+  (->> stats
+       (filter #(-> % first :chip/color nil?))
+       victory/calc-scores
+       (sort-by second victory/compare-point-scores))
 
   (->> (chips/replace-with (chips/create-chips) #{{:x 1 :y 1 :z 1}})
        (filter :chip/color))
