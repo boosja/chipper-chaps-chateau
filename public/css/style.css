@@ -70,6 +70,29 @@ button {
     border-color: #5d5d14;
     color: black;
 }
+/* Colorblind colors */
+.colorblind {
+    .blue {
+        background-color: #1E6BD6;
+        border-color: #0E4394;
+        color: white;
+    }
+    .red {
+        background-color: #FF7900;
+        border-color: #994700;
+        color: white;
+    }
+    .green {
+        background-color: #20B2AA;
+        border-color: #107873;
+        color: white;
+    }
+    .yellow {
+        background-color: #9370DB;
+        border-color: #4e3b73;
+        color: white;
+    }
+}
 
 svg.board {
     border-radius: 4rem;
@@ -125,6 +148,25 @@ svg .green {
 svg .yellow {
     fill: #FFD700;
     stroke: #5d5d14;
+}
+/* Colorblind colors */
+.colorblind {
+    svg .blue {
+        fill: #1E6BD6;
+        stroke: #0E4394;
+    }
+    svg .red {
+        fill: #FF7900;
+        stroke: #994700;
+    }
+    svg .green {
+        fill: #20B2AA;
+        stroke: #107873;
+    }
+    svg .yellow {
+        fill: #9370DB;
+        stroke: #4e3b73;
+    }
 }
 
 

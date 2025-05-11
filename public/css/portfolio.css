@@ -1,0 +1,33 @@
+.pfo-h {
+    height: 20rem;
+}
+.pfo-h-2 {
+    height: 22rem;
+}
+.pfo-h-3 {
+    height: 42rem;
+}
+.pfo-w {
+    width: 20rem;
+}
+
+.pfo-flex {
+    display: flex;
+}
+
+.pfo-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 10rem);
+    gap: 2rem;
+}
+.pfo-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 20rem);
+    gap: 2rem;
+}
+
+.portfolio-chateau {
+    svg {
+        border-radius: 0;
+    }
+}
