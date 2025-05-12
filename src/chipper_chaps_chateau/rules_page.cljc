@@ -13,7 +13,7 @@
                                             :route.rules/summary
                                             :route.rules/all)]]}})
 
-(defn el-prepzi [db]
+(defn prepare [db]
   (let [show-all? (= :route.rules/all (db/location db))
         chips (chips/create-chips)
         filtered [0 4 8 10 22 28 42 47 35]]
