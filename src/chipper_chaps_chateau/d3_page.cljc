@@ -11,43 +11,49 @@
    :green :yellow
    :yellow :blue})
 
-(defn perform-action [db [action & args]]
+(defn pick-effects [db chip-id]
   (let [game (db/current-game db)]
-    (case action
-      ::pick
-      [[:effect/transact [{:chip/id (:chip/id (first args))
-                           :chip/color (:game/current-color game)}
-                          {:game/id (:game/id game)
-                           :game/current-color (next-color (:game/current-color game))}]]]
+   [[:effect/transact [{:chip/id (:chip/id chip-id)
+                        :chip/color (:game/current-color game)}
+                       {:game/id (:game/id game)
+                        :game/current-color (next-color (:game/current-color game))}]]]))
 
-      ::deferred-bot-move
-      (let [settings (db/settings db)
-            amount (cond-> 0
-                       (:settings/enable-bot settings) inc
-                       (and (:settings/enable-bot settings)
-                            (= :four-player (:settings/variant settings))) (+ 2))]
-        (remove nil? [(when (< 0 amount)
-                        [:effect/defer (into [] (repeat amount [::bot-move]))])]))
+(defn deferred-bot-move-effects [db]
+  (let [settings (db/settings db)
+        amount (cond-> 0
+                 (:settings/enable-bot settings) inc
+                 (and (:settings/enable-bot settings)
+                      (= :four-player (:settings/variant settings))) (+ 2))]
+    (remove nil? [(when (< 0 amount)
+                    [:effect/defer (into [] (repeat amount [::bot-move]))])])))
 
-      ::bot-move
-      (if (victory/did-someone-win? (:game/chips game))
-        []
-        (let [next-move (victory/pick-next-move victory/wins
-                                                (:game/chips game)
-                                                (:game/current-color game))]
-          [[:effect/transact [{:chip/id (:chip/id next-move)
-                               :chip/color (:game/current-color game)}
-                              {:game/id (:game/id game)
-                               :game/current-color (next-color (:game/current-color game))}]]]))
+(defn bot-move-effects [db]
+  (let [game (db/current-game db)]
+   (if (victory/did-someone-win? (:game/chips game))
+     []
+     (let [next-move (victory/pick-next-move victory/wins
+                                             (:game/chips game)
+                                             (:game/current-color game))]
+       [[:effect/transact [{:chip/id (:chip/id next-move)
+                            :chip/color (:game/current-color game)}
+                           {:game/id (:game/id game)
+                            :game/current-color (next-color (:game/current-color game))}]]]))))
 
-      ::reset-game
-      [[:effect/transact [{:db/id "new-game"
-                           :game/id [:data-require :id/gen]
-                           :game/current-color :blue
-                           :game/chips [:data-require :id.gen/chips]}
-                          {:db/ident :app/state
-                           :app/current-game "new-game"}]]]
-      nil)))
+(defn reset-game-effects [_db]
+  [[:effect/transact [{:db/id "new-game"
+                       :game/id [:data-require :id/gen]
+                       :game/current-color :blue
+                       :game/chips [:data-require :id.gen/chips]}
+                      {:db/ident :app/state
+                       :app/current-game "new-game"}]]])
+
+(defn perform-action [db [action & args]]
+  (case action
+    ::pick (pick-effects db (first args))
+    ::deferred-bot-move (deferred-bot-move-effects db)
+    ::bot-move (bot-move-effects db)
+    ::reset-game (reset-game-effects db)
+    nil))
 
 (defn get-color-name [color theme]
   (if theme
