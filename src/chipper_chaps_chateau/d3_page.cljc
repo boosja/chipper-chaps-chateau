@@ -83,7 +83,7 @@
            {:actions [[:action/navigate :route.rules/summary]]
             :icon "📖"})]))
 
-(defn el-prepzi [db]
+(defn prepare [db]
   (let [game (db/current-game db)
         settings (db/settings db)
         current-color (:game/current-color game)

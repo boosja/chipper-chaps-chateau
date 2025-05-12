@@ -131,17 +131,17 @@
     :effect/transact (apply ds/transact conn (refine args))
     :effect/defer (defer-actions (first args))))
 
-(def routes {:route/d3 [d3-page/el-prepzi d3-page/render]
-             :route.rules/summary [rules-page/el-prepzi rules-page/render]
-             :route.rules/all [rules-page/el-prepzi rules-page/render]
+(def routes {:route/d3 [d3-page/prepare d3-page/render]
+             :route.rules/summary [rules-page/prepare rules-page/render]
+             :route.rules/all [rules-page/prepare rules-page/render]
              :route/d4 (fn [_] [:div "Coming soon..."])})
 
 (defn app [db]
   (let [location (db/location db)
-        [prep render] (get routes location)]
+        [prepare render] (get routes location)]
     [:main
      [:h1 "Chipper Chap's Chateau"]
-     (render (prep db))]))
+     (render (prepare db))]))
 
 (defn ^:dev/after-load start []
   (js/console.log "[START]")
