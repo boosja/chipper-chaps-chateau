@@ -139,6 +139,18 @@ svg .blue {
     fill: #4169E1;
     stroke: #1a1a70;
 }
+svg .blue-0 {
+    fill: #B8C7F4;
+    stroke: #1a1a70;
+}
+svg .blue-1 {
+    fill: #839EEC;
+    stroke: #1a1a70;
+}
+svg .blue-2 {
+    fill: #1C41B0;
+    stroke: #1a1a70;
+}
 svg .red {
     fill: #DC143C;
     stroke: #530c0c;

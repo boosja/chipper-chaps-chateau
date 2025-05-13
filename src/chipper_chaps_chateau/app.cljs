@@ -82,6 +82,7 @@
   (show-custom-chips (chips/colored-chateaus-switch :green))
   (show-custom-chips (chips/colored-chateaus-switch :yellow))
   (show-custom-chips (chips/colored-chateaus-switch-cycle))
+  (show-custom-chips (victory/heat-mapped-chips))
 
   ;; Reset game
   (show-custom-chips (chips/create-chips))

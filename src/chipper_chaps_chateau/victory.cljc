@@ -227,3 +227,13 @@
 
       :else
       false)))
+
+(defn heat-mapped-chips []
+  (->> (chips/create-chips)
+       (map (fn [c]
+              [(count (filter #(contains? % (select-keys c [:y :x :z])) wins)) c]))
+       (map #(assoc (second %) :chip/color (get {13 :blue-2
+                                                 7 :blue
+                                                 5 :blue-1
+                                                 4 :blue-0}
+                                                (first %))))))
