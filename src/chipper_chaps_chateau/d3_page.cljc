@@ -105,7 +105,7 @@
      :get-actions (fn [chip]
                     (when (and (not winner) (nil? (:chip/color chip)))
                       [[::pick chip]
-                       [::deferred-bot-move 1000]]))}))
+                       [::deferred-bot-move 300]]))}))
 
 (defn render [{:keys [bar-props theme chips get-actions]}]
   [:section {:class (cond-> ["grid"]
