@@ -17,7 +17,7 @@ html {
 }
 
 main {
-    max-width: 674px;
+    max-width: 62rem;
     width: 100%;
     display: grid;
     grid-auto-rows: min-content;
@@ -31,6 +31,8 @@ h1 {
 button {
     font-size: 1rem;
 }
+
+.grid { display: grid; }
 
 .m-1 { margin: .5rem; }
 
