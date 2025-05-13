@@ -110,3 +110,25 @@
                                                       3)))
                              chateau)))
          flatten)))
+
+(defn colored-chateaus-switch-cycle
+  "Each chateau with switcing colors cycling through starting colors"
+  []
+  (let [all-colors [:blue :red :green :yellow]
+        colors (map (fn [starting-color]
+                      (->> (take-mod 3 all-colors (.indexOf all-colors starting-color))
+                           ->idx-mapper
+                           (apply concat)
+                           (into {})))
+                    all-colors)]
+    (->> (create-chips)
+         (sort-by (juxt :y :x :z))
+         (partition-all 3)
+         (map-indexed (fn [i chateau]
+                        (map #(assoc % :chip/color
+                                     (get (nth colors (mod (+ (dec (:x %))
+                                                              (* 3 (dec (:y %))))
+                                                           4))
+                                          (mod (dec (:z %)) 3)))
+                             chateau)))
+         flatten)))
