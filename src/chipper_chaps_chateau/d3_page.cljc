@@ -108,7 +108,8 @@
                        [::deferred-bot-move 1000]]))}))
 
 (defn render [{:keys [bar-props theme chips get-actions]}]
-  [:section {:class theme}
+  [:section {:class (cond-> ["grid"]
+                      theme (conj theme))}
    [::vis/bartial.flex {::vis/data bar-props}
     [::vis/showcase]
     [::vis/icon]
