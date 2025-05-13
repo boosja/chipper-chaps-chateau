@@ -18,14 +18,14 @@
                        {:game/id (:game/id game)
                         :game/current-color (next-color (:game/current-color game))}]]]))
 
-(defn deferred-bot-move-effects [db]
+(defn deferred-bot-move-effects [db ms]
   (let [settings (db/settings db)
         amount (cond-> 0
                  (:settings/enable-bot settings) inc
                  (and (:settings/enable-bot settings)
                       (= :four-player (:settings/variant settings))) (+ 2))]
     (remove nil? [(when (< 0 amount)
-                    [:effect/defer (into [] (repeat amount [::bot-move]))])])))
+                    [:effect/defer ms (into [] (repeat amount [::bot-move]))])])))
 
 (defn bot-move-effects [db]
   (let [game (db/current-game db)]
@@ -50,7 +50,7 @@
 (defn perform-action [db [action & args]]
   (case action
     ::pick (pick-effects db (first args))
-    ::deferred-bot-move (deferred-bot-move-effects db)
+    ::deferred-bot-move (deferred-bot-move-effects db (first args))
     ::bot-move (bot-move-effects db)
     ::reset-game (reset-game-effects db)
     nil))
@@ -105,7 +105,7 @@
      :get-actions (fn [chip]
                     (when (and (not winner) (nil? (:chip/color chip)))
                       [[::pick chip]
-                       [::deferred-bot-move]]))}))
+                       [::deferred-bot-move 1000]]))}))
 
 (defn render [{:keys [bar-props theme chips get-actions]}]
   [:section {:class theme}

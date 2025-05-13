@@ -112,21 +112,21 @@
           :else x))
       (walk/postwalk txes)))
 
-(defn defer-actions [actions]
+(defn defer-actions [ms actions]
   (letfn [(dispatch-next [remaining idx]
             (when-let [action (first remaining)]
               (js/setTimeout
                #(do
                   (dispatch nil [action])
                   (dispatch-next (rest remaining) (inc idx)))
-               300)))]
+               ms)))]
     (dispatch-next actions 0)))
 
 (defn process-effect [conn [effect & args]]
   (apply prn 'Execute effect args)
   (case effect
     :effect/transact (apply ds/transact conn (refine args))
-    :effect/defer (defer-actions (first args))))
+    :effect/defer (defer-actions (first args) (second args))))
 
 (defn dispatch [_ actions]
   (->> (perform-actions (ds/db conn) actions)
