@@ -24,6 +24,8 @@
 ;; remember settings in localstorage
 ;; better defer handling
 
+(declare dispatch)
+(declare perform-actions)
 (declare process-effect)
 
 (def txes (concat [{:db/ident :settings
@@ -98,18 +100,13 @@
                   (prn "⚠️ Unknown action:" (first action)))))
           actions))
 
-(defn dispatch [_ actions]
-  (->> (perform-actions (ds/db conn) actions)
-       (run! #(process-effect conn %))))
-
 (def refiners {:id/gen id/gen!
                :id.gen/chips #(id/-ilize! :chip/id (chips/create-chips))})
 
 (defn refine [txes]
   (-> (fn [x]
         (cond
-          (and (vector? x)
-               (= :data-require (first x)))
+          (and (vector? x) (= :data-require (first x)))
           ((get refiners (second x)))
 
           :else x))
@@ -131,9 +128,14 @@
     :effect/transact (apply ds/transact conn (refine args))
     :effect/defer (defer-actions (first args))))
 
+(defn dispatch [_ actions]
+  (->> (perform-actions (ds/db conn) actions)
+       (run! #(process-effect conn %))))
+
 (def routes {:route/d3 [d3-page/prepare d3-page/render]
              :route.rules/summary [rules-page/prepare rules-page/render]
              :route.rules/all [rules-page/prepare rules-page/render]
+
              :route/d4 (fn [_] [:div "Coming soon..."])})
 
 (defn app [db]
@@ -146,10 +148,9 @@
 (defn ^:dev/after-load start []
   (js/console.log "[START]")
   (d/set-dispatch! dispatch)
-  (add-watch conn :app
-             (fn [_ _ _ _]
-               (d/render (js/document.getElementById "app")
-                         (app (ds/db conn)))))
+  (add-watch conn :app (fn [_ _ _ _]
+                         (d/render (js/document.getElementById "app")
+                                   (app (ds/db conn)))))
   (ds/transact! conn [{:init true}]))
 
 (defn init []
