@@ -77,23 +77,6 @@
   (count (filter #(= (get % :chip/color) color)
                  winning-line)))
 
-(comment
-
-  ;; chips that have most winning opportunities (heatmap)
-  (->> (chips/create-chips)
-       (map (fn [c]
-              [(count (filter #(contains? % (select-keys c [:y :x :z])) wins)) c]))
-       (map #(assoc (second %) :chip/color (get {13 :red
-                                                 7 :yellow
-                                                 5 :green
-                                                 4 :blue}
-                                                (first %)))))
-
-  ;; frequency of point in winning lines
-  (count (filter #(contains? % {:y 1 :x 1 :z 1}) wins))
-
-  )
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Pick next move
 
