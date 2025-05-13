@@ -1,4 +1,4 @@
-.PHONY: deploy shadow clerk test garden-deploy deploy-js watch
+.PHONY: deploy shadow clerk test garden-deploy deploy-js watch deploy-clerk
 
 watch:
 	npx shadow-cljs watch chipper-chaps-chateau portfolio
@@ -18,4 +18,8 @@ garden-deploy:
 deploy-js:
 	echo "put target/chipper-chaps-chateau/public/js/main.js public/js/main.js" | garden sftp
 
-deploy: test shadow clerk garden-deploy deploy-js
+deploy-clerk:
+	echo "put public/clerk/index.edn public/clerk/index.edn" | garden sftp
+	echo "put public/clerk/index.html public/clerk/index.html" | garden sftp
+
+deploy: test shadow clerk garden-deploy deploy-js deploy-clerk
