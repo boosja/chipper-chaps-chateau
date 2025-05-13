@@ -32,6 +32,7 @@
   (HEAD "/" _ {:status 202})
   (route/files "/")
   (route/files "/js" {:root (str storage "/public/js")})
+  (route/files "/clerk" {:root (str storage "/public/clerk")})
   (route/not-found not-found-inspector))
 
 (def wrapped-app
