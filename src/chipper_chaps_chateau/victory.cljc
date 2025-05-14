@@ -160,7 +160,7 @@
          [point (calc-point-scores point-stats)])
        points-with-stats))
 
-(defn pick-next-move [wins chips color]
+(defn pick-next-move [wins chips]
   (let [next-move (->> chips
                        (merge-wins-with-colors wins)
                        group-by-point
@@ -180,7 +180,7 @@
        (require 'clojure.java.io)
        (def example-board
          (read-string (slurp (clojure.java.io/resource "notebooks/example-board.edn"))))
-       (pick-next-move wins example-board :blue)))
+       (pick-next-move wins example-board)))
   )
 
 (defn vals->sets [m]
