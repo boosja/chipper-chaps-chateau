@@ -131,16 +131,6 @@
 (defn get-valued-score [freq n]
   (* (get frequency->value freq) n))
 
-(defn collapse [color stats]
-  (->> stats
-       (filter #(-> % first :chip/color nil?))
-       (map (fn [[p p-stats]]
-              [p (->> p-stats color
-                      (reduce (fn [s [freq n]] (+ s (get-valued-score freq n))) 0))]))
-       (sort-by second)
-       reverse
-       ffirst))
-
 (defn sum-point-color-stats [sum [freq n]]
   (+ sum (get-valued-score freq n)))
 
