@@ -31,9 +31,7 @@
   (let [game (db/current-game db)]
    (if (victory/did-someone-win? (:game/chips game))
      []
-     (let [next-move (victory/pick-next-move victory/wins
-                                             (:game/chips game)
-                                             (:game/current-color game))]
+     (let [next-move (victory/pick-next-move victory/wins (:game/chips game))]
        [[:effect/transact [{:chip/id (:chip/id next-move)
                             :chip/color (:game/current-color game)}
                            {:game/id (:game/id game)
