@@ -195,8 +195,6 @@
                              (victory/merge-wins-with-colors victory/wins board-with-colors))
                             ))
 
-  (victory/collapse :blue stats)
-
   (->> stats
        (filter #(-> % first :chip/color nil?))
        victory/calc-scores
