@@ -3,7 +3,8 @@
    [chipper-chaps-chateau.la-visual :as vis]
    [clojure.string :as str]
    [chipper-chaps-chateau.settings :as settings]
-   [chipper-chaps-chateau.db :as db]))
+   [chipper-chaps-chateau.db :as db]
+   [chipper-chaps-chateau.d3-page :as d3-page]))
 
 (defn get-color-name [color theme]
   (if theme
@@ -54,9 +55,10 @@
                  :left (leftward-icons nil)
                  :right (rightward-icons db nil)}
      :theme theme
-     :chips chips}))
+     :chips chips
+     :get-actions (fn [chip] [[::d3-page/pick chip]])}))
 
-(defn render [{:keys [bar-props theme chips]}]
+(defn render [{:keys [bar-props theme chips get-actions]}]
   [:section {:class (cond-> ["grid"]
                       theme (conj theme))}
    [::vis/bartial.flex {::vis/data bar-props}
@@ -71,4 +73,4 @@
 
    [:div.flex
     (for [board chips]
-      (vis/el-chateau nil board))]])
+      (vis/el-chateau get-actions board))]])
