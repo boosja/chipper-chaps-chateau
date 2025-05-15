@@ -23,6 +23,7 @@
 ;; icon-bar that shows settings and better iconicity
 ;; remember settings in localstorage
 ;; better defer handling
+;; hashing board/state to url - see any board with url
 
 (declare dispatch)
 (declare perform-actions)
@@ -68,7 +69,7 @@
   cs
 
   ;; Show custom chips
-  (defn show-custom-chips [chips]
+  (defn override-board! [chips]
     (ds/transact conn [{:db/id "new-game"
                         :game/id (id/gen!)
                         :game/current-color :blue
@@ -76,16 +77,16 @@
                        {:db/ident :app/state
                         :app/current-game "new-game"}]))
 
-  (show-custom-chips (chips/colored-chateaus))
-  (show-custom-chips (chips/colored-chateaus-switch :blue))
-  (show-custom-chips (chips/colored-chateaus-switch :red))
-  (show-custom-chips (chips/colored-chateaus-switch :green))
-  (show-custom-chips (chips/colored-chateaus-switch :yellow))
-  (show-custom-chips (chips/colored-chateaus-switch-cycle))
-  (show-custom-chips (victory/heat-mapped-chips))
+  (override-board! (chips/colored-chateaus))
+  (override-board! (chips/colored-chateaus-switch :blue))
+  (override-board! (chips/colored-chateaus-switch :red))
+  (override-board! (chips/colored-chateaus-switch :green))
+  (override-board! (chips/colored-chateaus-switch :yellow))
+  (override-board! (chips/colored-chateaus-switch-cycle))
+  (override-board! (victory/heat-mapped-chips))
 
   ;; Reset game
-  (show-custom-chips (chips/create-chips))
+  (override-board! (chips/create-chips))
 
   (victory/did-someone-win? cs)
   )
