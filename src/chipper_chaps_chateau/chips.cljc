@@ -1,5 +1,8 @@
 (ns chipper-chaps-chateau.chips)
 
+(defn ->xyz [chip]
+  (select-keys chip [:x :y :z :w :v :u :t]))
+
 (defn find-circle-center [x y r pad]
   (let [d (* 2 r)]
     [(- (* (+ pad d) x) r)
@@ -47,8 +50,37 @@
      :chip/size (get {1 :lg 2 :md 3 :sm} z)
      :svg/circle (get svg-circles (str y x z))}))
 
-(defn ->xyz [chip]
-  (select-keys chip [:x :y :z]))
+(defn create-chips-4d []
+  (for [w (range 1 4)
+        y (range 1 4)
+        x (range 1 4)
+        z (range 1 4)]
+    {:x x
+     :y y
+     :z z
+     :w w
+     :chip/size (get {1 :lg 2 :md 3 :sm} z)
+     :svg/circle (get svg-circles (str y x z))}))
+
+(defn create-chips-5d []
+  (for [v (range 1 4)
+        w (range 1 4)
+        y (range 1 4)
+        x (range 1 4)
+        z (range 1 4)]
+    {:x x
+     :y y
+     :z z
+     :w w
+     :v v
+     :chip/size (get {1 :lg 2 :md 3 :sm} z)
+     :svg/circle (get svg-circles (str y x z))}))
+
+(comment
+  (->> (create-chips) (map ->xyz))
+  (->> (create-chips-4d) (map ->xyz))
+  (->> (create-chips-5d) (map ->xyz))
+  )
 
 (defn is-in? [winning-line chip]
   (contains? winning-line (->xyz chip)))
