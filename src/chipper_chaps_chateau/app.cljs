@@ -1,6 +1,7 @@
 (ns chipper-chaps-chateau.app
   (:require [chipper-chaps-chateau.chips :as chips]
             [chipper-chaps-chateau.d3-page :as d3-page]
+            [chipper-chaps-chateau.d4-page :as d4-page]
             [chipper-chaps-chateau.db :as db]
             [chipper-chaps-chateau.id :as id]
             [chipper-chaps-chateau.rules-page :as rules-page]
@@ -88,6 +89,11 @@
   ;; Reset game
   (override-board! (chips/create-chips))
 
+  ;; Navigate
+  (dispatch nil [[:action/navigate :route/d3]])
+  (dispatch nil [[:action/navigate :route/d4]])
+  (override-board! (id/-ilize! :chip/id (chips/create-chips-4d)))
+
   (victory/did-someone-win? cs)
   )
 
@@ -136,10 +142,9 @@
        (run! #(process-effect conn %))))
 
 (def routes {:route/d3 [d3-page/prepare d3-page/render]
+             :route/d4 [d4-page/prepare d4-page/render]
              :route.rules/summary [rules-page/prepare rules-page/render]
-             :route.rules/all [rules-page/prepare rules-page/render]
-
-             :route/d4 (fn [_] [:div "Coming soon..."])})
+             :route.rules/all [rules-page/prepare rules-page/render]})
 
 (defn app [db]
   (let [location (db/location db)
