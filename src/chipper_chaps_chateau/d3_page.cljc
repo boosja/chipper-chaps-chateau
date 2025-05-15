@@ -10,13 +10,6 @@
    :green :yellow
    :yellow :blue})
 
-(defn pick-effects [db chip-id]
-  (let [game (db/current-game db)]
-   [[:effect/transact [{:chip/id (:chip/id chip-id)
-                        :chip/color (:game/current-color game)}
-                       {:game/id (:game/id game)
-                        :game/current-color (next-color (:game/current-color game))}]]]))
-
 (defn deferred-bot-move-effects [db ms]
   (let [settings (db/settings db)
         amount (cond-> 0
@@ -46,7 +39,6 @@
 
 (defn perform-action [db [action & args]]
   (case action
-    ::pick (pick-effects db (first args))
     ::deferred-bot-move (deferred-bot-move-effects db (first args))
     ::bot-move (bot-move-effects db)
     ::reset-game (reset-game-effects db)
@@ -67,7 +59,7 @@
      :chips chips
      :get-actions (fn [chip]
                     (when (and (not winner) (nil? (:chip/color chip)))
-                      [[::pick chip]
+                      [[:game/pick chip]
                        [::deferred-bot-move 300]]))}))
 
 (defn render [{:keys [bar-props theme chips get-actions]}]
