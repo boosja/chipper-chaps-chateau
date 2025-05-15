@@ -3,6 +3,7 @@
             [chipper-chaps-chateau.d3-page :as d3-page]
             [chipper-chaps-chateau.d4-page :as d4-page]
             [chipper-chaps-chateau.db :as db]
+            [chipper-chaps-chateau.game :as game]
             [chipper-chaps-chateau.id :as id]
             [chipper-chaps-chateau.rules-page :as rules-page]
             [chipper-chaps-chateau.settings :as settings]
@@ -100,6 +101,7 @@
 (defn perform-actions [db actions]
   (mapcat (fn [action]
             (or (d3-page/perform-action db action)
+                (game/perform-action db action)
                 (settings/perform-action db action)
                 (case (first action)
                   :action/navigate
