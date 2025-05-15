@@ -54,6 +54,7 @@
 (defalias icon [attrs content]
   (let [data (::data attrs)]
     [:span {:on {:click (:actions data)}
+            :title (:tooltip data)
             :class (cond-> ["pointer"]
                      (:sm data) (conj "icon-sm")
                      (nil? (:sm data)) (conj "icon"))}
