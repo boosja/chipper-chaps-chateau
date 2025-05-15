@@ -82,7 +82,6 @@ button {
 }
 
 svg.board {
-    border-radius: 4rem;
     max-height: 85vh;
     justify-self: center;
 }
