@@ -83,9 +83,11 @@
   (into (settings/prepare db)
         [(if winner
            {:actions [[::reset-game]]
-            :icon "🔄"}
+            :icon "🔄"
+            :tooltip "Reset game"}
            {:actions [[:action/navigate :route.rules/summary]]
-            :icon "📖"})]))
+            :icon "📖"
+            :tooltip "Rules"})]))
 
 (defn prepare [db]
   (let [game (db/current-game db)

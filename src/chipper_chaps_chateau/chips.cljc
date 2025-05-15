@@ -87,10 +87,13 @@
   [(map-indexed #(vector %2 %1) v)
    (map-indexed #(vector %1 %2) v)])
 
-(->> [:red :green :yellow]
-     ->idx-mapper
-     (apply concat)
-     (into {}))
+(comment
+
+  (->> [:red :green :yellow]
+       ->idx-mapper
+       (apply concat)
+       (into {}))
+  )
 
 (defn colored-chateaus-switch
   "Each chateau with switching colors (using only 3)"
