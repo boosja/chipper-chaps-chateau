@@ -2,16 +2,17 @@
   (:require [chipper-chaps-chateau.la-visual :as vis]
             [chipper-chaps-chateau.db :as db]
             [chipper-chaps-chateau.victory :as victory]
-            [chipper-chaps-chateau.chips :as chips]))
+            [chipper-chaps-chateau.chips :as chips]
+            [chipper-chaps-chateau.components.bar :as bar]))
 
 (defn prepare-bar [show-all?]
-  {:right [{:icon "🙅‍♂️"
-            :actions [[:action/navigate :route/d3]]}]
-   :showcase {:text (if show-all? "Every possible win" "How to win")
+  {:showcase {:text (if show-all? "Every possible win" "How to win")
               :class "green"
               :actions [[:action/navigate (if show-all?
                                             :route.rules/summary
-                                            :route.rules/all)]]}})
+                                            :route.rules/all)]]}
+   :right [{:icon "🙅‍♂️"
+            :actions [[:action/navigate :route/d3]]}]})
 
 (defn prepare [db]
   (let [show-all? (= :route.rules/all (db/location db))
@@ -22,15 +23,14 @@
                     (map #(chips/replace-with chips %)
                          victory/wins)
                     (map #(chips/replace-with chips (nth victory/wins %))
-                         filtered))
-     }))
+                         filtered))}))
 
 (defn render [{:keys [rule-boards bar-props]}]
-  (list [::vis/bartial.flex {::vis/data bar-props}
-         [::vis/showcase]
-         [::vis/icon]
-         [::vis/space]
-         [::vis/icon]]
+  (list [::bar/bar.flex {::bar/data bar-props}
+         [::bar/showcase]
+         [::bar/icon]
+         [::bar/space]
+         [::bar/icon]]
 
         [:div.rules
          (for [chips rule-boards]
