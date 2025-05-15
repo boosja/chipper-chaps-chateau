@@ -1,6 +1,44 @@
 (ns chipper-chaps-chateau.components.bar
   (:require [replicant.alias :refer [defalias]]
-            [replicant.hiccup :as hiccup]))
+            [replicant.hiccup :as hiccup]
+            [chipper-chaps-chateau.settings :as settings]
+            [clojure.string :as str]))
+
+(defn get-color-name [color theme]
+  (if theme
+    (name (get {:blue :blue
+                :red :orange
+                :green :teal
+                :yellow :purple}
+               color))
+    (name color)))
+
+(defn prepare-showcase [winner current-color theme]
+  {:class (if winner
+            (name winner)
+            (name current-color))
+   :text (cond (= winner :tie)
+               "Wow, you tied"
+
+               winner
+               (str (str/capitalize (get-color-name winner theme)) " is the winner")
+
+               :else
+               (str (get-color-name current-color theme) " player's turn"))})
+
+(defn prepare-left-icons [winner]
+  [{:icon (cond (= winner :tie) "💪"
+                winner "🎉")}])
+
+(defn prepare-right-icons [db winner]
+  (into (settings/prepare db)
+        [(if winner
+           {:actions [[:chipper-chaps-chateau.d3-page/reset-game]]
+            :icon "🔄"
+            :tooltip "Reset game"}
+           {:actions [[:action/navigate :route.rules/summary]]
+            :icon "📖"
+            :tooltip "Rules"})]))
 
 (defalias space []
   [:span.expand])
