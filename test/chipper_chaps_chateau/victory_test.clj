@@ -127,23 +127,20 @@
     (is (not
          (contains? (victory/pick-next-move victory/wins
                                             (chips/replace-with (chips/create-chips)
-                                                                #{{:x 1 :y 1 :z 1}})
-                                            :blue)
+                                                                #{{:x 1 :y 1 :z 1}}))
                     :chip/color))))
 
   (testing "Picks first possible move of other color"
     (is (not
          (= (victory/pick-next-move victory/wins
                                     (chips/replace-with (chips/create-chips)
-                                                        #{{:x 1 :y 1 :z 1}})
-                                    :green)
+                                                        #{{:x 1 :y 1 :z 1}}))
             :chip/color))))
 
   (testing "Not nil"
     (is (not (nil? (victory/pick-next-move victory/wins
                                            (chips/replace-with (chips/create-chips)
-                                                               #{{:x 1 :y 1 :z 1}})
-                                           :blue)))))
+                                                               #{{:x 1 :y 1 :z 1}}))))))
 
   ;; - (attack) Pick chip in a win that has my color already
   ;; - (attack) Pick chip in a win that has my color already and does not have any
