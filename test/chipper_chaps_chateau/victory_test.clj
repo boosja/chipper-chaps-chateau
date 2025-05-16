@@ -45,7 +45,7 @@
 (deftest did-someone-win?-test
   (testing "all winning lines return :blue"
     (is (= (distinct (map #(victory/did-someone-win?
-                            (chips/replace-with (chips/create-chips) %))
+                            (chips/add-winning-line (chips/create-chips) %))
                           wins/d3))
            '(:blue))))
 
@@ -65,7 +65,7 @@
 (comment
 
   (map #(victory/did-someone-win?
-         (chips/replace-with (chips/create-chips) %))
+         (chips/add-winning-line (chips/create-chips) %))
        wins/d3)
 
   )
@@ -127,20 +127,20 @@
   (testing "Picks first possible move"
     (is (not
          (contains? (victory/pick-next-move wins/d3
-                                            (chips/replace-with (chips/create-chips)
+                                            (chips/add-winning-line (chips/create-chips)
                                                                 #{{:x 1 :y 1 :z 1}}))
                     :chip/color))))
 
   (testing "Picks first possible move of other color"
     (is (not
          (= (victory/pick-next-move wins/d3
-                                    (chips/replace-with (chips/create-chips)
+                                    (chips/add-winning-line (chips/create-chips)
                                                         #{{:x 1 :y 1 :z 1}}))
             :chip/color))))
 
   (testing "Not nil"
     (is (not (nil? (victory/pick-next-move wins/d3
-                                           (chips/replace-with (chips/create-chips)
+                                           (chips/add-winning-line (chips/create-chips)
                                                                #{{:x 1 :y 1 :z 1}}))))))
 
   ;; - (attack) Pick chip in a win that has my color already
@@ -198,7 +198,7 @@
        victory/calc-scores
        (sort-by second victory/compare-point-scores))
 
-  (->> (chips/replace-with (chips/create-chips) #{{:x 1 :y 1 :z 1}})
+  (->> (chips/add-winning-line (chips/create-chips) #{{:x 1 :y 1 :z 1}})
        (filter :chip/color))
 
 
