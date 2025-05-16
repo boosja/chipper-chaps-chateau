@@ -33,7 +33,7 @@
 (defn prepare-right-icons [db winner]
   (into (settings/prepare db)
         [(if winner
-           {:actions [[:chipper-chaps-chateau.d3-page/reset-game]]
+           {:actions [[:game/reset]]
             :icon "🔄"
             :tooltip "Reset game"}
            {:actions [[:action/navigate :route.rules/summary]]
