@@ -1,64 +1,7 @@
 (ns chipper-chaps-chateau.victory
   (:require [clojure.set :as set]
-            [chipper-chaps-chateau.chips :as chips]))
-
-(def wins [ ;; horizontal (rows)
-           #{{:y 1, :x 1, :z 1} {:y 1, :x 2, :z 1} {:y 1, :x 3, :z 1}}
-           #{{:y 2, :x 1, :z 1} {:y 2, :x 2, :z 1} {:y 2, :x 3, :z 1}}
-           #{{:y 3, :x 1, :z 1} {:y 3, :x 2, :z 1} {:y 3, :x 3, :z 1}}
-           #{{:y 1, :x 1, :z 2} {:y 1, :x 2, :z 2} {:y 1, :x 3, :z 2}}
-           #{{:y 2, :x 1, :z 2} {:y 2, :x 2, :z 2} {:y 2, :x 3, :z 2}}
-           #{{:y 3, :x 1, :z 2} {:y 3, :x 2, :z 2} {:y 3, :x 3, :z 2}}
-           #{{:y 1, :x 1, :z 3} {:y 1, :x 2, :z 3} {:y 1, :x 3, :z 3}}
-           #{{:y 2, :x 1, :z 3} {:y 2, :x 2, :z 3} {:y 2, :x 3, :z 3}}
-           #{{:y 3, :x 1, :z 3} {:y 3, :x 2, :z 3} {:y 3, :x 3, :z 3}}
-           ;; vertical (cols)
-           #{{:y 1, :x 1, :z 1} {:y 2, :x 1, :z 1} {:y 3, :x 1, :z 1}}
-           #{{:y 1, :x 2, :z 1} {:y 2, :x 2, :z 1} {:y 3, :x 2, :z 1}}
-           #{{:y 1, :x 3, :z 1} {:y 2, :x 3, :z 1} {:y 3, :x 3, :z 1}}
-           #{{:y 1, :x 1, :z 2} {:y 2, :x 1, :z 2} {:y 3, :x 1, :z 2}}
-           #{{:y 1, :x 2, :z 2} {:y 2, :x 2, :z 2} {:y 3, :x 2, :z 2}}
-           #{{:y 1, :x 3, :z 2} {:y 2, :x 3, :z 2} {:y 3, :x 3, :z 2}}
-           #{{:y 1, :x 1, :z 3} {:y 2, :x 1, :z 3} {:y 3, :x 1, :z 3}}
-           #{{:y 1, :x 2, :z 3} {:y 2, :x 2, :z 3} {:y 3, :x 2, :z 3}}
-           #{{:y 1, :x 3, :z 3} {:y 2, :x 3, :z 3} {:y 3, :x 3, :z 3}}
-           ;; depth (z)
-           #{{:y 1, :x 1, :z 1} {:y 1, :x 1, :z 2} {:y 1, :x 1, :z 3}}
-           #{{:y 1, :x 2, :z 1} {:y 1, :x 2, :z 2} {:y 1, :x 2, :z 3}}
-           #{{:y 1, :x 3, :z 1} {:y 1, :x 3, :z 2} {:y 1, :x 3, :z 3}}
-           #{{:y 2, :x 1, :z 1} {:y 2, :x 1, :z 2} {:y 2, :x 1, :z 3}}
-           #{{:y 2, :x 2, :z 1} {:y 2, :x 2, :z 2} {:y 2, :x 2, :z 3}}
-           #{{:y 2, :x 3, :z 1} {:y 2, :x 3, :z 2} {:y 2, :x 3, :z 3}}
-           #{{:y 3, :x 1, :z 1} {:y 3, :x 1, :z 2} {:y 3, :x 1, :z 3}}
-           #{{:y 3, :x 2, :z 1} {:y 3, :x 2, :z 2} {:y 3, :x 2, :z 3}}
-           #{{:y 3, :x 3, :z 1} {:y 3, :x 3, :z 2} {:y 3, :x 3, :z 3}}
-           ;; diagonal
-           #{{:y 1, :x 1, :z 1} {:y 2, :x 2, :z 1} {:y 3, :x 3, :z 1}}
-           #{{:y 1, :x 1, :z 2} {:y 2, :x 2, :z 2} {:y 3, :x 3, :z 2}}
-           #{{:y 1, :x 1, :z 3} {:y 2, :x 2, :z 3} {:y 3, :x 3, :z 3}}
-           #{{:y 3, :x 1, :z 1} {:y 2, :x 2, :z 1} {:y 1, :x 3, :z 1}}
-           #{{:y 3, :x 1, :z 2} {:y 2, :x 2, :z 2} {:y 1, :x 3, :z 2}}
-           #{{:y 3, :x 1, :z 3} {:y 2, :x 2, :z 3} {:y 1, :x 3, :z 3}}
-           ;; depth horizontal diagonal (rows)
-           #{{:y 1, :x 1, :z 1} {:y 1, :x 2, :z 2} {:y 1, :x 3, :z 3}}
-           #{{:y 2, :x 1, :z 1} {:y 2, :x 2, :z 2} {:y 2, :x 3, :z 3}}
-           #{{:y 3, :x 1, :z 1} {:y 3, :x 2, :z 2} {:y 3, :x 3, :z 3}}
-           #{{:y 1, :x 1, :z 3} {:y 1, :x 2, :z 2} {:y 1, :x 3, :z 1}}
-           #{{:y 2, :x 1, :z 3} {:y 2, :x 2, :z 2} {:y 2, :x 3, :z 1}}
-           #{{:y 3, :x 1, :z 3} {:y 3, :x 2, :z 2} {:y 3, :x 3, :z 1}}
-           ;; depth verical diagonal (cols)
-           #{{:y 1, :x 1, :z 1} {:y 2, :x 1, :z 2} {:y 3, :x 1, :z 3}}
-           #{{:y 1, :x 2, :z 1} {:y 2, :x 2, :z 2} {:y 3, :x 2, :z 3}}
-           #{{:y 1, :x 3, :z 1} {:y 2, :x 3, :z 2} {:y 3, :x 3, :z 3}}
-           #{{:y 1, :x 1, :z 3} {:y 2, :x 1, :z 2} {:y 3, :x 1, :z 1}}
-           #{{:y 1, :x 2, :z 3} {:y 2, :x 2, :z 2} {:y 3, :x 2, :z 1}}
-           #{{:y 1, :x 3, :z 3} {:y 2, :x 3, :z 2} {:y 3, :x 3, :z 1}}
-           ;; depth diagonal diagonal
-           #{{:y 1, :x 1, :z 1} {:y 2, :x 2, :z 2} {:y 3, :x 3, :z 3}}
-           #{{:y 1, :x 1, :z 3} {:y 2, :x 2, :z 2} {:y 3, :x 3, :z 1}}
-           #{{:y 3, :x 1, :z 1} {:y 2, :x 2, :z 2} {:y 1, :x 3, :z 3}}
-           #{{:y 3, :x 1, :z 3} {:y 2, :x 2, :z 2} {:y 1, :x 3, :z 1}}
-           ])
+            [chipper-chaps-chateau.chips :as chips]
+            [chipper-chaps-chateau.wins :as wins]))
 
 (defn has-point? [chips xyz]
   (some-> (filter #(= (chips/->xyz %) xyz) chips)
@@ -170,7 +113,7 @@
        (require 'clojure.java.io)
        (def example-board
          (read-string (slurp (clojure.java.io/resource "notebooks/example-board.edn"))))
-       (pick-next-move wins example-board)))
+       (pick-next-move wins/d3 example-board)))
   )
 
 (defn vals->sets [m]
@@ -178,7 +121,7 @@
                    (set (map #(select-keys % [:x :y :z]) ps)))))
 
 (defn has-three-in-a-row? [chips]
-  (some #(set/subset? % chips) wins))
+  (some #(set/subset? % chips) wins/d3))
 
 (defn did-someone-win? [chips]
   (let [filtered (filter :chip/color chips)
@@ -204,7 +147,7 @@
 (defn heat-mapped-chips []
   (->> (chips/create-chips)
        (map (fn [c]
-              [(count (filter #(contains? % (select-keys c [:y :x :z])) wins)) c]))
+              [(count (filter #(contains? % (select-keys c [:y :x :z])) wins/d3)) c]))
        (map #(assoc (second %) :chip/color (get {13 :blue-2
                                                  7 :blue
                                                  5 :blue-1

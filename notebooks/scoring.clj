@@ -4,6 +4,7 @@
    :nextjournal.clerk/budget 750}
   (:require [chipper-chaps-chateau.la-visual :as vis]
             [chipper-chaps-chateau.victory :as victory]
+            [chipper-chaps-chateau.wins :as wins]
             [clojure.java.io :as io]
             [clojure.walk :as walk]
             [nextjournal.clerk :as clerk]))
@@ -36,7 +37,7 @@
 ;; First we have our winning scenarios. Each set in the list is a winning line
 ;; consisting of three points (chips) in a three-dimensional grid.
 ^{::clerk/auto-expand-results? false}
-(def wins victory/wins)
+(def wins wins/d3)
 
 ;; Before we begin calculating the next move, we need an example board.
 (def example-board (read-file "example-board.edn"))
@@ -53,7 +54,7 @@
 ;; To ease our way forward we can merge the board points into the winning lines
 ;; defined above to get a better idea where the different colors lie in regard
 ;; to winning.
-(def colored-wins (victory/merge-wins-with-colors victory/wins example-board))
+(def colored-wins (victory/merge-wins-with-colors wins/d3 example-board))
 
 ;; Let's group them by point:
 ^{::clerk/visibility {:result :hide}}

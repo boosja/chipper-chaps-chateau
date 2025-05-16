@@ -1,9 +1,9 @@
 (ns chipper-chaps-chateau.rules-page
   (:require [chipper-chaps-chateau.la-visual :as vis]
             [chipper-chaps-chateau.db :as db]
-            [chipper-chaps-chateau.victory :as victory]
             [chipper-chaps-chateau.chips :as chips]
-            [chipper-chaps-chateau.components.bar :as bar]))
+            [chipper-chaps-chateau.components.bar :as bar]
+            [chipper-chaps-chateau.wins :as wins]))
 
 (defn prepare-bar [show-all?]
   {:showcase {:text (if show-all? "Every possible win" "How to win")
@@ -21,8 +21,8 @@
     {:bar-props (prepare-bar show-all?)
      :rule-boards (if show-all?
                     (map #(chips/replace-with chips %)
-                         victory/wins)
-                    (map #(chips/replace-with chips (nth victory/wins %))
+                         wins/d3)
+                    (map #(chips/replace-with chips (nth wins/d3 %))
                          filtered))}))
 
 (defn render [{:keys [rule-boards bar-props]}]

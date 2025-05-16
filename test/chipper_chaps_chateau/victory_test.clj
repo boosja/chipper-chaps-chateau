@@ -1,6 +1,7 @@
 (ns chipper-chaps-chateau.victory-test
   (:require [chipper-chaps-chateau.chips :as chips]
             [chipper-chaps-chateau.victory :as victory]
+            [chipper-chaps-chateau.wins :as wins]
             [clojure.java.io :as io]
             [clojure.test :refer [deftest is testing]]))
 
@@ -45,7 +46,7 @@
   (testing "all winning lines return :blue"
     (is (= (distinct (map #(victory/did-someone-win?
                             (chips/replace-with (chips/create-chips) %))
-                          victory/wins))
+                          wins/d3))
            '(:blue))))
 
   (testing "returns :tie on a tie"
@@ -65,7 +66,7 @@
 
   (map #(victory/did-someone-win?
          (chips/replace-with (chips/create-chips) %))
-       victory/wins)
+       wins/d3)
 
   )
 
@@ -107,7 +108,7 @@
                                       first)
                               winning-xyz))
                         winning-line)))
-            victory/wins)
+            wins/d3)
        (filter (fn [winning-line]
                  (some #(= (get % :chip/color) current-color) winning-line)))
        (sort-by (fn [winning-line]
@@ -115,7 +116,7 @@
                                  winning-line))))
        (reverse))
 
-  (->> (victory/insert-chips victory/wins filled-in)
+  (->> (victory/insert-chips wins/d3 filled-in)
        (filter #(victory/has-color? % current-color))
        (sort-by #(victory/count-color % current-color))
        reverse)
@@ -125,20 +126,20 @@
 (deftest score-moves
   (testing "Picks first possible move"
     (is (not
-         (contains? (victory/pick-next-move victory/wins
+         (contains? (victory/pick-next-move wins/d3
                                             (chips/replace-with (chips/create-chips)
                                                                 #{{:x 1 :y 1 :z 1}}))
                     :chip/color))))
 
   (testing "Picks first possible move of other color"
     (is (not
-         (= (victory/pick-next-move victory/wins
+         (= (victory/pick-next-move wins/d3
                                     (chips/replace-with (chips/create-chips)
                                                         #{{:x 1 :y 1 :z 1}}))
             :chip/color))))
 
   (testing "Not nil"
-    (is (not (nil? (victory/pick-next-move victory/wins
+    (is (not (nil? (victory/pick-next-move wins/d3
                                            (chips/replace-with (chips/create-chips)
                                                                #{{:x 1 :y 1 :z 1}}))))))
 
@@ -169,12 +170,12 @@
           {:x 3, :y 1, :z 2} :red})))
 
 (deftest merge-wins-with-colors-test
-  (is (= (victory/merge-wins-with-colors victory/wins board-with-colors)
+  (is (= (victory/merge-wins-with-colors wins/d3 board-with-colors)
          (read-string (slurp (io/resource "test-data/colored-wins.edn"))))))
 
 (deftest group-by-point-test
   (is (= (victory/group-by-point
-          (victory/merge-wins-with-colors victory/wins board-with-colors))
+          (victory/merge-wins-with-colors wins/d3 board-with-colors))
          (read-string (slurp (io/resource "test-data/wins-grouped-by-point.edn")))))
 
   ;; validate the keys are actually in every winning-line assigned to it
@@ -185,11 +186,11 @@
   ;; sorted wins grouped by point
   (sort-by #(contains? (first %) :chip/color)
            (victory/group-by-point
-            (victory/merge-wins-with-colors victory/wins board-with-colors)))
+            (victory/merge-wins-with-colors wins/d3 board-with-colors)))
 
 
   (def stats (victory/stats (victory/group-by-point
-                             (victory/merge-wins-with-colors victory/wins board-with-colors))
+                             (victory/merge-wins-with-colors wins/d3 board-with-colors))
                             ))
 
   (->> stats
