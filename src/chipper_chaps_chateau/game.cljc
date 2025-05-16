@@ -9,7 +9,16 @@
                         {:game/id (:game/id game)
                          :game/current-color (player/next (:game/current-color game))}]]]))
 
+(defn reset [_db]
+  [[:effect/transact [{:db/id "new-game"
+                       :game/id [:data-require :id/gen]
+                       :game/current-color :blue
+                       :game/chips [:data-require :id.gen/chips]}
+                      {:db/ident :app/state
+                       :app/current-game "new-game"}]]])
+
 (defn perform-action [db [action & args]]
   (case action
     :game/pick (pick db (first args))
+    :game/reset (reset db)
     nil))

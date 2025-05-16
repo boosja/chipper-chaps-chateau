@@ -29,19 +29,10 @@
                            {:game/id (:game/id game)
                             :game/current-color (next-color (:game/current-color game))}]]]))))
 
-(defn reset-game-effects [_db]
-  [[:effect/transact [{:db/id "new-game"
-                       :game/id [:data-require :id/gen]
-                       :game/current-color :blue
-                       :game/chips [:data-require :id.gen/chips]}
-                      {:db/ident :app/state
-                       :app/current-game "new-game"}]]])
-
 (defn perform-action [db [action & args]]
   (case action
     ::deferred-bot-move (deferred-bot-move-effects db (first args))
     ::bot-move (bot-move-effects db)
-    ::reset-game (reset-game-effects db)
     nil))
 
 (defn prepare [db]
