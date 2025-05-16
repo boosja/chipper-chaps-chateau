@@ -33,7 +33,7 @@
 (defn prepare-right-icons [db winner]
   (into (settings/prepare db)
         [(if winner
-           {:actions [[:game/reset]]
+           {:actions [[:board/reset]]
             :icon "🔄"
             :tooltip "Reset game"}
            {:actions [[:action/navigate :route.rules/summary]]
