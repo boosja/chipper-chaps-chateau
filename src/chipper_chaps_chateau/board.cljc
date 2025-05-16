@@ -1,8 +1,8 @@
-(ns chipper-chaps-chateau.game
+(ns chipper-chaps-chateau.board
   (:require [chipper-chaps-chateau.db :as db]
             [chipper-chaps-chateau.player :as player]))
 
-(defn pick [db chip-id]
+(defn select-chip [db chip-id]
   (let [game (db/current-game db)]
     [[:effect/transact [{:chip/id (:chip/id chip-id)
                          :chip/color (:game/current-color game)}
@@ -19,6 +19,6 @@
 
 (defn perform-action [db [action & args]]
   (case action
-    :game/pick (pick db (first args))
-    :game/reset (reset db)
+    :board/select-chip (select-chip db (first args))
+    :board/reset (reset db)
     nil))

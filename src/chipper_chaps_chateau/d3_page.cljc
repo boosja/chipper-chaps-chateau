@@ -50,7 +50,7 @@
      :chips chips
      :get-actions (fn [chip]
                     (when (and (not winner) (nil? (:chip/color chip)))
-                      [[:game/pick chip]
+                      [[:board/select-chip chip]
                        [::deferred-bot-move 300]]))}))
 
 (defn render [{:keys [bar-props theme chips get-actions]}]

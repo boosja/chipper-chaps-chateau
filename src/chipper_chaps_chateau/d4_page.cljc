@@ -17,7 +17,7 @@
                  :right (bar/prepare-right-icons db nil)}
      :theme theme
      :chips chips
-     :get-actions (fn [chip] [[:game/pick chip]])}))
+     :get-actions (fn [chip] [[:board/select-chip chip]])}))
 
 (defn render [{:keys [bar-props theme chips get-actions]}]
   [:section {:class (cond-> ["grid"]
