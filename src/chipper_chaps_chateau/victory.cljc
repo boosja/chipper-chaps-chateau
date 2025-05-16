@@ -128,21 +128,14 @@
         grouped (->> filtered
                      (group-by :chip/color)
                      (vals->sets))
-        winner (reduce (fn [winner [color chips]]
-                               (if (has-three-in-a-row? chips)
-                                 color
-                                 winner))
-                             false
-                             grouped)]
+        winner (reduce (fn [winner? [color chips]]
+                         (if (has-three-in-a-row? chips)
+                           color winner?))
+                       false grouped)]
     (cond
-      winner
-      winner
-
-      (= (count chips) (count filtered))
-      :tie
-
-      :else
-      false)))
+      winner winner
+      (= (count chips) (count filtered)) :tie
+      :else false)))
 
 (defn heat-mapped-chips []
   (->> (chips/create-chips)
