@@ -82,14 +82,13 @@
   (->> (create-chips-5d) (map ->xyz))
   )
 
-(defn is-in? [winning-line chip]
-  (contains? winning-line (->xyz chip)))
-
-(defn replace-with [chips winning-line]
-  (mapv (fn [c]
-          (if (is-in? winning-line c)
-            (assoc c :chip/color :blue)
-            c))
+(defn add-winning-line
+  "Colors the winning line in the list of chips"
+  [chips winning-line & [color]]
+  (mapv (fn [chip]
+          (if (contains? winning-line (->xyz chip))
+            (assoc chip :chip/color (or color :blue))
+            chip))
         chips))
 
 ;; ################################################################

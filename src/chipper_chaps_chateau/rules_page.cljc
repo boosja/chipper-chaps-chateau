@@ -20,9 +20,9 @@
         filtered [0 4 8 10 22 28 42 47 35]]
     {:bar-props (prepare-bar show-all?)
      :rule-boards (if show-all?
-                    (map #(chips/replace-with chips %)
+                    (map #(chips/add-winning-line chips % :blue)
                          wins/d3)
-                    (map #(chips/replace-with chips (nth wins/d3 %))
+                    (map #(chips/add-winning-line chips (nth wins/d3 %) :blue)
                          filtered))}))
 
 (defn render [{:keys [rule-boards bar-props]}]
