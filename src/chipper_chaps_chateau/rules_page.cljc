@@ -17,7 +17,7 @@
 (defn prepare [db]
   (let [show-all? (= :route.rules/all (db/location db))
         chips (chips/create-chips)
-        filtered [0 4 8 10 22 28 42 47 35]]
+        filtered [0 4 8 12 22 40 36 47 29]]
     {:bar-props (prepare-bar show-all?)
      :rule-boards (if show-all?
                     (map #(chips/add-winning-line chips % :blue)
