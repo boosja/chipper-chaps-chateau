@@ -51,3 +51,37 @@
                wins)))))
 
 (def d3 (create-d3-wins))
+(defn d4-unique-wins []
+  (loop [a 1
+         b 1
+         c 1
+         d 1
+         wins {:straight []}]
+    (let [wins (cond-> wins
+                 :yes-please
+                 (merge {:straight (conj (:straight wins) {:x c :y b :z a :w d})}))]
+      (if (and (= a 3) (= b 3) (= c 3) (= d 3))
+        (->> (:straight wins)
+             (partition-all 3)
+             (mapv set))
+        (recur (if (and (= d 3) (= c 3) (= b 3)) (inc a) a)
+               (if (and (= d 3) (= c 3)) (inc (mod b 3)) b)
+               (if (= d 3) (inc (mod c 3)) c)
+               (inc (mod d 3))
+               wins)))))
+
+(defn create-d4-wins []
+  (into (->> (range 1 4)
+             (map #(mapv (fn [winning-line]
+                           (into #{} (map (fn [p] (assoc p :w %)) winning-line)))
+                         d3))
+             flatten
+             vec)
+        (d4-unique-wins)))
+
+(comment
+
+  (d4-unique-wins)
+  (create-d4-wins)
+
+  )
