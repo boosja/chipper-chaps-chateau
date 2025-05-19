@@ -51,6 +51,54 @@
                wins)))))
 
 (def d3 (create-d3-wins))
+
+(defn collinear? [p1 p2 p3]
+  (let [v1 (mapv - p2 p1)
+        v2 (mapv - p3 p1)]
+    (or
+     (every? zero? v1)
+     (every? zero? v2)
+     (let [ratios (keep (fn [[a b]]
+                          (when (not (and (zero? b) (zero? a)))
+                            (if (not (zero? a))
+                              (/ b a)
+                              0)))
+                        (map vector v1 v2))]
+       (and (not-every? zero? ratios)
+            (apply = ratios))))))
+
+(defn ->coord-vec [p-map]
+  (vec (keep #(get p-map %) [:x :y :z :w :v :u :t])))
+
+(defn find-collinear-triplets-maps [points]
+  (for [i (range (count points))
+        j (range (inc i) (count points))
+        k (range (inc j) (count points))
+        :let [p1 (nth points i)
+              p2 (nth points j)
+              p3 (nth points k)]
+        :when (collinear? (->coord-vec p1) (->coord-vec p2) (->coord-vec p3))]
+    #{p1 p2 p3}))
+
+(defn find-collinear-triplets [points]
+  (for [i (range (count points))
+        j (range (inc i) (count points))
+        k (range (inc j) (count points))
+        :let [p1 (nth points i)
+              p2 (nth points j)
+              p3 (nth points k)]
+        :when (collinear? p1 p2 p3)]
+    #{p1 p2 p3}))
+
+(def d4 (find-collinear-triplets-maps (for [w (range 1 4)
+                                            y (range 1 4)
+                                            x (range 1 4)
+                                            z (range 1 4)]
+                                        {:x x
+                                         :y y
+                                         :z z
+                                         :w w})))
+
 (defn d4-unique-wins []
   (loop [a 1
          b 1

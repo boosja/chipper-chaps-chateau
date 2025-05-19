@@ -91,14 +91,22 @@ svg.board {
     grid-template-columns: 1fr 1fr 1fr;
     gap: 1rem;
     padding-bottom: 1rem;
-    margin: 0 .5rem;
 }
 
-.rules svg {
+.rules-d4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.container {
     border: 1px solid lightsteelblue;
     border-radius: 1rem;
     padding: .5rem;
-    stroke-width: 8;
+
+    svg {
+        stroke-width: 8;
+    }
 }
 
 .pointer { cursor: pointer; }
