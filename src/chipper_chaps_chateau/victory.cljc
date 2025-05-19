@@ -26,7 +26,7 @@
 (defn ->point-color-mapper [chips]
   (-> (fn [m chip]
         (if (:chip/color chip)
-          (assoc m (chips/->xyz chip) (:chip/color chip))
+          (assoc m (:point chip) (:chip/color chip))
           m))
       (reduce {} chips)))
 
@@ -35,8 +35,8 @@
    (mapv (fn [winning-line]
            (-> (fn [p]
                  (if (get point-color-mapper p)
-                   (assoc p :chip/color (get point-color-mapper p))
-                   p))
+                   (assoc {:point p} :chip/color (get point-color-mapper p))
+                   {:point p}))
                (map winning-line)
                set))
          wins)))
@@ -101,9 +101,9 @@
                        (filter #(nil? (-> % first :chip/color)))
                        calc-scores
                        (sort-by second compare-point-scores)
-                       ffirst)]
-    (first (filter #(= next-move (chips/->xyz %))
-                   chips))))
+                       ffirst
+                       :point)]
+    (first (filter #(= next-move (:point %)) chips))))
 
 (comment
 
@@ -116,18 +116,13 @@
        (pick-next-move wins/d3 example-board)))
   )
 
-(defn vals->sets [m]
-  (update-vals m (fn [ps]
-                   (set (map #(select-keys % [:x :y :z]) ps)))))
-
 (defn has-three-in-a-row? [chips]
   (some #(set/subset? % chips) wins/d3))
 
 (defn did-someone-win? [chips]
   (let [filtered (filter :chip/color chips)
-        grouped (->> filtered
-                     (group-by :chip/color)
-                     (vals->sets))
+        grouped (-> (group-by :chip/color filtered)
+                    (update-vals #(set (map :point %))))
         winner (reduce (fn [winner? [color chips]]
                          (if (has-three-in-a-row? chips)
                            color winner?))
@@ -140,7 +135,7 @@
 (defn heat-mapped-chips []
   (->> (chips/create-chips)
        (map (fn [c]
-              [(count (filter #(contains? % (select-keys c [:y :x :z])) wins/d3)) c]))
+              [(count (filter #(contains? % (:point c)) wins/d3)) c]))
        (map #(assoc (second %) :chip/color (get {13 :blue-2
                                                  7 :blue
                                                  5 :blue-1

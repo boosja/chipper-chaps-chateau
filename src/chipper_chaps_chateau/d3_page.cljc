@@ -40,7 +40,7 @@
   (let [game (db/current-game db)
         settings (db/settings db)
         current-color (:game/current-color game)
-        chips (sort-by (juxt :x :y :z) (:game/chips game))
+        chips (sort-by :point (:game/chips game))
         winner (victory/did-someone-win? chips)
         theme (when (:settings/colorblind? settings)
                 "colorblind")]

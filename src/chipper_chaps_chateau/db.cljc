@@ -25,4 +25,4 @@
                [?e :x ?x]]
              db)
        (map #(->> % (ds/entity db) (into {})))
-       (sort-by (juxt :x :y :z))))
+       (sort-by :point)))

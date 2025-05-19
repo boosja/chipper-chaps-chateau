@@ -1,27 +1,27 @@
-({:x 1, :y 1, :z 1, :chip/color :red, :chip/id "uas", :svg/circle [[:circle {:cx 302.94, :cy 327.06, :r 270}] [:circle {:id "111", :cx 315, :cy 315, :r 270}]]}
- {:x 1, :y 1, :z 2, :chip/id "uac", :svg/circle [[:circle {:cx 347.94, :cy 282.06, :r 175.5}] [:circle {:id "112", :cx 360, :cy 270, :r 175.5}]]}
- {:x 1, :y 1, :z 3, :chip/id "uah", :svg/circle [[:circle {:cx 392.94, :cy 237.06, :r 81}] [:circle {:id "113", :cx 405, :cy 225, :r 81}]]}
- {:x 1, :y 2, :z 1, :chip/color :red, :chip/id "ua_", :svg/circle [[:circle {:cx 302.94, :cy 912.06, :r 270}] [:circle {:id "121", :cx 315, :cy 900, :r 270}]]}
- {:x 1, :y 2, :z 2, :chip/id "ua3", :svg/circle [[:circle {:cx 347.94, :cy 867.06, :r 175.5}] [:circle {:id "122", :cx 360, :cy 855, :r 175.5}]]}
- {:x 1, :y 2, :z 3, :chip/id "ua6", :svg/circle [[:circle {:cx 392.94, :cy 822.06, :r 81}] [:circle {:id "123", :cx 405, :cy 810, :r 81}]]}
- {:x 1, :y 3, :z 1, :chip/id "uua", :svg/circle [[:circle {:cx 302.94, :cy 1497.06, :r 270}] [:circle {:id "131", :cx 315, :cy 1485, :r 270}]]}
- {:x 1, :y 3, :z 2, :chip/id "uuu", :svg/circle [[:circle {:cx 347.94, :cy 1452.06, :r 175.5}] [:circle {:id "132", :cx 360, :cy 1440, :r 175.5}]]}
- {:x 1, :y 3, :z 3, :chip/color :blue, :chip/id "uus", :svg/circle [[:circle {:cx 392.94, :cy 1407.06, :r 81}] [:circle {:id "133", :cx 405, :cy 1395, :r 81}]]}
- {:x 2, :y 1, :z 1, :chip/id "ua5", :svg/circle [[:circle {:cx 887.94, :cy 327.06, :r 270}] [:circle {:id "211", :cx 900, :cy 315, :r 270}]]}
- {:x 2, :y 1, :z 2, :chip/id "uai", :svg/circle [[:circle {:cx 932.94, :cy 282.06, :r 175.5}] [:circle {:id "212", :cx 945, :cy 270, :r 175.5}]]}
- {:x 2, :y 1, :z 3, :chip/id "uar", :svg/circle [[:circle {:cx 977.94, :cy 237.06, :r 81}] [:circle {:id "213", :cx 990, :cy 225, :r 81}]]}
- {:x 2, :y 2, :z 1, :chip/id "ua2", :svg/circle [[:circle {:cx 887.94, :cy 912.06, :r 270}] [:circle {:id "221", :cx 900, :cy 900, :r 270}]]}
- {:x 2, :y 2, :z 2, :chip/color :blue, :chip/id "uap", :svg/circle [[:circle {:cx 932.94, :cy 867.06, :r 175.5}] [:circle {:id "222", :cx 945, :cy 855, :r 175.5}]]}
- {:x 2, :y 2, :z 3, :chip/id "ua9", :svg/circle [[:circle {:cx 977.94, :cy 822.06, :r 81}] [:circle {:id "223", :cx 990, :cy 810, :r 81}]]}
- {:x 2, :y 3, :z 1, :chip/id "uuc", :svg/circle [[:circle {:cx 887.94, :cy 1497.06, :r 270}] [:circle {:id "231", :cx 900, :cy 1485, :r 270}]]}
- {:x 2, :y 3, :z 2, :chip/id "uuh", :svg/circle [[:circle {:cx 932.94, :cy 1452.06, :r 175.5}] [:circle {:id "232", :cx 945, :cy 1440, :r 175.5}]]}
- {:x 2, :y 3, :z 3, :chip/id "uu5", :svg/circle [[:circle {:cx 977.94, :cy 1407.06, :r 81}] [:circle {:id "233", :cx 990, :cy 1395, :r 81}]]}
- {:x 3, :y 1, :z 1, :chip/color :green, :chip/id "ua8", :svg/circle [[:circle {:cx 1472.94, :cy 327.06, :r 270}] [:circle {:id "311", :cx 1485, :cy 315, :r 270}]]}
- {:x 3, :y 1, :z 2, :chip/id "ua7", :svg/circle [[:circle {:cx 1517.94, :cy 282.06, :r 175.5}] [:circle {:id "312", :cx 1530, :cy 270, :r 175.5}]]}
- {:x 3, :y 1, :z 3, :chip/color :green, :chip/id "uae", :svg/circle [[:circle {:cx 1562.94, :cy 237.06, :r 81}] [:circle {:id "313", :cx 1575, :cy 225, :r 81}]]}
- {:x 3, :y 2, :z 1, :chip/id "ua-", :svg/circle [[:circle {:cx 1472.94, :cy 912.06, :r 270}] [:circle {:id "321", :cx 1485, :cy 900, :r 270}]]}
- {:x 3, :y 2, :z 2, :chip/id "uat", :svg/circle [[:circle {:cx 1517.94, :cy 867.06, :r 175.5}] [:circle {:id "322", :cx 1530, :cy 855, :r 175.5}]]}
- {:x 3, :y 2, :z 3, :chip/id "ua4", :svg/circle [[:circle {:cx 1562.94, :cy 822.06, :r 81}] [:circle {:id "323", :cx 1575, :cy 810, :r 81}]]}
- {:x 3, :y 3, :z 1, :chip/color :yellow, :chip/id "uui", :svg/circle [[:circle {:cx 1472.94, :cy 1497.06, :r 270}] [:circle {:id "331", :cx 1485, :cy 1485, :r 270}]]}
- {:x 3, :y 3, :z 2, :chip/color :yellow, :chip/id "uur", :svg/circle [[:circle {:cx 1517.94, :cy 1452.06, :r 175.5}] [:circle {:id "332", :cx 1530, :cy 1440, :r 175.5}]]}
- {:x 3, :y 3, :z 3, :chip/id "uu8", :svg/circle [[:circle {:cx 1562.94, :cy 1407.06, :r 81}] [:circle {:id "333", :cx 1575, :cy 1395, :r 81}]]})
+[{:point [1 1 1], :chip/color :red, :chip/id "uas", :svg/circle [[:circle {:cx 302.94, :cy 327.06, :r 270}] [:circle {:id "111", :cx 315, :cy 315, :r 270}]]}
+ {:point [1 1 2], :chip/id "uac", :svg/circle [[:circle {:cx 347.94, :cy 282.06, :r 175.5}] [:circle {:id "112", :cx 360, :cy 270, :r 175.5}]]}
+ {:point [1 1 3], :chip/id "uah", :svg/circle [[:circle {:cx 392.94, :cy 237.06, :r 81}] [:circle {:id "113", :cx 405, :cy 225, :r 81}]]}
+ {:point [1 2 1], :chip/color :red, :chip/id "ua_", :svg/circle [[:circle {:cx 302.94, :cy 912.06, :r 270}] [:circle {:id "121", :cx 315, :cy 900, :r 270}]]}
+ {:point [1 2 2], :chip/id "ua3", :svg/circle [[:circle {:cx 347.94, :cy 867.06, :r 175.5}] [:circle {:id "122", :cx 360, :cy 855, :r 175.5}]]}
+ {:point [1 2 3], :chip/id "ua6", :svg/circle [[:circle {:cx 392.94, :cy 822.06, :r 81}] [:circle {:id "123", :cx 405, :cy 810, :r 81}]]}
+ {:point [1 3 1], :chip/id "uua", :svg/circle [[:circle {:cx 302.94, :cy 1497.06, :r 270}] [:circle {:id "131", :cx 315, :cy 1485, :r 270}]]}
+ {:point [1 3 2], :chip/id "uuu", :svg/circle [[:circle {:cx 347.94, :cy 1452.06, :r 175.5}] [:circle {:id "132", :cx 360, :cy 1440, :r 175.5}]]}
+ {:point [1 3 3], :chip/color :blue, :chip/id "uus", :svg/circle [[:circle {:cx 392.94, :cy 1407.06, :r 81}] [:circle {:id "133", :cx 405, :cy 1395, :r 81}]]}
+ {:point [2 1 1], :chip/id "ua5", :svg/circle [[:circle {:cx 887.94, :cy 327.06, :r 270}] [:circle {:id "211", :cx 900, :cy 315, :r 270}]]}
+ {:point [2 1 2], :chip/id "uai", :svg/circle [[:circle {:cx 932.94, :cy 282.06, :r 175.5}] [:circle {:id "212", :cx 945, :cy 270, :r 175.5}]]}
+ {:point [2 1 3], :chip/id "uar", :svg/circle [[:circle {:cx 977.94, :cy 237.06, :r 81}] [:circle {:id "213", :cx 990, :cy 225, :r 81}]]}
+ {:point [2 2 1], :chip/id "ua2", :svg/circle [[:circle {:cx 887.94, :cy 912.06, :r 270}] [:circle {:id "221", :cx 900, :cy 900, :r 270}]]}
+ {:point [2 2 2], :chip/color :blue, :chip/id "uap", :svg/circle [[:circle {:cx 932.94, :cy 867.06, :r 175.5}] [:circle {:id "222", :cx 945, :cy 855, :r 175.5}]]}
+ {:point [2 2 3], :chip/id "ua9", :svg/circle [[:circle {:cx 977.94, :cy 822.06, :r 81}] [:circle {:id "223", :cx 990, :cy 810, :r 81}]]}
+ {:point [2 3 1], :chip/id "uuc", :svg/circle [[:circle {:cx 887.94, :cy 1497.06, :r 270}] [:circle {:id "231", :cx 900, :cy 1485, :r 270}]]}
+ {:point [2 3 2], :chip/id "uuh", :svg/circle [[:circle {:cx 932.94, :cy 1452.06, :r 175.5}] [:circle {:id "232", :cx 945, :cy 1440, :r 175.5}]]}
+ {:point [2 3 3], :chip/id "uu5", :svg/circle [[:circle {:cx 977.94, :cy 1407.06, :r 81}] [:circle {:id "233", :cx 990, :cy 1395, :r 81}]]}
+ {:point [3 1 1], :chip/color :green, :chip/id "ua8", :svg/circle [[:circle {:cx 1472.94, :cy 327.06, :r 270}] [:circle {:id "311", :cx 1485, :cy 315, :r 270}]]}
+ {:point [3 1 2], :chip/id "ua7", :svg/circle [[:circle {:cx 1517.94, :cy 282.06, :r 175.5}] [:circle {:id "312", :cx 1530, :cy 270, :r 175.5}]]}
+ {:point [3 1 3], :chip/color :green, :chip/id "uae", :svg/circle [[:circle {:cx 1562.94, :cy 237.06, :r 81}] [:circle {:id "313", :cx 1575, :cy 225, :r 81}]]}
+ {:point [3 2 1], :chip/id "ua-", :svg/circle [[:circle {:cx 1472.94, :cy 912.06, :r 270}] [:circle {:id "321", :cx 1485, :cy 900, :r 270}]]}
+ {:point [3 2 2], :chip/id "uat", :svg/circle [[:circle {:cx 1517.94, :cy 867.06, :r 175.5}] [:circle {:id "322", :cx 1530, :cy 855, :r 175.5}]]}
+ {:point [3 2 3], :chip/id "ua4", :svg/circle [[:circle {:cx 1562.94, :cy 822.06, :r 81}] [:circle {:id "323", :cx 1575, :cy 810, :r 81}]]}
+ {:point [3 3 1], :chip/color :yellow, :chip/id "uui", :svg/circle [[:circle {:cx 1472.94, :cy 1497.06, :r 270}] [:circle {:id "331", :cx 1485, :cy 1485, :r 270}]]}
+ {:point [3 3 2], :chip/color :yellow, :chip/id "uur", :svg/circle [[:circle {:cx 1517.94, :cy 1452.06, :r 175.5}] [:circle {:id "332", :cx 1530, :cy 1440, :r 175.5}]]}
+ {:point [3 3 3], :chip/id "uu8", :svg/circle [[:circle {:cx 1562.94, :cy 1407.06, :r 81}] [:circle {:id "333", :cx 1575, :cy 1395, :r 81}]]}]

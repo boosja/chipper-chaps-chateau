@@ -19,23 +19,23 @@
                :diagonal-depth-asc-rev []}]
     (let [wins (cond-> wins
                  :yes-please
-                 (merge {:horizontal (conj (:horizontal wins) {:x c :y b :z a})
-                         :vertical (conj (:vertical wins) {:x a :y c :z b})
-                         :depth (conj (:depth wins) {:x b :y a :z c})})
+                 (merge {:horizontal (conj (:horizontal wins) [c b a])
+                         :vertical (conj (:vertical wins) [a c b])
+                         :depth (conj (:depth wins) [b a c])})
 
                  (= c 1)
-                 (merge {:diagonal-horizontal (conj (:diagonal-horizontal wins) {:x b :y a :z b})
-                         :diagonal-horizontal-rev (conj (:diagonal-horizontal-rev wins) {:x (- 4 b) :y a :z b})
-                         :diagonal-vertical (conj (:diagonal-vertical wins) {:x a :y b :z b})
-                         :diagonal-vertical-rev (conj (:diagonal-vertical-rev wins) {:x a :y (- 4 b) :z b})
-                         :diagonal-desc (conj (:diagonal-desc wins) {:x b :y b :z a})
-                         :diagonal-asc (conj (:diagonal-asc wins) {:x (- 4 b) :y b :z a})})
+                 (merge {:diagonal-horizontal (conj (:diagonal-horizontal wins) [b a b])
+                         :diagonal-horizontal-rev (conj (:diagonal-horizontal-rev wins) [(- 4 b) a b])
+                         :diagonal-vertical (conj (:diagonal-vertical wins) [a b b])
+                         :diagonal-vertical-rev (conj (:diagonal-vertical-rev wins) [a (- 4 b) b])
+                         :diagonal-desc (conj (:diagonal-desc wins) [b b a])
+                         :diagonal-asc (conj (:diagonal-asc wins) [(- 4 b) b a])})
 
                  (and (= c 1) (= b 1))
-                 (merge {:diagonal-depth-desc (conj (:diagonal-depth-desc wins) {:x a :y a :z a})
-                         :diagonal-depth-desc-rev (conj (:diagonal-depth-desc-rev wins) {:x a :y a :z (- 4 a)})
-                         :diagonal-depth-asc (conj (:diagonal-depth-asc wins) {:x a :y (- 4 a) :z a})
-                         :diagonal-depth-asc-rev (conj (:diagonal-depth-asc-rev wins) {:x (- 4 a) :y a :z a})}))]
+                 (merge {:diagonal-depth-desc (conj (:diagonal-depth-desc wins) [a a a])
+                         :diagonal-depth-desc-rev (conj (:diagonal-depth-desc-rev wins) [a a (- 4 a)])
+                         :diagonal-depth-asc (conj (:diagonal-depth-asc wins) [a (- 4 a) a])
+                         :diagonal-depth-asc-rev (conj (:diagonal-depth-asc-rev wins) [(- 4 a) a a])}))]
       (if (and (= a 3) (= b 3) (= c 3))
         (->> (reduce into [] [(:horizontal wins) (:vertical wins) (:depth wins)
                               (:diagonal-horizontal wins) (:diagonal-horizontal-rev wins)
