@@ -16,16 +16,25 @@
 
 (defn prepare [db]
   (let [show-all? (= :route.rules/all (db/location db))
-        chips (chips/create-chips)
+        chips-d3 (chips/create-chips)
+        chips-d4 (chips/create-chips-4d)
         filtered [0 4 8 12 22 40 36 47 29]]
     {:bar-props (prepare-bar show-all?)
-     :rule-boards (if show-all?
-                    (map #(chips/add-winning-line chips % :blue)
+     :rule-boards-d3 (if show-all?
+                    (map #(chips/add-winning-line chips-d3 % :blue)
                          wins/d3)
-                    (map #(chips/add-winning-line chips (nth wins/d3 %) :blue)
-                         filtered))}))
+                    (map #(chips/add-winning-line chips-d3 (nth wins/d3 %) :blue)
+                         filtered))
+     :rule-boards-d4 (if show-all?
+                       (map #(partition-all 27 %)
+                            (map #(chips/add-winning-line chips-d4 % :blue)
+                                 wins/d4))
+                       (map #(partition-all 27 %)
+                            (map #(chips/add-winning-line chips-d4 % :blue)
+                                 (filter (fn [win]
+                                           (apply not= (map :w win))) wins/d4))))}))
 
-(defn render [{:keys [rule-boards bar-props]}]
+(defn render [{:keys [bar-props rule-boards-d3 rule-boards-d4]}]
   (list [::bar/bar.flex {::bar/data bar-props}
          [::bar/showcase]
          [::bar/icon]
@@ -33,5 +42,14 @@
          [::bar/icon]]
 
         [:div.rules
-         (for [chips rule-boards]
-           (vis/el-chateau nil chips))]))
+         (for [chips rule-boards-d3]
+           [:div.container
+            (vis/el-chateau nil chips)])]
+
+        [:h2 "4D-unique rules:"]
+        [:div.rules-d4
+         (for [[w1 w2 w3] rule-boards-d4]
+           [:div.container.rules
+            (vis/el-chateau nil w1)
+            (vis/el-chateau nil w2)
+            (vis/el-chateau nil w3)])]))
