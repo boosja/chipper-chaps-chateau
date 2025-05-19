@@ -12,8 +12,7 @@
 ^{:nextjournal.clerk/visibility {:code :hide :result :hide}}
 (do
   (defn compare-points [a b]
-    (compare [(:x a) (:y a) (:z a)]
-             [(:x b) (:y b) (:z b)]))
+    (compare (:point a) (:point b)))
 
   (defn ->sorted-map [m]
     (into (sorted-map-by compare-points) m))

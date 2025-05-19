@@ -3,6 +3,14 @@
 (defn ->xyz [chip]
   (select-keys chip [:x :y :z :w :v :u :t]))
 
+(defn comp-yzx []
+  (fn [{[x y z] :point}]
+    [y z x]))
+
+(defn comp-yxz []
+  (fn [{[x y z] :point}]
+    [y x z]))
+
 (defn find-circle-center [x y r pad]
   (let [d (* 2 r)]
     [(- (* (+ pad d) x) r)
@@ -44,10 +52,7 @@
   (for [y (range 1 4)
         x (range 1 4)
         z (range 1 4)]
-    {:x x
-     :y y
-     :z z
-     :svg/circle (get svg-circles (str y x z))}))
+    {:point [x y z]
      :svg/circle (get svg-circles (str y x z))}))
 
 (defn create-chips-4d []
@@ -75,7 +80,7 @@
      :svg/circle (get svg-circles (str y x z))}))
 
 (comment
-  (->> (create-chips) (map ->xyz))
+  (->> (create-chips) (map :point))
   (->> (create-chips-4d) (map ->xyz))
   (->> (create-chips-5d) (map ->xyz))
   )
@@ -84,7 +89,7 @@
   "Colors the winning line in the list of chips"
   [chips winning-line & [color]]
   (mapv (fn [chip]
-          (if (contains? winning-line (->xyz chip))
+          (if (contains? winning-line (:point chip))
             (assoc chip :chip/color (or color :blue))
             chip))
         chips))
@@ -134,7 +139,7 @@
                     (into {}))
         starting-color-idx (get colors starting-color)]
     (->> (create-chips)
-         (sort-by (juxt :y :z :x))
+         (sort-by (comp-yzx))
          (partition-all 3)
          (map-indexed (fn [i chateau]
                         (map #(assoc % :chip/color
@@ -154,13 +159,14 @@
                            (into {})))
                     all-colors)]
     (->> (create-chips)
-         (sort-by (juxt :y :x :z))
+         (sort-by (comp-yxz))
          (partition-all 3)
-         (map-indexed (fn [i chateau]
-                        (map #(assoc % :chip/color
-                                     (get (nth colors (mod (+ (dec (:x %))
-                                                              (* 3 (dec (:y %))))
-                                                           4))
-                                          (mod (dec (:z %)) 3)))
-                             chateau)))
+         (map (fn [chateau]
+                (map (fn [{[x y z] :point :as chip}]
+                       (assoc chip :chip/color
+                              (get (nth colors (mod (+ (dec x)
+                                                       (* 3 (dec y)))
+                                                    4))
+                                   (mod (dec z) 3))))
+                     chateau)))
          flatten)))

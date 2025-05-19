@@ -5,15 +5,6 @@
             [clojure.java.io :as io]
             [clojure.test :refer [deftest is testing]]))
 
-(deftest vals->sets-test
-  (testing "The vals of the map are converted to sets"
-    (is (= (victory/vals->sets {:blue [{:x 1 :y 1 :z 1}
-                                       {:x 2 :y 2 :z 2}
-                                       {:x 3 :y 3 :z 3}]})
-           {:blue #{{:x 1 :y 1 :z 1}
-                    {:x 2 :y 2 :z 2}
-                    {:x 3 :y 3 :z 3}}}))))
-
 (def tied-chips '({:x 1, :y 1, :z 1, :chip/color :blue, :chip/id 111}
                   {:x 1, :y 1, :z 2, :chip/color :blue, :chip/id 112}
                   {:x 1, :y 1, :z 3, :chip/color :yellow, :chip/id 113}
@@ -70,33 +61,33 @@
 
   )
 
-(def board-with-colors '({:x 1 :y 1 :z 1 :chip/color :blue}
-                         {:x 1 :y 1 :z 2 :chip/color :blue}
-                         {:x 1 :y 1 :z 3}
-                         {:x 2 :y 1 :z 1 :chip/color :green}
-                         {:x 2 :y 1 :z 2}
-                         {:x 2 :y 1 :z 3}
-                         {:x 3 :y 1 :z 1}
-                         {:x 3 :y 1 :z 2}
-                         {:x 3 :y 1 :z 3}
-                         {:x 1 :y 2 :z 1}
-                         {:x 1 :y 2 :z 2 :chip/color :red}
-                         {:x 1 :y 2 :z 3}
-                         {:x 2 :y 2 :z 1}
-                         {:x 2 :y 2 :z 2 :chip/color :green}
-                         {:x 2 :y 2 :z 3 :chip/color :red}
-                         {:x 3 :y 2 :z 1 :chip/color :blue}
-                         {:x 3 :y 2 :z 2}
-                         {:x 3 :y 2 :z 3}
-                         {:x 1 :y 3 :z 1}
-                         {:x 1 :y 3 :z 2}
-                         {:x 1 :y 3 :z 3}
-                         {:x 2 :y 3 :z 1}
-                         {:x 2 :y 3 :z 2 :chip/color :yellow}
-                         {:x 2 :y 3 :z 3}
-                         {:x 3 :y 3 :z 1}
-                         {:x 3 :y 3 :z 2 :chip/color :yellow}
-                         {:x 3 :y 3 :z 3}))
+(def board-with-colors '({:point [1 1 1] :chip/color :blue}
+                         {:point [1 1 2] :chip/color :blue}
+                         {:point [1 1 3]}
+                         {:point [2 1 1] :chip/color :green}
+                         {:point [2 1 2]}
+                         {:point [2 1 3]}
+                         {:point [3 1 1]}
+                         {:point [3 1 2]}
+                         {:point [3 1 3]}
+                         {:point [1 2 1]}
+                         {:point [1 2 2] :chip/color :red}
+                         {:point [1 2 3]}
+                         {:point [2 2 1]}
+                         {:point [2 2 2] :chip/color :green}
+                         {:point [2 2 3] :chip/color :red}
+                         {:point [3 2 1] :chip/color :blue}
+                         {:point [3 2 2]}
+                         {:point [3 2 3]}
+                         {:point [1 3 1]}
+                         {:point [1 3 2]}
+                         {:point [1 3 3]}
+                         {:point [2 3 1]}
+                         {:point [2 3 2] :chip/color :yellow}
+                         {:point [2 3 3]}
+                         {:point [3 3 1]}
+                         {:point [3 3 2] :chip/color :yellow}
+                         {:point [3 3 3]}))
 
 (comment
   (def current-color :blue)
@@ -116,32 +107,28 @@
                                  winning-line))))
        (reverse))
 
-  (->> (victory/insert-chips wins/d3 filled-in)
-       (filter #(victory/has-color? % current-color))
-       (sort-by #(victory/count-color % current-color))
-       reverse)
-
   )
 
 (deftest score-moves
   (testing "Picks first possible move"
     (is (not
-         (contains? (victory/pick-next-move wins/d3
-                                            (chips/add-winning-line (chips/create-chips)
-                                                                #{{:x 1 :y 1 :z 1}}))
+         (contains? (victory/pick-next-move
+                     wins/d3
+                     (chips/add-winning-line (chips/create-chips)
+                                             #{[1 1 1]}))
                     :chip/color))))
 
   (testing "Picks first possible move of other color"
     (is (not
          (= (victory/pick-next-move wins/d3
                                     (chips/add-winning-line (chips/create-chips)
-                                                        #{{:x 1 :y 1 :z 1}}))
+                                                        #{[1 1 1]}))
             :chip/color))))
 
   (testing "Not nil"
-    (is (not (nil? (victory/pick-next-move wins/d3
-                                           (chips/add-winning-line (chips/create-chips)
-                                                               #{{:x 1 :y 1 :z 1}}))))))
+    (is (not (nil? (victory/pick-next-move
+                    wins/d3
+                    (chips/add-winning-line (chips/create-chips) #{[1 1 1]}))))))
 
   ;; - (attack) Pick chip in a win that has my color already
   ;; - (attack) Pick chip in a win that has my color already and does not have any
@@ -154,20 +141,20 @@
   )
 
 (deftest ->point-color-mapper-test
-  (is (= (victory/->point-color-mapper [{:x 1, :y 1, :z 1 :chip/color :blue}
-                                        {:x 1, :y 1, :z 2}
-                                        {:x 1, :y 1, :z 3 :chip/color :green}
-                                        {:x 2, :y 1, :z 1 :chip/color :blue}
-                                        {:x 2, :y 1, :z 2}
-                                        {:x 2, :y 1, :z 3}
-                                        {:x 3, :y 1, :z 1}
-                                        {:x 3, :y 1, :z 2 :chip/color :red}
-                                        {:x 3, :y 1, :z 3}
-                                        {:x 1, :y 2, :z 1}])
-         {{:x 1, :y 1, :z 1} :blue
-          {:x 1, :y 1, :z 3} :green
-          {:x 2, :y 1, :z 1} :blue
-          {:x 3, :y 1, :z 2} :red})))
+  (is (= (victory/->point-color-mapper [{:point [1 1 1] :chip/color :blue}
+                                        {:point [1 1 2]}
+                                        {:point [1 1 3] :chip/color :green}
+                                        {:point [2 1 1] :chip/color :blue}
+                                        {:point [2 1 2]}
+                                        {:point [2 1 3]}
+                                        {:point [3 1 1]}
+                                        {:point [3 1 2] :chip/color :red}
+                                        {:point [3 1 3]}
+                                        {:point [1 2 1]}])
+         {[1 1 1] :blue
+          [1 1 3] :green
+          [2 1 1] :blue
+          [3 1 2] :red})))
 
 (deftest merge-wins-with-colors-test
   (is (= (victory/merge-wins-with-colors wins/d3 board-with-colors)
