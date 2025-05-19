@@ -14,33 +14,33 @@
                     {:x 2 :y 2 :z 2}
                     {:x 3 :y 3 :z 3}}}))))
 
-(def tied-chips '({:x 1, :y 1, :z 1, :chip/color :blue, :chip/id 111, :chip/size :lg}
-                  {:x 1, :y 1, :z 2, :chip/color :blue, :chip/id 112, :chip/size :md}
-                  {:x 1, :y 1, :z 3, :chip/color :yellow, :chip/id 113, :chip/size :sm}
-                  {:x 2, :y 1, :z 1, :chip/color :blue, :chip/id 121, :chip/size :lg}
-                  {:x 2, :y 1, :z 2, :chip/color :blue, :chip/id 122, :chip/size :md}
-                  {:x 2, :y 1, :z 3, :chip/color :yellow, :chip/id 123, :chip/size :sm}
-                  {:x 3, :y 1, :z 1, :chip/color :yellow, :chip/id 131, :chip/size :lg}
-                  {:x 3, :y 1, :z 2, :chip/color :yellow, :chip/id 132, :chip/size :md}
-                  {:x 3, :y 1, :z 3, :chip/color :green, :chip/id 133, :chip/size :sm}
-                  {:x 1, :y 2, :z 1, :chip/color :red, :chip/id 211, :chip/size :lg}
-                  {:x 1, :y 2, :z 2, :chip/color :red, :chip/id 212, :chip/size :md}
-                  {:x 1, :y 2, :z 3, :chip/color :blue, :chip/id 213, :chip/size :sm}
-                  {:x 2, :y 2, :z 1, :chip/color :blue, :chip/id 221, :chip/size :lg}
-                  {:x 2, :y 2, :z 2, :chip/color :red, :chip/id 222, :chip/size :md}
-                  {:x 2, :y 2, :z 3, :chip/color :green, :chip/id 223, :chip/size :sm}
-                  {:x 3, :y 2, :z 1, :chip/color :yellow, :chip/id 231, :chip/size :lg}
-                  {:x 3, :y 2, :z 2, :chip/color :yellow, :chip/id 232, :chip/size :md}
-                  {:x 3, :y 2, :z 3, :chip/color :green, :chip/id 233, :chip/size :sm}
-                  {:x 1, :y 3, :z 1, :chip/color :red, :chip/id 311, :chip/size :lg}
-                  {:x 1, :y 3, :z 2, :chip/color :red, :chip/id 312, :chip/size :md}
-                  {:x 1, :y 3, :z 3, :chip/color :blue, :chip/id 313, :chip/size :sm}
-                  {:x 2, :y 3, :z 1, :chip/color :green, :chip/id 321, :chip/size :lg}
-                  {:x 2, :y 3, :z 2, :chip/color :green, :chip/id 322, :chip/size :md}
-                  {:x 2, :y 3, :z 3, :chip/color :red, :chip/id 323, :chip/size :sm}
-                  {:x 3, :y 3, :z 1, :chip/color :green, :chip/id 331, :chip/size :lg}
-                  {:x 3, :y 3, :z 2, :chip/color :green, :chip/id 332, :chip/size :md}
-                  {:x 3, :y 3, :z 3, :chip/color :red, :chip/id 333, :chip/size :sm}))
+(def tied-chips '({:x 1, :y 1, :z 1, :chip/color :blue, :chip/id 111}
+                  {:x 1, :y 1, :z 2, :chip/color :blue, :chip/id 112}
+                  {:x 1, :y 1, :z 3, :chip/color :yellow, :chip/id 113}
+                  {:x 2, :y 1, :z 1, :chip/color :blue, :chip/id 121}
+                  {:x 2, :y 1, :z 2, :chip/color :blue, :chip/id 122}
+                  {:x 2, :y 1, :z 3, :chip/color :yellow, :chip/id 123}
+                  {:x 3, :y 1, :z 1, :chip/color :yellow, :chip/id 131}
+                  {:x 3, :y 1, :z 2, :chip/color :yellow, :chip/id 132}
+                  {:x 3, :y 1, :z 3, :chip/color :green, :chip/id 133}
+                  {:x 1, :y 2, :z 1, :chip/color :red, :chip/id 211}
+                  {:x 1, :y 2, :z 2, :chip/color :red, :chip/id 212}
+                  {:x 1, :y 2, :z 3, :chip/color :blue, :chip/id 213}
+                  {:x 2, :y 2, :z 1, :chip/color :blue, :chip/id 221}
+                  {:x 2, :y 2, :z 2, :chip/color :red, :chip/id 222}
+                  {:x 2, :y 2, :z 3, :chip/color :green, :chip/id 223}
+                  {:x 3, :y 2, :z 1, :chip/color :yellow, :chip/id 231}
+                  {:x 3, :y 2, :z 2, :chip/color :yellow, :chip/id 232}
+                  {:x 3, :y 2, :z 3, :chip/color :green, :chip/id 233}
+                  {:x 1, :y 3, :z 1, :chip/color :red, :chip/id 311}
+                  {:x 1, :y 3, :z 2, :chip/color :red, :chip/id 312}
+                  {:x 1, :y 3, :z 3, :chip/color :blue, :chip/id 313}
+                  {:x 2, :y 3, :z 1, :chip/color :green, :chip/id 321}
+                  {:x 2, :y 3, :z 2, :chip/color :green, :chip/id 322}
+                  {:x 2, :y 3, :z 3, :chip/color :red, :chip/id 323}
+                  {:x 3, :y 3, :z 1, :chip/color :green, :chip/id 331}
+                  {:x 3, :y 3, :z 2, :chip/color :green, :chip/id 332}
+                  {:x 3, :y 3, :z 3, :chip/color :red, :chip/id 333}))
 
 (deftest did-someone-win?-test
   (testing "all winning lines return :blue"

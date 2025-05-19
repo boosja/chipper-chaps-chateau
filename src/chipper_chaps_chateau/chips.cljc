@@ -47,7 +47,7 @@
     {:x x
      :y y
      :z z
-     :chip/size (get {1 :lg 2 :md 3 :sm} z)
+     :svg/circle (get svg-circles (str y x z))}))
      :svg/circle (get svg-circles (str y x z))}))
 
 (defn create-chips-4d []
@@ -59,7 +59,6 @@
      :y y
      :z z
      :w w
-     :chip/size (get {1 :lg 2 :md 3 :sm} z)
      :svg/circle (get svg-circles (str y x z))}))
 
 (defn create-chips-5d []
@@ -73,7 +72,6 @@
      :z z
      :w w
      :v v
-     :chip/size (get {1 :lg 2 :md 3 :sm} z)
      :svg/circle (get svg-circles (str y x z))}))
 
 (comment
