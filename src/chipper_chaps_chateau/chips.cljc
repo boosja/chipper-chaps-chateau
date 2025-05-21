@@ -86,7 +86,7 @@
   "Colors the winning line in the list of chips"
   [chips winning-line & [color]]
   (mapv (fn [chip]
-          (if (contains? winning-line (:point chip))
+          (if (some #{(:point chip)} winning-line)
             (assoc chip :chip/color (or color :blue))
             chip))
         chips))
