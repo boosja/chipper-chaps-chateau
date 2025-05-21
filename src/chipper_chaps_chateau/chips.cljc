@@ -60,10 +60,7 @@
         y (range 1 4)
         x (range 1 4)
         z (range 1 4)]
-    {:x x
-     :y y
-     :z z
-     :w w
+    {:point [x y z w]
      :svg/circle (get svg-circles (str y x z))}))
 
 (defn create-chips-5d []
