@@ -3,23 +3,6 @@
             [chipper-chaps-chateau.chips :as chips]
             [chipper-chaps-chateau.wins :as wins]))
 
-(defn has-point? [chips xyz]
-  (some-> (filter #(= (chips/->xyz %) xyz) chips)
-          first))
-
-(defn insert-chips [winning-lines chips]
-  (map (fn [winning-line]
-         (set (map #(or (has-point? chips %) %)
-                   winning-line)))
-       winning-lines))
-
-(defn has-color? [winning-line color]
-  (some #(= (get % :chip/color) color) winning-line))
-
-(defn count-color [winning-line color]
-  (count (filter #(= (get % :chip/color) color)
-                 winning-line)))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Pick next move
 
