@@ -90,11 +90,8 @@
         :when (collinear? p1 p2 p3)]
     #{p1 p2 p3}))
 
-(def d4 (find-collinear-triplets-maps (for [w (range 1 4)
-                                            y (range 1 4)
-                                            x (range 1 4)
-                                            z (range 1 4)]
-                                        {:x x
-                                         :y y
-                                         :z z
-                                         :w w})))
+(def d4 (find-collinear-triplets (for [w (range 1 4)
+                                       y (range 1 4)
+                                       x (range 1 4)
+                                       z (range 1 4)]
+                                   [x y z w])))
