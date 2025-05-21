@@ -3,7 +3,8 @@
             [chipper-chaps-chateau.victory :as victory]
             [chipper-chaps-chateau.db :as db]
             [chipper-chaps-chateau.components.bar :as bar]
-            [chipper-chaps-chateau.wins :as wins]))
+            [chipper-chaps-chateau.wins :as wins]
+            [chipper-chaps-chateau.bot :as bot]))
 
 (def next-color
   {:blue :red
@@ -24,7 +25,7 @@
   (let [game (db/current-game db)]
    (if (victory/did-someone-win? (:game/chips game))
      []
-     (let [next-move (victory/pick-next-move wins/d3 (:game/chips game))]
+     (let [next-move (bot/pick-next-move wins/d3 (:game/chips game))]
        [[:effect/transact [{:chip/id (:chip/id next-move)
                             :chip/color (:game/current-color game)}
                            {:game/id (:game/id game)
