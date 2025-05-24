@@ -19,6 +19,15 @@
       (= (count chips) (count filtered)) :tie
       :else false)))
 
+;; Too slow, gets slower and slower further out in the game
+(defn did-someone-win?-2 [chips]
+  (let [grouped (->> chips
+                     (filter :chip/color)
+                     (group-by :chip/color))
+        wins (update-vals grouped (comp wins/find-collinear-triplets
+                                        #(mapv :point %)))]
+    (ffirst (filter #(< 0 (count (second %))) wins))))
+
 (defn heat-mapped-chips []
   (->> (chips/create-chips)
        (map (fn [c]

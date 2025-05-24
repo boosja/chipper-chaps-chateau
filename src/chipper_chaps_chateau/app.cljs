@@ -14,7 +14,7 @@
 
 ;; 4d version
 ;; undo
-;; score moves (bot)
+;; score moves (bot) ✓
 ;; time barrier
 ;; know when game is won ✓
 ;; - also when tied ✓
@@ -22,9 +22,9 @@
 ;; clean up and alias ✓
 ;; play multiple games at the same time (stupid)
 ;; list all previous games under current
-;; icon-bar that shows settings and better iconicity
+;; icon-bar that shows settings and better iconicity ✓
 ;; remember settings in localstorage
-;; better defer handling
+;; better defer handling ✓
 ;; hashing board/state to url - see any board with url
 
 (declare dispatch)

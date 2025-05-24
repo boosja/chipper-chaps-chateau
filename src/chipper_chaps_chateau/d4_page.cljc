@@ -2,22 +2,26 @@
   (:require
    [chipper-chaps-chateau.la-visual :as vis]
    [chipper-chaps-chateau.db :as db]
-   [chipper-chaps-chateau.components.bar :as bar]))
+   [chipper-chaps-chateau.components.bar :as bar]
+   [chipper-chaps-chateau.victory :as victory]))
 
 (defn prepare [db]
   (let [game (db/current-game db)
         settings (db/settings db)
         current-color (:game/current-color game)
-        chips (partition-all 27 (sort-by (juxt :w :x :y :z) (:game/chips game)))
-        #_#_winner (victory/did-someone-win? chips)
+        chips (sort-by (comp vec reverse :point) (:game/chips game))
+        parted-chips (partition-all 27 chips)
+        winner (victory/did-someone-win?-2 chips)
         theme (when (:settings/colorblind? settings)
                 "colorblind")]
-    {:bar-props {:showcase (bar/prepare-showcase nil current-color theme)
-                 :left (bar/prepare-left-icons nil)
-                 :right (bar/prepare-right-icons db nil)}
+    {:bar-props {:showcase (bar/prepare-showcase winner current-color theme)
+                 :left (bar/prepare-left-icons winner)
+                 :right (bar/prepare-right-icons db winner)}
      :theme theme
-     :chips chips
-     :get-actions (fn [chip] [[:board/select-chip chip]])}))
+     :chips parted-chips
+     :get-actions (fn [chip]
+                    (when (and (not winner) (nil? (:chip/color chip)))
+                      [[:board/select-chip chip]]))}))
 
 (defn render [{:keys [bar-props theme chips get-actions]}]
   [:section {:class (cond-> ["grid"]
