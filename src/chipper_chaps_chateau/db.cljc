@@ -22,7 +22,7 @@
 (defn get-chips [db]
   (->> (ds/q '[:find [?e ...]
                :where
-               [?e :x ?x]]
+               [?e :point ?x]]
              db)
        (map #(->> % (ds/entity db) (into {})))
        (sort-by :point)))
