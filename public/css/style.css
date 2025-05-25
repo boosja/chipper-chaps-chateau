@@ -14,6 +14,7 @@ html {
     padding-top: 1rem;
     display: grid;
     justify-items: center;
+    align-content: start;
 }
 
 main {
@@ -30,6 +31,11 @@ h1 {
 
 button {
     font-size: 1rem;
+}
+
+.d4 {
+    width: 100%;
+    justify-content: center;
 }
 
 .grid { display: grid; }

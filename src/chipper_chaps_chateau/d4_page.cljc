@@ -31,18 +31,20 @@
                       [[:board/select-chip chip]]))}))
 
 (defn render [{:keys [bar-props theme chips get-actions]}]
-  [:section {:class (cond-> ["grid"]
-                      theme (conj theme))}
-   [::bar/bar.flex {::bar/data bar-props}
-    [::bar/showcase]
-    [::bar/icon]
-    [::bar/space]
-    [::bar/icon]]
+  (list [:main
+         [:h1 "Chipper Chap's Chateau"]
+         [:section {:class (cond-> ["grid"]
+                             theme (conj theme))}
+          [::bar/bar.flex {::bar/data bar-props}
+           [::bar/showcase]
+           [::bar/icon]
+           [::bar/space]
+           [::bar/icon]]
 
-   (when (< (count chips) 3)
-     [:div.red
-      "Not enough chips"])
+          (when (< (count chips) 3)
+            [:div.red
+             "Not enough chips"])]]
 
-   [:div.flex
-    (for [board chips]
-      (vis/el-chateau get-actions board))]])
+        [:div.flex.d4
+         (for [board chips]
+           (vis/el-chateau get-actions board))]))
