@@ -37,3 +37,14 @@
                                                  5 :blue-1
                                                  4 :blue-0}
                                                 (first %))))))
+
+(defn heat-mapped-chips-4d []
+  (->> (chips/create-chips-4d)
+       (map (fn [c]
+              [(count (filter #(contains? % (:point c)) wins/d4)) c]))
+       (map #(assoc (second %) :chip/color (get {40 :blue-2
+                                                 15 :blue
+                                                 14 :blue-1
+                                                 8 :blue-0
+                                                 7 :white}
+                                                (first %))))))

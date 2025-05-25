@@ -86,6 +86,7 @@
   (override-board! (chips/colored-chateaus-switch :yellow))
   (override-board! (chips/colored-chateaus-switch-cycle))
   (override-board! (victory/heat-mapped-chips))
+  (override-board! (victory/heat-mapped-chips-4d))
 
   ;; Reset game
   (override-board! (chips/create-chips))
