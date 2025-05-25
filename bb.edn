@@ -1,0 +1,37 @@
+{:paths ["bb/src"]
+ :deps {babashka/process {:mvn/version "0.6.23"}}
+
+ :tasks
+ {:requires ([babashka.process :as p])
+  watch {:doc "Watch chipper chap"
+         :task (p/shell "npx" "shadow" "watch" "chipper-chaps-chateau")}
+
+  shadow {:doc "Make release build"
+          :task (p/shell "npx" "shadow" "release" "chipper-chaps-chateau")}
+
+  test {:doc "Test"
+        :task (p/shell "clj" "-M:dev" "-m" "kaocha.runner")}
+
+  garden-deploy {:doc "Deploy to garden"
+                 :task (p/shell "garden" "deploy")}
+
+  deploy-js {:doc "Deploy javascript"
+             :task (p/shell "echo" "\"put target/chipper-chaps-chateau/public/js/main.js public/js/main.js\""
+                            "|" "garden" "sftp")}
+
+  deploy {:doc "Deploy Chipper Chap's Chateau"
+          :depends [test shadow garden-deploy deploy-js]}
+
+  clerk {:doc "Build static clerk"
+         :task (p/shell "clj" "-X:dev" "nextjournal.clerk/build!"
+                        "'{:paths [\"notebooks/*\"] :out-path \"public/clerk\"}'")}
+
+  deploy-clerk
+  {:doc "Deploy clerk"
+   :depends [clerk]
+   :task (do
+           (p/shell "echo" "\"put public/clerk/index.edn public/clerk/index.edn\""
+                    "|" "garden" "sftp")
+           (p/shell "echo" "\"put public/clerk/index.html public/clerk/index.html\""
+                    "|" "garden" "sftp"))}
+  }}
