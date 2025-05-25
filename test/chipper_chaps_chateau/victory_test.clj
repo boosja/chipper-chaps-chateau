@@ -1,5 +1,6 @@
 (ns chipper-chaps-chateau.victory-test
-  (:require [chipper-chaps-chateau.chips :as chips]
+  (:require [chipper-chaps-chateau.bot :as bot]
+            [chipper-chaps-chateau.chips :as chips]
             [chipper-chaps-chateau.victory :as victory]
             [chipper-chaps-chateau.wins :as wins]
             [clojure.java.io :as io]
@@ -112,7 +113,7 @@
 (deftest score-moves
   (testing "Picks first possible move"
     (is (not
-         (contains? (victory/pick-next-move
+         (contains? (bot/pick-next-move
                      wins/d3
                      (chips/add-winning-line (chips/create-chips)
                                              #{[1 1 1]}))
@@ -120,13 +121,13 @@
 
   (testing "Picks first possible move of other color"
     (is (not
-         (= (victory/pick-next-move wins/d3
-                                    (chips/add-winning-line (chips/create-chips)
+         (= (bot/pick-next-move wins/d3
+                                (chips/add-winning-line (chips/create-chips)
                                                         #{[1 1 1]}))
             :chip/color))))
 
   (testing "Not nil"
-    (is (not (nil? (victory/pick-next-move
+    (is (not (nil? (bot/pick-next-move
                     wins/d3
                     (chips/add-winning-line (chips/create-chips) #{[1 1 1]}))))))
 
@@ -141,28 +142,28 @@
   )
 
 (deftest ->point-color-mapper-test
-  (is (= (victory/->point-color-mapper [{:point [1 1 1] :chip/color :blue}
-                                        {:point [1 1 2]}
-                                        {:point [1 1 3] :chip/color :green}
-                                        {:point [2 1 1] :chip/color :blue}
-                                        {:point [2 1 2]}
-                                        {:point [2 1 3]}
-                                        {:point [3 1 1]}
-                                        {:point [3 1 2] :chip/color :red}
-                                        {:point [3 1 3]}
-                                        {:point [1 2 1]}])
+  (is (= (bot/->point-color-mapper [{:point [1 1 1] :chip/color :blue}
+                                    {:point [1 1 2]}
+                                    {:point [1 1 3] :chip/color :green}
+                                    {:point [2 1 1] :chip/color :blue}
+                                    {:point [2 1 2]}
+                                    {:point [2 1 3]}
+                                    {:point [3 1 1]}
+                                    {:point [3 1 2] :chip/color :red}
+                                    {:point [3 1 3]}
+                                    {:point [1 2 1]}])
          {[1 1 1] :blue
           [1 1 3] :green
           [2 1 1] :blue
           [3 1 2] :red})))
 
 (deftest merge-wins-with-colors-test
-  (is (= (victory/merge-wins-with-colors wins/d3 board-with-colors)
+  (is (= (bot/merge-wins-with-colors wins/d3 board-with-colors)
          (read-string (slurp (io/resource "test-data/colored-wins.edn"))))))
 
 (deftest group-by-point-test
-  (is (= (victory/group-by-point
-          (victory/merge-wins-with-colors wins/d3 board-with-colors))
+  (is (= (bot/group-by-point
+          (bot/merge-wins-with-colors wins/d3 board-with-colors))
          (read-string (slurp (io/resource "test-data/wins-grouped-by-point.edn")))))
 
   ;; validate the keys are actually in every winning-line assigned to it
@@ -172,17 +173,17 @@
 
   ;; sorted wins grouped by point
   (sort-by #(contains? (first %) :chip/color)
-           (victory/group-by-point
-            (victory/merge-wins-with-colors wins/d3 board-with-colors)))
+           (bot/group-by-point
+            (bot/merge-wins-with-colors wins/d3 board-with-colors)))
 
 
-  (def stats (victory/stats (victory/group-by-point
-                             (victory/merge-wins-with-colors wins/d3 board-with-colors))
-                            ))
+  (def stats (bot/stats (bot/group-by-point
+                         (bot/merge-wins-with-colors wins/d3 board-with-colors))
+                        ))
 
   (->> stats
        (filter #(-> % first :chip/color nil?))
-       victory/calc-scores
+       bot/calc-scores
        (sort-by second victory/compare-point-scores))
 
   (->> (chips/add-winning-line (chips/create-chips) #{{:x 1 :y 1 :z 1}})
