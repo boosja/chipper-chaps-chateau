@@ -45,6 +45,6 @@
             [:div.red
              "Not enough chips"])]]
 
-        [:div.flex.d4
+        [:div.flex.d4 {:class (when theme theme)}
          (for [board chips]
            (vis/el-chateau get-actions board))]))

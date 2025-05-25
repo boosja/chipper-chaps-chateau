@@ -6,9 +6,9 @@
 (defn get-color-name [color theme]
   (if theme
     (name (get {:blue :blue
-                :red :orange
+                :red :red
                 :green :teal
-                :yellow :purple}
+                :yellow :yellow}
                color))
     (name color)))
 
