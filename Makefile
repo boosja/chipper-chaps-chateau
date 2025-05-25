@@ -22,4 +22,4 @@ deploy-clerk:
 	echo "put public/clerk/index.edn public/clerk/index.edn" | garden sftp
 	echo "put public/clerk/index.html public/clerk/index.html" | garden sftp
 
-deploy: test shadow clerk garden-deploy deploy-js deploy-clerk
+deploy: test shadow garden-deploy deploy-js
