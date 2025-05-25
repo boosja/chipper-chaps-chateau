@@ -5,23 +5,38 @@
   (when (= ::set action)
     [[:effect/transact [(into [:db/add [:db/ident :settings]] args)]]]))
 
-(defn prepare [db]
-  (let [settings (ds/entity db :settings)
-        enable-bot (:settings/enable-bot settings)
-        variant (:settings/variant settings)
-        colorblind? (:settings/colorblind? settings)]
-    [{:sm true
-      :actions [[::set :settings/enable-bot (not enable-bot)]]
-      :icon (if enable-bot "🤖" "🙋‍♂️")
-      :tooltip "🙋 Human / 🤖 Bot"}
-     {:sm true
-      :actions [[::set :settings/variant (if (= :four-player variant)
-                                           :two-player :four-player)]]
-      :icon (if (= :four-player variant)
-              "🧑‍🧑‍🧒‍🧒" "👥")
-      :tooltip "🧑‍🧑‍🧒‍🧒 Four-player / 👥 Two-player"}
-     {:sm true
-      :actions [[::set :settings/colorblind? (not colorblind?)]]
-      :icon (if colorblind?
-              "🖌️" "🎨")
-      :tooltip "🎨 Default / 🖌️ Colorblind"}]))
+(defn bot [db]
+  (let [enable-bot (:settings/enable-bot (ds/entity db :settings))]
+    {:sm true
+     :actions [[::set :settings/enable-bot (not enable-bot)]]
+     :icon (if enable-bot "🤖" "🙋‍♂️")
+     :tooltip "🙋 Human / 🤖 Bot"}))
+
+(defn variant [db]
+  (let [variant (:settings/variant (ds/entity db :settings))]
+    {:sm true
+     :actions [[::set :settings/variant]]
+     :icon (if (= :four-player variant)
+             "🧑‍🧑‍🧒‍🧒" "👥")
+     :tooltip "🧑‍🧑‍🧒‍🧒 Four-player / 👥 Two-player"}))
+
+(defn color-mode [db]
+  (let [colorblind? (:settings/colorblind? (ds/entity db :settings))]
+    {:sm true
+     :actions [[::set :settings/colorblind? (not colorblind?)]]
+     :icon (if colorblind? "🖌️" "🎨")
+     :tooltip "🎨 Default / 🖌️ Colorblind"}))
+
+(defn ->d3 []
+  {:sm true
+   :actions [[:action/navigate :route/d3]
+             [:board.d3/reset]]
+   :icon "😓"
+   :tooltip "😌 easy / 😓 hard"})
+
+(defn ->d4 []
+  {:sm true
+   :actions [[:action/navigate :route/d4]
+             [:board.d4/reset]]
+   :icon "😌"
+   :tooltip "😌 easy / 😓 hard"})

@@ -3,7 +3,8 @@
    [chipper-chaps-chateau.la-visual :as vis]
    [chipper-chaps-chateau.db :as db]
    [chipper-chaps-chateau.components.bar :as bar]
-   [chipper-chaps-chateau.victory :as victory]))
+   [chipper-chaps-chateau.victory :as victory]
+   [chipper-chaps-chateau.settings :as settings]))
 
 (defn prepare [db]
   (let [game (db/current-game db)
@@ -16,7 +17,13 @@
                 "colorblind")]
     {:bar-props {:showcase (bar/prepare-showcase winner current-color theme)
                  :left (bar/prepare-left-icons winner)
-                 :right (bar/prepare-right-icons db winner)}
+                 :right (-> [(settings/color-mode db)
+                             (settings/->d3)
+                             {:sm true
+                              :actions [[:board.d4/reset]]
+                              :icon "🔄"
+                              :tooltip "Reset game"}]
+                            (into (bar/prepare-right-icons)))}
      :theme theme
      :chips parted-chips
      :get-actions (fn [chip]
