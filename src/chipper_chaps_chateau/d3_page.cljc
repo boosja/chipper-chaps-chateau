@@ -65,12 +65,14 @@
                        [::deferred-bot-move 300]]))}))
 
 (defn render [{:keys [bar-props theme chips get-actions]}]
-  [:section {:class (cond-> ["grid"]
-                      theme (conj theme))}
-   [::bar/bar.flex {::bar/data bar-props}
-    [::bar/showcase]
-    [::bar/icon]
-    [::bar/space]
-    [::bar/icon]]
+  [:main
+   [:h1 "Chipper Chap's Chateau"]
+   [:section {:class (cond-> ["grid"]
+                       theme (conj theme))}
+    [::bar/bar.flex {::bar/data bar-props}
+     [::bar/showcase]
+     [::bar/icon]
+     [::bar/space]
+     [::bar/icon]]
 
-   (vis/el-chateau get-actions chips)])
+    (vis/el-chateau get-actions chips)]])

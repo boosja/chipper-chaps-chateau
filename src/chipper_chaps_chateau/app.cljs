@@ -152,9 +152,7 @@
 (defn app [db]
   (let [location (db/location db)
         [prepare render] (get routes location)]
-    [:main
-     [:h1 "Chipper Chap's Chateau"]
-     (render (prepare db))]))
+    (render (prepare db))))
 
 (defn ^:dev/after-load start []
   (js/console.log "[START]")
