@@ -4,7 +4,8 @@
             [chipper-chaps-chateau.db :as db]
             [chipper-chaps-chateau.components.bar :as bar]
             [chipper-chaps-chateau.wins :as wins]
-            [chipper-chaps-chateau.bot :as bot]))
+            [chipper-chaps-chateau.bot :as bot]
+            [chipper-chaps-chateau.settings :as settings]))
 
 (def next-color
   {:blue :red
@@ -47,7 +48,15 @@
                 "colorblind")]
     {:bar-props {:showcase (bar/prepare-showcase winner current-color theme)
                  :left (bar/prepare-left-icons winner)
-                 :right (bar/prepare-right-icons db winner)}
+                 :right (-> [(settings/bot db)
+                             (settings/variant db)
+                             (settings/color-mode db)
+                             (settings/->d4)
+                             {:sm true
+                              :actions [[:board.d3/reset]]
+                              :icon "🔄"
+                              :tooltip "Reset game"}]
+                            (into (bar/prepare-right-icons)))}
      :theme theme
      :chips chips
      :get-actions (fn [chip]

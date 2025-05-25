@@ -1,7 +1,6 @@
 (ns chipper-chaps-chateau.components.bar
   (:require [replicant.alias :refer [defalias]]
             [replicant.hiccup :as hiccup]
-            [chipper-chaps-chateau.settings :as settings]
             [clojure.string :as str]))
 
 (defn get-color-name [color theme]
@@ -30,15 +29,10 @@
   [{:icon (cond (= winner :tie) "💪"
                 winner "🎉")}])
 
-(defn prepare-right-icons [db winner]
-  (into (settings/prepare db)
-        [(if winner
-           {:actions [[:board/reset]]
-            :icon "🔄"
-            :tooltip "Reset game"}
-           {:actions [[:action/navigate :route.rules/summary]]
-            :icon "📖"
-            :tooltip "Rules"})]))
+(defn prepare-right-icons []
+  [{:actions [[:action/navigate :route.rules/summary]]
+    :icon "📖"
+    :tooltip "Rules"}])
 
 (defalias space []
   [:span.expand])

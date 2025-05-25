@@ -112,7 +112,8 @@
           actions))
 
 (def refiners {:id/gen id/gen!
-               :id.gen/chips #(id/-ilize! :chip/id (chips/create-chips))})
+               :id.gen/d3-chips #(id/-ilize! :chip/id (chips/create-chips))
+               :id.gen/d4-chips #(id/-ilize! :chip/id (chips/create-chips-4d))})
 
 (defn refine [txes]
   (-> (fn [x]
