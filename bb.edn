@@ -2,7 +2,10 @@
  :deps {babashka/process {:mvn/version "0.6.23"}}
 
  :tasks
- {:requires ([babashka.process :as p])
+ {:requires ([babashka.process :as p]
+             [chipper-chaps-chateau.doat :as doat])
+  doat (apply doat/main *command-line-args*)
+
   watch {:doc "Watch chipper chap"
          :task (p/shell "npx" "shadow" "watch" "chipper-chaps-chateau")}
 
