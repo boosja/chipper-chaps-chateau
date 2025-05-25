@@ -7,10 +7,10 @@
   doat (apply doat/main *command-line-args*)
 
   watch {:doc "Watch chipper chap"
-         :task (p/shell "npx" "shadow" "watch" "chipper-chaps-chateau")}
+         :task (p/shell "npx" "shadow-cljs" "watch" "chipper-chaps-chateau")}
 
   shadow {:doc "Make release build"
-          :task (p/shell "npx" "shadow" "release" "chipper-chaps-chateau")}
+          :task (p/shell "npx" "shadow-cljs" "release" "chipper-chaps-chateau")}
 
   test {:doc "Test"
         :task (p/shell "clj" "-M:dev" "-m" "kaocha.runner")}
