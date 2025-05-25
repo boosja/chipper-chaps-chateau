@@ -5,25 +5,25 @@
             [chipper-chaps-chateau.components.bar :as bar]
             [chipper-chaps-chateau.wins :as wins]))
 
-(defn prepare-bar [show-all?]
-  {:showcase {:text (if show-all? "Every possible win" "How to win")
-              :class "green"
-              :actions [[:action/navigate (if show-all?
-                                            :route.rules/summary
-                                            :route.rules/all)]]}
-   :right [{:icon "🙅‍♂️"
-            :actions [[:action/navigate :route/d3]]}]})
-
 (defn prepare [db]
   (let [show-all? (= :route.rules/all (db/location db))
+        back-to-4d? (< 27 (-> (db/current-game db) :game/chips count))
         chips-d3 (chips/create-chips)
         filtered [0 4 8 12 22 40 36 47 29]]
-    {:bar-props (prepare-bar show-all?)
+    {:bar-props {:showcase {:text (if show-all? "Every possible win" "How to win")
+                            :class "green"
+                            :actions [[:action/navigate (if show-all?
+                                                          :route.rules/summary
+                                                          :route.rules/all)]]}
+                 :right [{:icon "🙅‍♂️"
+                          :actions (if back-to-4d?
+                                     [[:action/navigate :route/d4]]
+                                     [[:action/navigate :route/d3]])}]}
      :rule-boards-d3 (if show-all?
-                    (map #(chips/add-winning-line chips-d3 % :blue)
-                         wins/d3)
-                    (map #(chips/add-winning-line chips-d3 (nth wins/d3 %) :blue)
-                         filtered))}))
+                       (map #(chips/add-winning-line chips-d3 % :blue)
+                            wins/d3)
+                       (map #(chips/add-winning-line chips-d3 (nth wins/d3 %) :blue)
+                            filtered))}))
 
 (defn render [{:keys [bar-props rule-boards-d3 rule-boards-d4]}]
   [:main
