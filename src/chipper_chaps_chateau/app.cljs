@@ -64,20 +64,25 @@
     (ds/transact! conn txes)
     conn))
 
-(comment
-  (def db (ds/db conn))
-
-  (def cs (db/get-chips db))
-  cs
-
-  ;; Show custom chips
-  (defn override-board! [chips]
+(defn override-board! [chips]
     (ds/transact conn [{:db/id "new-game"
                         :game/id (id/gen!)
                         :game/current-color :blue
                         :game/chips (id/-ilize! :chip/id chips)}
                        {:db/ident :app/state
                         :app/current-game "new-game"}]))
+
+(comment
+  (def db (ds/db conn))
+
+  (def current-game (db/current-game db))
+  (->> (:game/chips current-game)
+       (map #(into {} %))
+       (sort-by (comp vec reverse :point))
+       (partition-all 27))
+
+  (def cs (db/get-chips db))
+  cs
 
   (override-board! (chips/colored-chateaus))
   (override-board! (chips/colored-chateaus-switch :blue))
@@ -92,9 +97,10 @@
   (override-board! (chips/create-chips))
 
   ;; Navigate
-  (dispatch nil [[:action/navigate :route/d3]])
-  (dispatch nil [[:action/navigate :route/d4]])
-  (override-board! (id/-ilize! :chip/id (chips/create-chips-4d)))
+  (do (dispatch nil [[:action/navigate :route/d3]])
+      (override-board! (id/-ilize! :chip/id (chips/create-chips))))
+  (do (dispatch nil [[:action/navigate :route/d4]])
+      (override-board! (id/-ilize! :chip/id (chips/create-chips-4d))))
 
   (victory/did-someone-win? cs)
   )
