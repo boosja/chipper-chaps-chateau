@@ -25,9 +25,18 @@
                       {:db/ident :app/state
                        :app/current-game "new-game"}]]])
 
+(defn reset-d5 [_db]
+  [[:effect/transact [{:db/id "new-game"
+                       :game/id [:data-require :id/gen]
+                       :game/current-color :blue
+                       :game/chips [:data-require :id.gen/d5-chips]}
+                      {:db/ident :app/state
+                       :app/current-game "new-game"}]]])
+
 (defn perform-action [db [action & args]]
   (case action
     :board/select-chip (select-chip db (first args))
     :board.d3/reset (reset-d3 db)
     :board.d4/reset (reset-d4 db)
+    :board.d5/reset (reset-d5 db)
     nil))

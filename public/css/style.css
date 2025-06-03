@@ -38,6 +38,20 @@ button {
     justify-content: center;
 }
 
+.d5 {
+    max-height: 85vh;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 1rem;
+    margin: .5rem;
+    user-select: none;
+
+    & {
+        aspect-ratio: 1 / 1;
+    }
+}
+
 .grid { display: grid; }
 
 .m-1 { margin: .5rem; }
