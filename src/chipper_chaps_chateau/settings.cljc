@@ -31,12 +31,19 @@
   {:sm true
    :actions [[:action/navigate :route/d3]
              [:board.d3/reset]]
-   :icon "😓"
-   :tooltip "😌 easy / 😓 hard"})
+   :icon "😰"
+   :tooltip "😌 easy / 😓 hard / 😰 expert"})
 
 (defn ->d4 []
   {:sm true
    :actions [[:action/navigate :route/d4]
              [:board.d4/reset]]
    :icon "😌"
-   :tooltip "😌 easy / 😓 hard"})
+   :tooltip "😌 easy / 😓 hard / 😰 expert"})
+
+(defn ->d5 []
+  {:sm true
+   :actions [[:action/navigate :route/d5]
+             [:board.d5/reset]]
+   :icon "😓"
+   :tooltip "😌 easy / 😓 hard / 😰 expert"})

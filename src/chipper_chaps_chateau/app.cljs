@@ -3,6 +3,7 @@
             [chipper-chaps-chateau.chips :as chips]
             [chipper-chaps-chateau.d3-page :as d3-page]
             [chipper-chaps-chateau.d4-page :as d4-page]
+            [chipper-chaps-chateau.d5-page :as d5-page]
             [chipper-chaps-chateau.db :as db]
             [chipper-chaps-chateau.id :as id]
             [chipper-chaps-chateau.rules-page :as rules-page]
@@ -92,6 +93,7 @@
   (override-board! (chips/colored-chateaus-switch-cycle))
   (override-board! (victory/heat-mapped-chips))
   (override-board! (victory/heat-mapped-chips-4d))
+  (override-board! (victory/heat-mapped-chips-5d))
 
   ;; Reset game
   (override-board! (chips/create-chips))
@@ -101,6 +103,8 @@
       (override-board! (id/-ilize! :chip/id (chips/create-chips))))
   (do (dispatch nil [[:action/navigate :route/d4]])
       (override-board! (id/-ilize! :chip/id (chips/create-chips-4d))))
+  (do (dispatch nil [[:action/navigate :route/d5]])
+      (override-board! (id/-ilize! :chip/id (chips/create-chips-5d))))
 
   (victory/did-someone-win? cs)
   )
@@ -120,7 +124,8 @@
 
 (def refiners {:id/gen id/gen!
                :id.gen/d3-chips #(id/-ilize! :chip/id (chips/create-chips))
-               :id.gen/d4-chips #(id/-ilize! :chip/id (chips/create-chips-4d))})
+               :id.gen/d4-chips #(id/-ilize! :chip/id (chips/create-chips-4d))
+               :id.gen/d5-chips #(id/-ilize! :chip/id (chips/create-chips-5d))})
 
 (defn refine [txes]
   (-> (fn [x]
@@ -153,6 +158,7 @@
 
 (def routes {:route/d3 [d3-page/prepare d3-page/render]
              :route/d4 [d4-page/prepare d4-page/render]
+             :route/d5 [d5-page/prepare d5-page/render]
              :route.rules/summary [rules-page/prepare rules-page/render]
              :route.rules/all [rules-page/prepare rules-page/render]})
 

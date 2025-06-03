@@ -48,3 +48,14 @@
                                                  8 :blue-0
                                                  7 :white}
                                                 (first %))))))
+
+(defn heat-mapped-chips-5d []
+  (->> (chips/create-chips-5d)
+       (map (fn [c]
+              [(count (filter #(contains? % (:point c)) wins/d5)) c]))
+       (map #(assoc (second %) :chip/color (get {121 :blue-2
+                                                 41 :blue
+                                                 31 :blue-1
+                                                 16 :blue-0
+                                                 11 :white}
+                                                (first %))))))

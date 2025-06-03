@@ -69,11 +69,7 @@
         y (range 1 4)
         x (range 1 4)
         z (range 1 4)]
-    {:x x
-     :y y
-     :z z
-     :w w
-     :v v
+    {:point [x y z w v]
      :svg/circle (get svg-circles (str y x z))}))
 
 (comment

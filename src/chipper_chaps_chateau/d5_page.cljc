@@ -1,10 +1,9 @@
-(ns chipper-chaps-chateau.d4-page
-  (:require
-   [chipper-chaps-chateau.la-visual :as vis]
-   [chipper-chaps-chateau.db :as db]
-   [chipper-chaps-chateau.components.bar :as bar]
-   [chipper-chaps-chateau.victory :as victory]
-   [chipper-chaps-chateau.settings :as settings]))
+(ns chipper-chaps-chateau.d5-page
+  (:require [chipper-chaps-chateau.la-visual :as vis]
+            [chipper-chaps-chateau.components.bar :as bar]
+            [chipper-chaps-chateau.settings :as settings]
+            [chipper-chaps-chateau.db :as db]
+            [chipper-chaps-chateau.victory :as victory]))
 
 (defn prepare [db]
   (let [game (db/current-game db)
@@ -18,9 +17,9 @@
     {:bar-props {:showcase (bar/prepare-showcase winner current-color theme)
                  :left (bar/prepare-left-icons winner)
                  :right (-> [(settings/color-mode db)
-                             (settings/->d5)
+                             (settings/->d3)
                              {:sm true
-                              :actions [[:board.d4/reset]]
+                              :actions [[:board.d5/reset]]
                               :icon "🔄"
                               :tooltip "Reset game"}]
                             (into (bar/prepare-right-icons)))}
@@ -41,10 +40,10 @@
            [::bar/space]
            [::bar/icon]]
 
-          (when (< (count chips) 3)
+          (when (< (count chips) 9)
             [:div.red
-             "Not enough chips"])]]
+             "Not enough chips"])]
 
-        [:div.flex.d4 {:class (when theme theme)}
-         (for [board chips]
-           (vis/el-chateau get-actions board))]))
+         [:div.d5 {:class (when theme theme)}
+          (for [board chips]
+            (vis/el-chateau get-actions board))]]))
