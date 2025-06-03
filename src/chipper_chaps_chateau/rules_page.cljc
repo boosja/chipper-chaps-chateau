@@ -8,6 +8,7 @@
 (defn prepare [db]
   (let [show-all? (= :route.rules/all (db/location db))
         back-to-4d? (< 27 (-> (db/current-game db) :game/chips count))
+        back-to-5d? (< 81 (-> (db/current-game db) :game/chips count))
         chips-d3 (chips/create-chips)
         filtered [0 4 8 12 22 40 36 47 29]
         chips-d4 (chips/create-chips-4d)
@@ -20,9 +21,10 @@
                                                           :route.rules/summary
                                                           :route.rules/all)]]}
                  :right [{:icon "🙅‍♂️"
-                          :actions (if back-to-4d?
-                                     [[:action/navigate :route/d4]]
-                                     [[:action/navigate :route/d3]])}]}
+                          :actions (cond
+                                     back-to-5d? [[:action/navigate :route/d5]]
+                                     back-to-4d? [[:action/navigate :route/d4]]
+                                     :else [[:action/navigate :route/d3]])}]}
 
      :rule-boards-d3 (if show-all?
                        (map #(chips/add-winning-line chips-d3 % :blue)
