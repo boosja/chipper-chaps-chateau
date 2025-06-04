@@ -111,6 +111,23 @@ svg.board {
     justify-self: center;
 }
 
+.dimensional-presupposition {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    padding-bottom: 1rem;
+    margin-top: 1rem;
+
+    .header {
+        justify-self: center;
+        font-weight: bold;
+    }
+
+    .rules {
+        gap: .5rem;
+    }
+}
+
 .rules {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;

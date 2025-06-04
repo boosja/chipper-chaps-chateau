@@ -3,9 +3,9 @@
 
 (defn el-chateau [get-actions chips]
   [:svg.board {:viewBox "0 0 1800 1800" :xmlns "http://www.w3.org/2000/svg"
-         :stroke-width "4"
-         :stroke "grey"
-         :fill "white"}
+               :stroke-width "4"
+               :stroke "grey"
+               :fill "white"}
    (->> chips
         (map (fn [chip]
                (let [[shadow circle] (:svg/circle chip)]
