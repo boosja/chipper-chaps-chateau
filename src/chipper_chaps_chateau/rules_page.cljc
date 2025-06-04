@@ -42,6 +42,35 @@
                                  filtered-d5)
                             (map #(partition-all 27 %))))}))
 
+(defn render-dimensional-presupposition []
+  [:div.dimensional-presupposition
+   (sequence (map (comp #(vector :div.header (str % "D"))
+                        inc))
+             (range 5))
+
+   [:div.container
+    (vis/el-chateau nil (->> ["211" "221" "231"]
+                             (map #(get chips/svg-circles %))
+                             (map #(hash-map :svg/circle %))))]
+
+   [:div.container
+    (vis/el-chateau nil (->> ["111" "121" "131"
+                              "211" "221" "231"
+                              "311" "321" "331"]
+                             (map #(get chips/svg-circles %))
+                             (map #(hash-map :svg/circle %))))]
+
+   [:div.container
+    (vis/el-chateau nil (chips/create-chips))]
+
+   [:div.container.rules
+    (repeat 3 (vis/el-chateau nil []))
+    (repeat 3 (vis/el-chateau nil (chips/create-chips)))
+    (repeat 3 (vis/el-chateau nil []))]
+
+   [:div.container.rules
+    (repeat 9 (vis/el-chateau nil (chips/create-chips)))]])
+
 (defn render [{:keys [bar-props rule-boards-d3 rule-boards-d4 rule-boards-d5]}]
   [:main
    [:h1 "Chipper Chap's Chateau"]
@@ -51,6 +80,9 @@
     [::bar/space]
     [::bar/icon]]
 
+   (render-dimensional-presupposition)
+
+   [:h2 "3D rules:"]
    [:div.rules
     (for [chips rule-boards-d3]
       [:div.container
@@ -58,7 +90,7 @@
 
    (when rule-boards-d4
      (list
-      [:h2 "Rules for the fourth dimensional plane:"]
+      [:h2 "4D rules:"]
       [:div.rules-d4
        (for [boards rule-boards-d4]
          [:div.container.rules
@@ -67,7 +99,7 @@
 
    (when rule-boards-d5
      (list
-      [:h2 "Rules for the fifth dimensional plane:"]
+      [:h2 "5D rules:"]
       [:div.rules-d4
        (for [boards rule-boards-d5]
          [:div.container.rules
