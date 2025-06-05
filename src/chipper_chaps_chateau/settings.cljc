@@ -27,23 +27,37 @@
      :icon (if colorblind? "🖌️" "🎨")
      :tooltip "🎨 Default / 🖌️ Colorblind"}))
 
+(def difficulty {:pointless "😅"
+                 :easy "😌"
+                 :hard "😓"
+                 :expert "😰"})
+
+(def tooltip "😅 pointless / 😌 easy / 😓 hard / 😰 expert")
+
+(defn ->d1 []
+  {:sm true
+   :actions [[:action/navigate :route/d1]
+             [:board.d1/reset]]
+   :icon (:expert difficulty)
+   :tooltip tooltip})
+
 (defn ->d3 []
   {:sm true
    :actions [[:action/navigate :route/d3]
              [:board.d3/reset]]
-   :icon "😰"
-   :tooltip "😌 easy / 😓 hard / 😰 expert"})
+   :icon (:pointless difficulty)
+   :tooltip tooltip})
 
 (defn ->d4 []
   {:sm true
    :actions [[:action/navigate :route/d4]
              [:board.d4/reset]]
-   :icon "😌"
-   :tooltip "😌 easy / 😓 hard / 😰 expert"})
+   :icon (:easy difficulty)
+   :tooltip tooltip})
 
 (defn ->d5 []
   {:sm true
    :actions [[:action/navigate :route/d5]
              [:board.d5/reset]]
-   :icon "😓"
-   :tooltip "😌 easy / 😓 hard / 😰 expert"})
+   :icon (:hard difficulty)
+   :tooltip tooltip})
