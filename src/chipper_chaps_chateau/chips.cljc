@@ -48,7 +48,7 @@
                                              :cy (- cy (* 2 pad))
                                              :r sm-radius}]]})))))
 
-(defn create-chips []
+(defn create-chips-3d []
   (for [y (range 1 4)
         x (range 1 4)
         z (range 1 4)]
@@ -73,7 +73,7 @@
      :svg/circle (get svg-circles (str y x z))}))
 
 (comment
-  (->> (create-chips) (map :point))
+  (->> (create-chips-3d) (map :point))
   (->> (create-chips-4d) (map ->xyz))
   (->> (create-chips-5d) (map ->xyz))
   )
@@ -98,7 +98,7 @@
 (defn colored-chateaus
   "Each chateau has unique color"
   []
-  (->> (create-chips)
+  (->> (create-chips-3d)
        (partition-all 3)
        (map-indexed (fn [i chateau]
                       (map #(assoc % :chip/color (get clridx (mod i 4)))
@@ -131,7 +131,7 @@
                     (apply concat)
                     (into {}))
         starting-color-idx (get colors starting-color)]
-    (->> (create-chips)
+    (->> (create-chips-3d)
          (sort-by (comp-yzx))
          (partition-all 3)
          (map-indexed (fn [i chateau]
@@ -151,7 +151,7 @@
                            (apply concat)
                            (into {})))
                     all-colors)]
-    (->> (create-chips)
+    (->> (create-chips-3d)
          (sort-by (comp-yxz))
          (partition-all 3)
          (map (fn [chateau]

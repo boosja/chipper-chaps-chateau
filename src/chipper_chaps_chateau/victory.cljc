@@ -29,7 +29,7 @@
     (ffirst (filter #(< 0 (count (second %))) wins))))
 
 (defn heat-mapped-chips []
-  (->> (chips/create-chips)
+  (->> (chips/create-chips-3d)
        (map (fn [c]
               [(count (filter #(contains? % (:point c)) wins/d3)) c]))
        (map #(assoc (second %) :chip/color (get {13 :blue-2
