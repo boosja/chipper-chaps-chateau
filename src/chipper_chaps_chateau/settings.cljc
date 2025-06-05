@@ -15,7 +15,8 @@
 (defn variant [db]
   (let [variant (:settings/variant (ds/entity db :settings))]
     {:sm true
-     :actions [[::set :settings/variant]]
+     :actions [[::set :settings/variant (if (= :four-player variant)
+                                          :two-player :four-player)]]
      :icon (if (= :four-player variant)
              "🧑‍🧑‍🧒‍🧒" "👥")
      :tooltip "👥 Two-player\n🧑‍🧑‍🧒‍🧒 Four-player"}))
