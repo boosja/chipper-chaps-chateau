@@ -19,6 +19,24 @@
       (= (count chips) (count filtered)) :tie
       :else false)))
 
+(defn three-in-a-row? [chips wins]
+  (some #(set/subset? % chips) wins))
+
+(defn has-winner? [chips wins]
+  (let [filtered (filter :chip/color chips)
+        grouped (-> (group-by :chip/color filtered)
+                    (update-vals #(set (map :point %))))
+        winner (reduce (fn [winner? [color chips]]
+                         (if (three-in-a-row? chips wins)
+                           color
+                           winner?))
+                       false
+                       grouped)]
+    (cond
+      winner winner
+      (= (count chips) (count filtered)) :tie
+      :else false)))
+
 ;; Too slow, gets slower and slower further out in the game
 (defn did-someone-win?-2 [chips]
   (let [grouped (->> chips
