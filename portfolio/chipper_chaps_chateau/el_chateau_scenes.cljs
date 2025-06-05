@@ -11,7 +11,7 @@
 
 (defscene el-chateau
   [::box.pfo-h.pfo-w
-   (vis/el-chateau nil (chips/create-chips))])
+   (vis/el-chateau nil (chips/create-chips-3d))])
 
 (defscene colored-in
   "normal | colorblind"

@@ -39,7 +39,7 @@
                    {:db/id "game"
                     :game/id (id/gen!)
                     :game/current-color :blue
-                    :game/chips (id/-ilize! :chip/id (chips/create-chips))}
+                    :game/chips (id/-ilize! :chip/id (chips/create-chips-3d))}
                    {:db/ident :app/state
                     :app/current-game "game"
                     :app/location :route/d3}
@@ -96,11 +96,11 @@
   (override-board! (victory/heat-mapped-chips-5d))
 
   ;; Reset game
-  (override-board! (chips/create-chips))
+  (override-board! (chips/create-chips-3d))
 
   ;; Navigate
   (do (dispatch nil [[:action/navigate :route/d3]])
-      (override-board! (id/-ilize! :chip/id (chips/create-chips))))
+      (override-board! (id/-ilize! :chip/id (chips/create-chips-3d))))
   (do (dispatch nil [[:action/navigate :route/d4]])
       (override-board! (id/-ilize! :chip/id (chips/create-chips-4d))))
   (do (dispatch nil [[:action/navigate :route/d5]])
@@ -124,6 +124,7 @@
 
 (def refiners {:id/gen id/gen!
                :id.gen/d3-chips #(id/-ilize! :chip/id (chips/create-chips))
+               :id.gen/d3-chips #(id/-ilize! :chip/id (chips/create-chips-3d))
                :id.gen/d4-chips #(id/-ilize! :chip/id (chips/create-chips-4d))
                :id.gen/d5-chips #(id/-ilize! :chip/id (chips/create-chips-5d))})
 

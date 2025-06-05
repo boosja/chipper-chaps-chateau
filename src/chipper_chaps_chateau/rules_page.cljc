@@ -9,7 +9,7 @@
   (let [show-all? (= :route.rules/all (db/location db))
         back-to-4d? (< 27 (-> (db/current-game db) :game/chips count))
         back-to-5d? (< 81 (-> (db/current-game db) :game/chips count))
-        chips-d3 (chips/create-chips)
+        chips-d3 (chips/create-chips-3d)
         filtered [0 4 8 12 22 40 36 47 29]
         chips-d4 (chips/create-chips-4d)
         filtered-d4 [7 8 9 10 11 12]
@@ -61,15 +61,15 @@
                              (map #(hash-map :svg/circle %))))]
 
    [:div.container
-    (vis/el-chateau nil (chips/create-chips))]
+    (vis/el-chateau nil (chips/create-chips-3d))]
 
    [:div.container.rules
     (repeat 3 (vis/el-chateau nil []))
-    (repeat 3 (vis/el-chateau nil (chips/create-chips)))
+    (repeat 3 (vis/el-chateau nil (chips/create-chips-3d)))
     (repeat 3 (vis/el-chateau nil []))]
 
    [:div.container.rules
-    (repeat 9 (vis/el-chateau nil (chips/create-chips)))]])
+    (repeat 9 (vis/el-chateau nil (chips/create-chips-3d)))]])
 
 (defn render [{:keys [bar-props rule-boards-d3 rule-boards-d4 rule-boards-d5]}]
   [:main
