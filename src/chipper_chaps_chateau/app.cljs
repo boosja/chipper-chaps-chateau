@@ -2,6 +2,7 @@
   (:require [chipper-chaps-chateau.board :as board]
             [chipper-chaps-chateau.chips :as chips]
             [chipper-chaps-chateau.d1-page :as d1-page]
+            [chipper-chaps-chateau.d2-page :as d2-page]
             [chipper-chaps-chateau.d3-page :as d3-page]
             [chipper-chaps-chateau.d4-page :as d4-page]
             [chipper-chaps-chateau.d5-page :as d5-page]
@@ -102,6 +103,8 @@
   ;; Navigate
   (do (dispatch nil [[:action/navigate :route/d1]])
       (override-board! (id/-ilize! :chip/id (chips/create-chips-1d))))
+  (do (dispatch nil [[:action/navigate :route/d2]])
+      (override-board! (id/-ilize! :chip/id (chips/create-chips-2d))))
   (do (dispatch nil [[:action/navigate :route/d3]])
       (override-board! (id/-ilize! :chip/id (chips/create-chips-3d))))
   (do (dispatch nil [[:action/navigate :route/d4]])
@@ -127,6 +130,7 @@
 
 (def refiners {:id/gen id/gen!
                :id.gen/d1-chips #(id/-ilize! :chip/id (chips/create-chips-1d))
+               :id.gen/d2-chips #(id/-ilize! :chip/id (chips/create-chips-2d))
                :id.gen/d3-chips #(id/-ilize! :chip/id (chips/create-chips-3d))
                :id.gen/d4-chips #(id/-ilize! :chip/id (chips/create-chips-4d))
                :id.gen/d5-chips #(id/-ilize! :chip/id (chips/create-chips-5d))})
@@ -161,6 +165,7 @@
        (run! #(process-effect conn %))))
 
 (def routes {:route/d1 [d1-page/prepare d1-page/render]
+             :route/d2 [d2-page/prepare d2-page/render]
              :route/d3 [d3-page/prepare d3-page/render]
              :route/d4 [d4-page/prepare d4-page/render]
              :route/d5 [d5-page/prepare d5-page/render]

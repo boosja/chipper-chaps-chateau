@@ -16,6 +16,10 @@
 
 (comment
 
+  (def d2 (wins/find-collinear-triplets (for [y (range 1 4)
+                                              x (range 1 4)]
+                                          [x y])))
+
   (def d3 (wins/find-collinear-triplets (for [y (range 1 4)
                                               x (range 1 4)
                                               z (range 1 4)]
