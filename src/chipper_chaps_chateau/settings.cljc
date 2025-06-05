@@ -10,7 +10,7 @@
     {:sm true
      :actions [[::set :settings/enable-bot (not enable-bot)]]
      :icon (if enable-bot "🤖" "🙋‍♂️")
-     :tooltip "🙋 Human / 🤖 Bot"}))
+     :tooltip "🙋 Human\n🤖 Bot"}))
 
 (defn variant [db]
   (let [variant (:settings/variant (ds/entity db :settings))]
@@ -18,14 +18,14 @@
      :actions [[::set :settings/variant]]
      :icon (if (= :four-player variant)
              "🧑‍🧑‍🧒‍🧒" "👥")
-     :tooltip "🧑‍🧑‍🧒‍🧒 Four-player / 👥 Two-player"}))
+     :tooltip "👥 Two-player\n🧑‍🧑‍🧒‍🧒 Four-player"}))
 
 (defn color-mode [db]
   (let [colorblind? (:settings/colorblind? (ds/entity db :settings))]
     {:sm true
      :actions [[::set :settings/colorblind? (not colorblind?)]]
      :icon (if colorblind? "🖌️" "🎨")
-     :tooltip "🎨 Default / 🖌️ Colorblind"}))
+     :tooltip "🎨 Default\n🖌️ Colorblind"}))
 
 (def difficulty {:pointless "😅"
                  :elementary "🤗"
