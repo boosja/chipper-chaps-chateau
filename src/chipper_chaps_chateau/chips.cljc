@@ -53,6 +53,12 @@
     {:point [x]
      :svg/circle (get svg-circles (str "2" x "1"))}))
 
+(defn create-chips-2d []
+  (for [y (range 1 4)
+        x (range 1 4)]
+    {:point [x y]
+     :svg/circle (get svg-circles (str y x "1"))}))
+
 (defn create-chips-3d []
   (for [y (range 1 4)
         x (range 1 4)
