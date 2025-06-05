@@ -3,7 +3,8 @@
             [chipper-chaps-chateau.components.bar :as bar]
             [chipper-chaps-chateau.settings :as settings]
             [chipper-chaps-chateau.db :as db]
-            [chipper-chaps-chateau.victory :as victory]))
+            [chipper-chaps-chateau.victory :as victory]
+            [chipper-chaps-chateau.wins :as wins]))
 
 (defn prepare [db]
   (let [game (db/current-game db)
@@ -11,7 +12,7 @@
         current-color (:game/current-color game)
         chips (sort-by (comp vec reverse :point) (:game/chips game))
         parted-chips (partition-all 27 chips)
-        winner (victory/did-someone-win?-2 chips)
+        winner (victory/has-winner? chips wins/d5)
         theme (when (:settings/colorblind? settings)
                 "colorblind")]
     {:bar-props {:showcase (bar/prepare-showcase winner current-color theme)
