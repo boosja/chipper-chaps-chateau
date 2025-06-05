@@ -43,7 +43,7 @@
         settings (db/settings db)
         current-color (:game/current-color game)
         chips (sort-by :point (:game/chips game))
-        winner (victory/did-someone-win? chips)
+        winner (victory/has-winner? chips wins/d3)
         theme (when (:settings/colorblind? settings)
                 "colorblind")]
     {:bar-props {:showcase (bar/prepare-showcase winner current-color theme)

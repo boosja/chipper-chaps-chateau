@@ -2,15 +2,14 @@
   (:require [chipper-chaps-chateau.components.bar :as bar]
             [chipper-chaps-chateau.la-visual :as vis]
             [chipper-chaps-chateau.db :as db]
-            [chipper-chaps-chateau.settings :as settings]))
+            [chipper-chaps-chateau.settings :as settings]
+            [chipper-chaps-chateau.victory :as victory]
+            [chipper-chaps-chateau.wins :as wins]))
 
 (defn prepare [db]
   (let [game (db/current-game db)
         chips (sort-by :point (:game/chips game))
-        winner (when (->> chips
-                          (map :chip/color)
-                          (every? #(= :blue %)))
-                 :blue)]
+        winner (victory/has-winner? chips wins/d1)]
     {:bar-props {:showcase (bar/prepare-showcase winner :blue nil)
                  :left (bar/prepare-left-icons winner)
                  :right (-> [(settings/->d2)
