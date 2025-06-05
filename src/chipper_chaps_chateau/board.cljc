@@ -10,6 +10,14 @@
                          :game/current-color (or next-player
                                                  (player/next (:game/current-color game)))}]]]))
 
+(defn reset-d1 [_db]
+  [[:effect/transact [{:db/id "new-game"
+                       :game/id [:data-require :id/gen]
+                       :game/current-color :blue
+                       :game/chips [:data-require :id.gen/d1-chips]}
+                      {:db/ident :app/state
+                       :app/current-game "new-game"}]]])
+
 (defn reset-d3 [_db]
   [[:effect/transact [{:db/id "new-game"
                        :game/id [:data-require :id/gen]
@@ -37,6 +45,7 @@
 (defn perform-action [db [action & args]]
   (case action
     :board/select-chip (select-chip db args)
+    :board.d1/reset (reset-d1 db)
     :board.d3/reset (reset-d3 db)
     :board.d4/reset (reset-d4 db)
     :board.d5/reset (reset-d5 db)
