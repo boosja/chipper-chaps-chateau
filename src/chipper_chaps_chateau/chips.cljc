@@ -48,6 +48,11 @@
                                              :cy (- cy (* 2 pad))
                                              :r sm-radius}]]})))))
 
+(defn create-chips-1d []
+  (for [x (range 1 4)]
+    {:point [x]
+     :svg/circle (get svg-circles (str "2" x "1"))}))
+
 (defn create-chips-3d []
   (for [y (range 1 4)
         x (range 1 4)

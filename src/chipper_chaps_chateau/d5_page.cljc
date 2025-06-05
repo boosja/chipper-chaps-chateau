@@ -17,7 +17,7 @@
     {:bar-props {:showcase (bar/prepare-showcase winner current-color theme)
                  :left (bar/prepare-left-icons winner)
                  :right (-> [(settings/color-mode db)
-                             (settings/->d3)
+                             (settings/->d1)
                              {:sm true
                               :actions [[:board.d5/reset]]
                               :icon "🔄"
