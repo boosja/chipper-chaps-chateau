@@ -1,12 +1,6 @@
 (ns chipper-chaps-chateau.db
   (:require [datascript.core :as ds]))
 
-(defn get-global [db k]
-  (get (ds/entity db k) k :404))
-
-(defn ->global-tx [k v]
-  {:db/ident k k v})
-
 (defn app-state [db]
   (ds/entity db :app/state))
 
