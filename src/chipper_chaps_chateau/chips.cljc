@@ -3,10 +3,6 @@
 (defn ->xyz [chip]
   (select-keys chip [:x :y :z :w :v :u :t]))
 
-(defn ->yxz [point]
-  (let [[x y z] point]
-    [y x z]))
-
 (defn comp-yzx []
   (fn [{[x y z] :point}]
     [y z x]))
@@ -30,13 +26,13 @@
                        x (range 1 4)]
                    (let [[cx cy] (find-circle-center x y lg-radius pad)
                          shadow (* size 0.0067)]
-                     {(str y x 1) [[:circle {:cx (- cx shadow)
+                     {(str x y 1) [[:circle {:cx (- cx shadow)
                                              :cy (+ cy shadow)
                                              :r lg-radius}]
                                    [:circle {:id (str x y 1)
                                              :cx cx :cy cy :r lg-radius}]]
 
-                      (str y x 2) [[:circle {:cx (- cx (- pad) shadow)
+                      (str x y 2) [[:circle {:cx (- cx (- pad) shadow)
                                              :cy (+ cy (- pad) shadow)
                                              :r md-radius}]
                                    [:circle {:id (str x y 2)
@@ -44,7 +40,7 @@
                                              :cy (- cy pad)
                                              :r md-radius}]]
 
-                      (str y x 3) [[:circle {:cx (- cx (- (* 2 pad)) shadow)
+                      (str x y 3) [[:circle {:cx (- cx (- (* 2 pad)) shadow)
                                              :cy (+ cy (- (* 2 pad)) shadow)
                                              :r sm-radius}]
                                    [:circle {:id (str x y 3)
@@ -73,9 +69,9 @@
               {:point p
                :svg/circle
                (get svg-circles
-                    (apply str (->yxz (if (< (count p) 3)
-                                        (vec-merge [nil 2 1] (vec-take 3 p))
-                                        (vec-take 3 p)))))}))))
+                    (apply str (if (< (count p) 3)
+                                 (vec-merge [nil 2 1] (vec-take 3 p))
+                                 (vec-take 3 p))))}))))
 
 (def ->n {:dim/one 1
           :dim/two 2
