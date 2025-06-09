@@ -57,7 +57,7 @@
     [[]]
     (vec (for [x (first colls)
                xs (apply cartesian-product (rest colls))]
-           (vec (cons x xs))))))
+           (vec (conj xs x))))))
 
 (defn create-chips*
   "Create chips for a board with n dimensions"
