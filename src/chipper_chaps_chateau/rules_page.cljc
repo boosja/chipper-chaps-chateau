@@ -13,7 +13,7 @@
         filtered [0 4 8 12 22 40 36 47 29]
         chips-d4 (chips/create-chips :dim/four)
         filtered-d4 [7 8 9 10 11 12]
-        chips-d5 (chips/create-chips-5d)
+        chips-d5 (chips/create-chips :dim/five)
         filtered-d5 [25 87 133 30]]
     {:bar-props {:showcase {:text (if show-all? "Every possible win" "How to win")
                             :class "green"
@@ -128,7 +128,7 @@
       (vis/el-chateau nil w3)])]
 
   ;; all 5D wins with ids
-  (->> (map-indexed #(vector %1 (chips/add-winning-line (chips/create-chips-5d) %2 :blue))
+  (->> (map-indexed #(vector %1 (chips/add-winning-line (chips/create-chips :dim/five) %2 :blue))
                     (take 200 wins/d5))
        (map #(update % 1 (fn [b] (partition-all 27 b)))))
 

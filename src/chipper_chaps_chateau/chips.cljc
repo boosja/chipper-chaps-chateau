@@ -81,15 +81,6 @@
 (defn create-chips [dim]
   (create-chips* (get ->n dim)))
 
-(defn create-chips-5d []
-  (for [v (range 1 4)
-        w (range 1 4)
-        y (range 1 4)
-        x (range 1 4)
-        z (range 1 4)]
-    {:point [x y z w v]
-     :svg/circle (get svg-circles (str y x z))}))
-
 (defn add-winning-line
   "Colors the winning line in the list of chips"
   [chips winning-line & [color]]
