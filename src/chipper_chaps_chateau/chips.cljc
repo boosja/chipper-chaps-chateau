@@ -3,6 +3,10 @@
 (defn ->xyz [chip]
   (select-keys chip [:x :y :z :w :v :u :t]))
 
+(defn ->yxz [point]
+  (let [[x y z] point]
+    [y x z]))
+
 (defn comp-yzx []
   (fn [{[x y z] :point}]
     [y z x]))
@@ -48,10 +52,34 @@
                                              :cy (- cy (* 2 pad))
                                              :r sm-radius}]]})))))
 
-(defn create-chips-1d []
-  (for [x (range 1 4)]
-    {:point [x]
-     :svg/circle (get svg-circles (str "2" x "1"))}))
+(defn cartesian-product [& colls]
+  (if (empty? colls)
+    [[]]
+    (vec (for [x (first colls)
+               xs (apply cartesian-product (rest colls))]
+           (vec (cons x xs))))))
+
+(defn create-chips*
+  "Create chips for a board with n dimensions"
+  [n]
+  (->> (apply cartesian-product (repeat n (range 1 4)))
+       (map (fn [p]
+              {:point p
+               :svg/circle
+               (get svg-circles
+                    (apply str (->yxz (vec (cond
+                                             (= 1 (count p)) (take 3 (concat p [2 1]))
+                                             (= 2 (count p)) (take 3 (concat p [1]))
+                                             :else (take 3 p))))))}))))
+
+(def ->n {:dim/one 1
+          :dim/two 2
+          :dim/three 3
+          :dim/four 4
+          :dim/five 5})
+
+(defn create-chips [dim]
+  (create-chips* (get ->n dim)))
 
 (defn create-chips-2d []
   (for [y (range 1 4)
