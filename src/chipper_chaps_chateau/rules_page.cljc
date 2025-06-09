@@ -49,9 +49,7 @@
              (range 5))
 
    [:div.container
-    (vis/el-chateau nil (->> ["211" "221" "231"]
-                             (map #(get chips/svg-circles %))
-                             (map #(hash-map :svg/circle %))))]
+    (vis/el-chateau nil (chips/create-chips :dim/one))]
 
    [:div.container
     (vis/el-chateau nil (->> ["111" "121" "131"

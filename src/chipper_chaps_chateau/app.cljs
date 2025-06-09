@@ -102,7 +102,7 @@
 
   ;; Navigate
   (do (dispatch nil [[:action/navigate :route/d1]])
-      (override-board! (id/-ilize! :chip/id (chips/create-chips-1d))))
+      (override-board! (id/-ilize! :chip/id (chips/create-chips :dim/one))))
   (do (dispatch nil [[:action/navigate :route/d2]])
       (override-board! (id/-ilize! :chip/id (chips/create-chips-2d))))
   (do (dispatch nil [[:action/navigate :route/d3]])
@@ -129,7 +129,7 @@
           actions))
 
 (def refiners {:id/gen id/gen!
-               :id.gen/d1-chips #(id/-ilize! :chip/id (chips/create-chips-1d))
+               :id.gen/d1-chips #(id/-ilize! :chip/id (chips/create-chips :dim/one))
                :id.gen/d2-chips #(id/-ilize! :chip/id (chips/create-chips-2d))
                :id.gen/d3-chips #(id/-ilize! :chip/id (chips/create-chips-3d))
                :id.gen/d4-chips #(id/-ilize! :chip/id (chips/create-chips-4d))
