@@ -11,7 +11,7 @@
         back-to-5d? (< 81 (-> (db/current-game db) :game/chips count))
         chips-d3 (chips/create-chips :dim/three)
         filtered [0 4 8 12 22 40 36 47 29]
-        chips-d4 (chips/create-chips-4d)
+        chips-d4 (chips/create-chips :dim/four)
         filtered-d4 [7 8 9 10 11 12]
         chips-d5 (chips/create-chips-5d)
         filtered-d5 [25 87 133 30]]
@@ -111,11 +111,11 @@
   ;; WIP sorting
   (->> (filter #(apply not= (map last %)) wins/d4)
        (sort wins/compare-wins)
-       (map #(vector % (chips/add-winning-line (chips/create-chips-4d) % :blue)))
+       (map #(vector % (chips/add-winning-line (chips/create-chips :dim/four) % :blue)))
        (map #(update % 1 (fn [b] (partition-all 27 b)))))
 
   ;; all 4D wins with ids
-  (->> (map-indexed #(vector %1 (chips/add-winning-line (chips/create-chips-4d) %2 :blue))
+  (->> (map-indexed #(vector %1 (chips/add-winning-line (chips/create-chips :dim/four) %2 :blue))
                     wins/d4)
        (map #(update % 1 (fn [b] (partition-all 27 b)))))
 

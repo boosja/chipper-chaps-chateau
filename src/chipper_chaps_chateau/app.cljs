@@ -108,7 +108,7 @@
   (do (dispatch nil [[:action/navigate :route/d3]])
       (override-board! (id/-ilize! :chip/id (chips/create-chips :dim/three))))
   (do (dispatch nil [[:action/navigate :route/d4]])
-      (override-board! (id/-ilize! :chip/id (chips/create-chips-4d))))
+      (override-board! (id/-ilize! :chip/id (chips/create-chips :dim/four))))
   (do (dispatch nil [[:action/navigate :route/d5]])
       (override-board! (id/-ilize! :chip/id (chips/create-chips-5d))))
 
@@ -132,7 +132,7 @@
                :id.gen/d1-chips #(id/-ilize! :chip/id (chips/create-chips :dim/one))
                :id.gen/d2-chips #(id/-ilize! :chip/id (chips/create-chips :dim/two))
                :id.gen/d3-chips #(id/-ilize! :chip/id (chips/create-chips :dim/three))
-               :id.gen/d4-chips #(id/-ilize! :chip/id (chips/create-chips-4d))
+               :id.gen/d4-chips #(id/-ilize! :chip/id (chips/create-chips :dim/four))
                :id.gen/d5-chips #(id/-ilize! :chip/id (chips/create-chips-5d))})
 
 (defn refine [txes]
