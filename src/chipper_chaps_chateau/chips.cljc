@@ -59,6 +59,12 @@
                xs (apply cartesian-product (rest colls))]
            (vec (conj xs x))))))
 
+(defn vec-merge [v1 v2]
+  (reduce-kv assoc v1 v2))
+
+(defn vec-take [n v]
+  (into [] (take n) v))
+
 (defn create-chips*
   "Create chips for a board with n dimensions"
   [n]
@@ -67,10 +73,9 @@
               {:point p
                :svg/circle
                (get svg-circles
-                    (apply str (->yxz (vec (cond
-                                             (= 1 (count p)) (take 3 (concat p [2 1]))
-                                             (= 2 (count p)) (take 3 (concat p [1]))
-                                             :else (take 3 p))))))}))))
+                    (apply str (->yxz (if (< (count p) 3)
+                                        (vec-merge [nil 2 1] (vec-take 3 p))
+                                        (vec-take 3 p)))))}))))
 
 (def ->n {:dim/one 1
           :dim/two 2
