@@ -3,22 +3,6 @@
             [chipper-chaps-chateau.chips :as chips]
             [chipper-chaps-chateau.wins :as wins]))
 
-(defn has-three-in-a-row? [chips]
-  (some #(set/subset? % chips) wins/d3))
-
-(defn did-someone-win? [chips]
-  (let [filtered (filter :chip/color chips)
-        grouped (-> (group-by :chip/color filtered)
-                    (update-vals #(set (map :point %))))
-        winner (reduce (fn [winner? [color chips]]
-                         (if (has-three-in-a-row? chips)
-                           color winner?))
-                       false grouped)]
-    (cond
-      winner winner
-      (= (count chips) (count filtered)) :tie
-      :else false)))
-
 (defn three-in-a-row? [chips wins]
   (some #(set/subset? % chips) wins))
 
