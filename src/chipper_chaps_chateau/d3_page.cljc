@@ -53,7 +53,7 @@
                              (settings/color-mode db)
                              (settings/->d4)
                              {:sm true
-                              :actions [[:board.d3/reset]]
+                              :actions [[:board/reset :dim/three]]
                               :icon "🔄"
                               :tooltip "Reset game"}]
                             (into (bar/prepare-right-icons)))}

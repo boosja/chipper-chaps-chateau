@@ -39,34 +39,34 @@
 (defn ->d1 []
   {:sm true
    :actions [[:action/navigate :route/d1]
-             [:board.d1/reset]]
+             [:board/reset :dim/one]]
    :icon (:expert difficulty)
    :tooltip tooltip})
 
 (defn ->d2 []
   {:sm true
    :actions [[:action/navigate :route/d2]
-             [:board.d2/reset]]
+             [:board/reset :dim/two]]
    :icon (:pointless difficulty)
    :tooltip tooltip})
 
 (defn ->d3 []
   {:sm true
    :actions [[:action/navigate :route/d3]
-             [:board.d3/reset]]
+             [:board/reset :dim/three]]
    :icon (:elementary difficulty)
    :tooltip tooltip})
 
 (defn ->d4 []
   {:sm true
    :actions [[:action/navigate :route/d4]
-             [:board.d4/reset]]
+             [:board/reset :dim/four]]
    :icon (:easy difficulty)
    :tooltip tooltip})
 
 (defn ->d5 []
   {:sm true
    :actions [[:action/navigate :route/d5]
-             [:board.d5/reset]]
+             [:board/reset :dim/five]]
    :icon (:hard difficulty)
    :tooltip tooltip})

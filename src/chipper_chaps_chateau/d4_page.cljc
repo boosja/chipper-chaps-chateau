@@ -21,7 +21,7 @@
                  :right (-> [(settings/color-mode db)
                              (settings/->d5)
                              {:sm true
-                              :actions [[:board.d4/reset]]
+                              :actions [[:board/reset :dim/four]]
                               :icon "🔄"
                               :tooltip "Reset game"}]
                             (into (bar/prepare-right-icons)))}

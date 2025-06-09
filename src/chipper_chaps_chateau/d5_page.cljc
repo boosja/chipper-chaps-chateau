@@ -20,7 +20,7 @@
                  :right (-> [(settings/color-mode db)
                              (settings/->d1)
                              {:sm true
-                              :actions [[:board.d5/reset]]
+                              :actions [[:board/reset :dim/five]]
                               :icon "🔄"
                               :tooltip "Reset game"}]
                             (into (bar/prepare-right-icons)))}
