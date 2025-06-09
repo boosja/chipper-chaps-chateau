@@ -24,7 +24,7 @@
 
 (defn bot-move-effects [db]
   (let [game (db/current-game db)]
-   (if (victory/did-someone-win? (:game/chips game))
+   (if (victory/has-winner? (:game/chips game) wins/d3)
      []
      (let [next-move (bot/pick-next-move wins/d3 (:game/chips game))]
        [[:effect/transact [{:chip/id (:chip/id next-move)

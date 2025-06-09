@@ -104,7 +104,6 @@
   (do (dispatch nil [[:action/navigate :route/d5]])
       (override-board! (id/-ilize! :chip/id (chips/create-chips :dim/five))))
 
-  (victory/did-someone-win? cs)
   )
 
 (defn perform-actions [db actions]

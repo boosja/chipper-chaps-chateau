@@ -36,28 +36,31 @@
 
 (deftest did-someone-win?-test
   (testing "all winning lines return :blue"
-    (is (= (distinct (map #(victory/did-someone-win?
-                            (chips/add-winning-line (chips/create-chips :dim/three) %))
+    (is (= (distinct (map #(victory/has-winner?
+                            (chips/add-winning-line (chips/create-chips :dim/three) %)
+                            wins/d3)
                           wins/d3))
            '(:blue))))
 
   (testing "returns :tie on a tie"
-    (is (= (victory/did-someone-win? tied-chips)
+    (is (= (victory/has-winner? tied-chips wins/d3)
            :tie)))
 
   (testing "returns :blue when winning on last chip"
-    (is (= (victory/did-someone-win? (map #(assoc % :chip/color :blue)
-                                          (chips/create-chips :dim/three)))
+    (is (= (victory/has-winner? (map #(assoc % :chip/color :blue)
+                                          (chips/create-chips :dim/three))
+                                wins/d3)
            :blue)))
 
   (testing "returns false when no one has won yet"
-    (is (= (victory/did-someone-win? (chips/create-chips :dim/three))
+    (is (= (victory/has-winner? (chips/create-chips :dim/three) wins/d3)
            false))))
 
 (comment
 
-  (map #(victory/did-someone-win?
-         (chips/add-winning-line (chips/create-chips :dim/three) %))
+  (map #(victory/has-winner?
+         (chips/add-winning-line (chips/create-chips :dim/three) %)
+         wins/d3)
        wins/d3)
 
   )
