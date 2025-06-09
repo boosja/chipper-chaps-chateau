@@ -48,7 +48,7 @@
                                                 (first %))))))
 
 (defn heat-mapped-chips-4d []
-  (->> (chips/create-chips-4d)
+  (->> (chips/create-chips :dim/four)
        (map (fn [c]
               [(count (filter #(contains? % (:point c)) wins/d4)) c]))
        (map #(assoc (second %) :chip/color (get {40 :blue-2
