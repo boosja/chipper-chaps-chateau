@@ -15,7 +15,7 @@
                  :left (bar/prepare-left-icons winner)
                  :right (-> [(settings/->d3)
                              {:sm true
-                              :actions [[:board.d2/reset]]
+                              :actions [[:board/reset :dim/two]]
                               :icon "🔄"
                               :tooltip "Reset game"}]
                             (into (bar/prepare-right-icons)))}
