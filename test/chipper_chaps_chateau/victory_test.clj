@@ -90,26 +90,6 @@
                          {:point [3 3 2] :chip/color :yellow}
                          {:point [3 3 3]}))
 
-(comment
-  (def current-color :blue)
-  (def filled-in (filter :chip/color board-with-colors))
-
-  (->> (map (fn [winning-line]
-              (set (map (fn [winning-xyz]
-                          (or (some-> (filter #(= (chips/->xyz %) winning-xyz) filled-in)
-                                      first)
-                              winning-xyz))
-                        winning-line)))
-            wins/d3)
-       (filter (fn [winning-line]
-                 (some #(= (get % :chip/color) current-color) winning-line)))
-       (sort-by (fn [winning-line]
-                  (count (filter #(= (get % :chip/color) current-color)
-                                 winning-line))))
-       (reverse))
-
-  )
-
 (deftest score-moves
   (testing "Picks first possible move"
     (is (not

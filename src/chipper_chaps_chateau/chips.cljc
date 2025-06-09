@@ -1,8 +1,5 @@
 (ns chipper-chaps-chateau.chips)
 
-(defn ->xyz [chip]
-  (select-keys chip [:x :y :z :w :v :u :t]))
-
 (defn comp-yzx []
   (fn [{[x y z] :point}]
     [y z x]))
