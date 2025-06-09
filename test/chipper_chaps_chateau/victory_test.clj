@@ -37,7 +37,7 @@
 (deftest did-someone-win?-test
   (testing "all winning lines return :blue"
     (is (= (distinct (map #(victory/did-someone-win?
-                            (chips/add-winning-line (chips/create-chips-3d) %))
+                            (chips/add-winning-line (chips/create-chips :dim/three) %))
                           wins/d3))
            '(:blue))))
 
@@ -47,17 +47,17 @@
 
   (testing "returns :blue when winning on last chip"
     (is (= (victory/did-someone-win? (map #(assoc % :chip/color :blue)
-                                          (chips/create-chips-3d)))
+                                          (chips/create-chips :dim/three)))
            :blue)))
 
   (testing "returns false when no one has won yet"
-    (is (= (victory/did-someone-win? (chips/create-chips-3d))
+    (is (= (victory/did-someone-win? (chips/create-chips :dim/three))
            false))))
 
 (comment
 
   (map #(victory/did-someone-win?
-         (chips/add-winning-line (chips/create-chips-3d) %))
+         (chips/add-winning-line (chips/create-chips :dim/three) %))
        wins/d3)
 
   )
@@ -115,21 +115,21 @@
     (is (not
          (contains? (bot/pick-next-move
                      wins/d3
-                     (chips/add-winning-line (chips/create-chips-3d)
+                     (chips/add-winning-line (chips/create-chips :dim/three)
                                              #{[1 1 1]}))
                     :chip/color))))
 
   (testing "Picks first possible move of other color"
     (is (not
          (= (bot/pick-next-move wins/d3
-                                (chips/add-winning-line (chips/create-chips-3d)
+                                (chips/add-winning-line (chips/create-chips :dim/three)
                                                         #{[1 1 1]}))
             :chip/color))))
 
   (testing "Not nil"
     (is (not (nil? (bot/pick-next-move
                     wins/d3
-                    (chips/add-winning-line (chips/create-chips-3d) #{[1 1 1]}))))))
+                    (chips/add-winning-line (chips/create-chips :dim/three) #{[1 1 1]}))))))
 
   ;; - (attack) Pick chip in a win that has my color already
   ;; - (attack) Pick chip in a win that has my color already and does not have any
@@ -186,7 +186,7 @@
        bot/calc-scores
        (sort-by second victory/compare-point-scores))
 
-  (->> (chips/add-winning-line (chips/create-chips-3d) #{{:x 1 :y 1 :z 1}})
+  (->> (chips/add-winning-line (chips/create-chips :dim/three) #{{:x 1 :y 1 :z 1}})
        (filter :chip/color))
 
 

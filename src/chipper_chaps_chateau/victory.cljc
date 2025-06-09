@@ -38,7 +38,7 @@
       :else false)))
 
 (defn heat-mapped-chips []
-  (->> (chips/create-chips-3d)
+  (->> (chips/create-chips :dim/three)
        (map (fn [c]
               [(count (filter #(contains? % (:point c)) wins/d3)) c]))
        (map #(assoc (second %) :chip/color (get {13 :blue-2
