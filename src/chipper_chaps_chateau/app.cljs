@@ -21,6 +21,11 @@
 ;; list all previous games under current
 ;; remember settings in localstorage
 ;; hashing board/state to url - see any board with url
+;; aliasify vis/el-chateau
+;; ✓ see through bot logic
+;; add bot for the other dimensions too
+;; add colors in the fourth and fifth dimensions
+;; use colors in code, not css
 
 (declare dispatch)
 (declare perform-actions)
