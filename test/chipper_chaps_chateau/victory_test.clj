@@ -125,7 +125,7 @@
   )
 
 (deftest ->point-color-mapper-test
-  (is (= (bot/->point-color-mapper [{:point [1 1 1] :chip/color :blue}
+  (is (= (bot/get-point->color-map [{:point [1 1 1] :chip/color :blue}
                                     {:point [1 1 2]}
                                     {:point [1 1 3] :chip/color :green}
                                     {:point [2 1 1] :chip/color :blue}
