@@ -2,9 +2,9 @@
   (:require [chipper-chaps-chateau.db :as db]
             [chipper-chaps-chateau.player :as player]))
 
-(defn select-chip [db & [[chip-id next-player]]]
+(defn select-chip [db & [[chip next-player]]]
   (let [game (db/current-game db)]
-    [[:effect/transact [{:chip/id (:chip/id chip-id)
+    [[:effect/transact [{:chip/id (:chip/id chip)
                          :chip/color (:game/current-color game)}
                         {:game/id (:game/id game)
                          :game/current-color (or next-player
