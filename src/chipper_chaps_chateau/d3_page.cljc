@@ -5,13 +5,8 @@
             [chipper-chaps-chateau.components.bar :as bar]
             [chipper-chaps-chateau.wins :as wins]
             [chipper-chaps-chateau.bot :as bot]
-            [chipper-chaps-chateau.settings :as settings]))
-
-(def next-color
-  {:blue :red
-   :red :green
-   :green :yellow
-   :yellow :blue})
+            [chipper-chaps-chateau.settings :as settings]
+            [chipper-chaps-chateau.board :as board]))
 
 (defn deferred-bot-move-effects [db ms]
   (let [settings (db/settings db)
@@ -27,10 +22,7 @@
    (if (victory/has-winner? (:game/chips game) wins/d3)
      []
      (let [next-move (bot/pick-next-move wins/d3 (:game/chips game))]
-       [[:effect/transact [{:chip/id (:chip/id next-move)
-                            :chip/color (:game/current-color game)}
-                           {:game/id (:game/id game)
-                            :game/current-color (next-color (:game/current-color game))}]]]))))
+       (board/select-chip db [next-move])))))
 
 (defn perform-action [db [action & args]]
   (case action
