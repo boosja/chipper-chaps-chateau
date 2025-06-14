@@ -18,7 +18,9 @@
                 "colorblind")]
     {:bar-props {:showcase (bar/prepare-showcase winner current-color theme)
                  :left (bar/prepare-left-icons winner)
-                 :right (-> [(settings/color-mode db)
+                 :right (-> [(settings/bot db)
+                             (settings/variant db)
+                             (settings/color-mode db)
                              (settings/->d5)
                              {:sm true
                               :actions [[:board/reset :dim/four]]
@@ -29,7 +31,8 @@
      :chips parted-chips
      :get-actions (fn [chip]
                     (when (and (not winner) (nil? (:chip/color chip)))
-                      [[:board/select-chip chip]]))}))
+                      [[:board/select-chip chip]
+                       [:bot/deferred-move 300]]))}))
 
 (defn render [{:keys [bar-props theme chips get-actions]}]
   (list [:main
