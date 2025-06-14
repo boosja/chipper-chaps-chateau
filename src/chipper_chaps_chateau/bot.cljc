@@ -1,4 +1,10 @@
-(ns chipper-chaps-chateau.bot)
+(ns chipper-chaps-chateau.bot
+  (:require [chipper-chaps-chateau.wins :as wins]
+            [chipper-chaps-chateau.db :as db]
+            [chipper-chaps-chateau.victory :as victory]
+            [chipper-chaps-chateau.board :as board]
+            [chipper-chaps-chateau.chips :as chips]
+            [chipper-chaps-chateau.player :as player]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Pick next move
@@ -86,12 +92,75 @@
        calc-scores
        (sort-by second compare-point-scores)))
 
-(defn pick-next-move [wins chips]
-  (let [point-of-interest (ffirst (score-board wins chips))]
+(defn get-color-candidates [candidates color]
+  (filter #(< 100 (color (second %))) candidates))
+
+(defn by-player-order [score-board current-color]
+  (let [candidates (take-while #(< 100 (apply max (-> % second vals)))
+                               score-board)]
+    (if (seq candidates)
+     (loop [color current-color]
+       (if-let [final-canditates (seq (get-color-candidates candidates color))]
+         final-canditates
+         (if (= (player/next color) current-color)
+           score-board
+           (recur (player/next color)))))
+     score-board)))
+
+(defn pick-next-move [wins chips current-color]
+  (let [score-board (score-board wins chips)
+        point-of-interest (ffirst (by-player-order score-board current-color))]
     (->> (filter #(= point-of-interest (:point %)) chips)
          first)))
 
 (comment
+
+  (do
+    (def wins wins/d3)
+    (def chips chips/example-board)
+    (def colors (find-colors chips))
+    (def colored-wins (merge-wins-with-colors wins chips))
+    (def pointed-wins (group-by-point colored-wins))
+    (def stats-by-point (statistics-by-point colors pointed-wins))
+    (def scores (calc-scores stats-by-point))
+    (def sorted (sort-by second compare-point-scores scores))
+    (def checked-player-order (by-player-order sorted :blue))
+
+    )
+
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Bot actions
+
+(defn deferred-bot-move-effects [db ms]
+  (let [settings (db/settings db)
+        amount (cond-> 0
+                 (:settings/enable-bot settings) inc
+                 (and (:settings/enable-bot settings)
+                      (= :four-player (:settings/variant settings))) (+ 2))]
+    (remove nil? [(when (< 0 amount)
+                    [:effect/defer ms (into [] (repeat amount [:bot/move]))])])))
+
+(def ->wins {27 wins/d3
+             81 wins/d4
+             243 wins/d5})
+
+(defn bot-move-effects [db]
+  (let [game (db/current-game db)
+        current-color (:game/current-color game)
+        chips (:game/chips game)
+        wins (->wins (count chips))]
+    (if (victory/has-winner? chips wins)
+      []
+      (let [next-move (pick-next-move wins chips current-color)]
+        (board/select-chip db [next-move])))))
+
+(defn perform-action [db [action & args]]
+  (case action
+    :bot/deferred-move (deferred-bot-move-effects db (first args))
+    :bot/move (bot-move-effects db)
+    nil))
 
   ;; Pick next move
   #?(:clj

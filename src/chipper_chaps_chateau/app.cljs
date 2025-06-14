@@ -1,5 +1,6 @@
 (ns chipper-chaps-chateau.app
   (:require [chipper-chaps-chateau.board :as board]
+            [chipper-chaps-chateau.bot :as bot]
             [chipper-chaps-chateau.chips :as chips]
             [chipper-chaps-chateau.d1-page :as d1-page]
             [chipper-chaps-chateau.d2-page :as d2-page]
@@ -26,6 +27,8 @@
 ;; add bot for the other dimensions too
 ;; add colors in the fourth and fifth dimensions
 ;; use colors in code, not css
+;; migrate to tailwindcss
+;; use phosphor icons?
 
 (declare dispatch)
 (declare perform-actions)
@@ -113,7 +116,7 @@
 
 (defn perform-actions [db actions]
   (mapcat (fn [action]
-            (or (d3-page/perform-action db action)
+            (or (bot/perform-action db action)
                 (board/perform-action db action)
                 (settings/perform-action db action)
                 (case (first action)
