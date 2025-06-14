@@ -4,31 +4,7 @@
             [chipper-chaps-chateau.db :as db]
             [chipper-chaps-chateau.components.bar :as bar]
             [chipper-chaps-chateau.wins :as wins]
-            [chipper-chaps-chateau.bot :as bot]
-            [chipper-chaps-chateau.settings :as settings]
-            [chipper-chaps-chateau.board :as board]))
-
-(defn deferred-bot-move-effects [db ms]
-  (let [settings (db/settings db)
-        amount (cond-> 0
-                 (:settings/enable-bot settings) inc
-                 (and (:settings/enable-bot settings)
-                      (= :four-player (:settings/variant settings))) (+ 2))]
-    (remove nil? [(when (< 0 amount)
-                    [:effect/defer ms (into [] (repeat amount [::bot-move]))])])))
-
-(defn bot-move-effects [db]
-  (let [game (db/current-game db)]
-   (if (victory/has-winner? (:game/chips game) wins/d3)
-     []
-     (let [next-move (bot/pick-next-move wins/d3 (:game/chips game))]
-       (board/select-chip db [next-move])))))
-
-(defn perform-action [db [action & args]]
-  (case action
-    ::deferred-bot-move (deferred-bot-move-effects db (first args))
-    ::bot-move (bot-move-effects db)
-    nil))
+            [chipper-chaps-chateau.settings :as settings]))
 
 (defn prepare [db]
   (let [game (db/current-game db)
@@ -54,7 +30,7 @@
      :get-actions (fn [chip]
                     (when (and (not winner) (nil? (:chip/color chip)))
                       [[:board/select-chip chip]
-                       [::deferred-bot-move 300]]))}))
+                       [:bot/deferred-move 300]]))}))
 
 (defn render [{:keys [bar-props theme chips get-actions]}]
   [:main

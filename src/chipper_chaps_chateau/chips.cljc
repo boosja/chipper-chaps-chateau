@@ -89,6 +89,36 @@
         chips))
 
 ;; ################################################################
+;; ## Example boards
+(def example-board [{:point [1 1 1], :chip/color :red}
+                    {:point [1 1 2]}
+                    {:point [1 1 3]}
+                    {:point [1 2 1], :chip/color :red}
+                    {:point [1 2 2]}
+                    {:point [1 2 3]}
+                    {:point [1 3 1]}
+                    {:point [1 3 2]}
+                    {:point [1 3 3], :chip/color :blue}
+                    {:point [2 1 1]}
+                    {:point [2 1 2]}
+                    {:point [2 1 3]}
+                    {:point [2 2 1]}
+                    {:point [2 2 2], :chip/color :blue}
+                    {:point [2 2 3]}
+                    {:point [2 3 1]}
+                    {:point [2 3 2]}
+                    {:point [2 3 3]}
+                    {:point [3 1 1], :chip/color :green}
+                    {:point [3 1 2]}
+                    {:point [3 1 3], :chip/color :green}
+                    {:point [3 2 1]}
+                    {:point [3 2 2]}
+                    {:point [3 2 3]}
+                    {:point [3 3 1], :chip/color :yellow}
+                    {:point [3 3 2], :chip/color :yellow}
+                    {:point [3 3 3]}])
+
+;; ################################################################
 ;; ## CUSTOM COLORED BOARDS
 
 (def clridx {0 :blue
