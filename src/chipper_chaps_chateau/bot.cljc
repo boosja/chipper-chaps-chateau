@@ -162,6 +162,8 @@
     :bot/move (bot-move-effects db)
     nil))
 
+(comment
+
   ;; Pick next move
   #?(:clj
      (do

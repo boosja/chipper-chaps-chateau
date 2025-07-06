@@ -33,4 +33,8 @@
      [::bar/space]
      [::bar/icon]]
 
-    (vis/el-chateau get-actions chips)]])
+    [::vis/board.board
+     {::vis/chips chips
+      ::vis/get-actions get-actions}
+     [:circle.shadow]
+     [:circle.pointer.darken]]]])

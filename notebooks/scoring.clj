@@ -45,7 +45,10 @@
 (clerk/html [:div {:style {:width "65%"
                            :margin "0 auto"}}
              [:link {:rel "stylesheet" :href "/css/style.css"}]
-             (->> (vis/el-chateau nil example-board)
+             (->> [::vis/board.board
+                   {::vis/chips example-board}
+                   [:circle.shadow]
+                   [:circle]]
                   (walk/postwalk #(if (and (vector? %) (= (first %) :g))
                                     (rest %)
                                     %)))])

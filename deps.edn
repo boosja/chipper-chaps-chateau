@@ -2,7 +2,8 @@
  :deps {compojure/compojure {:mvn/version "1.7.1"}
         datascript/datascript {:mvn/version "1.6.3"}
         http-kit/http-kit {:mvn/version "2.8.0"}
-        no.cjohansen/replicant {:mvn/version "2025.03.02"}
+        no.cjohansen/replicant {:git/url "https://github.com/cjohansen/replicant.git"
+                                :sha "5e6ccaff6e93d89efa1745ccc2423ed6a3b4f33c"}
         org.clojure/clojure {:mvn/version "1.12.0"}}
  :aliases
  {:nextjournal/garden {:exec-fn chipper-chaps-chateau.server/start!}

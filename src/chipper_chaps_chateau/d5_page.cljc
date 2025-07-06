@@ -50,4 +50,8 @@
 
          [:div.d5 {:class (when theme theme)}
           (for [board chips]
-            (vis/el-chateau get-actions board))]]))
+            [::vis/board.board
+             {::vis/chips board
+              ::vis/get-actions get-actions}
+             [:circle.shadow]
+             [:circle.pointer.darken]])]]))
