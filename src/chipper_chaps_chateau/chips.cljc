@@ -45,6 +45,9 @@
                                              :cy (- cy (* 2 pad))
                                              :r sm-radius}]]})))))
 
+(def circle-placements
+  (update-vals svg-circles #(mapv second %)))
+
 (defn cartesian-product [& colls]
   (if (empty? colls)
     [[]]

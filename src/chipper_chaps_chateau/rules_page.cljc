@@ -49,21 +49,36 @@
              (range 5))
 
    [:div.container
-    (vis/el-chateau nil (chips/create-chips :dim/one))]
+    [::vis/board.board
+     {::vis/chips (chips/create-chips :dim/one)}
+     [:circle.shadow]
+     [:circle]]]
 
    [:div.container
-    (vis/el-chateau nil (chips/create-chips :dim/two))]
+    [::vis/board.board
+     {::vis/chips (chips/create-chips :dim/two)}
+     [:circle.shadow]
+     [:circle]]]
 
    [:div.container
-    (vis/el-chateau nil (chips/create-chips :dim/three))]
+    [::vis/board.board
+     {::vis/chips (chips/create-chips :dim/three)}
+     [:circle.shadow]
+     [:circle]]]
 
    [:div.container.rules
-    (repeat 3 (vis/el-chateau nil []))
-    (repeat 3 (vis/el-chateau nil (chips/create-chips :dim/three)))
-    (repeat 3 (vis/el-chateau nil []))]
+    (repeat 3 [::vis/board.board])
+    (repeat 3 [::vis/board.board
+               {::vis/chips (chips/create-chips :dim/three)}
+               [:circle.shadow]
+               [:circle]])
+    (repeat 3 [::vis/board.board])]
 
    [:div.container.rules
-    (repeat 9 (vis/el-chateau nil (chips/create-chips :dim/three)))]])
+    (repeat 9 [::vis/board.board
+               {::vis/chips (chips/create-chips :dim/three)}
+               [:circle.shadow]
+               [:circle]])]])
 
 (defn render [{:keys [bar-props rule-boards-d3 rule-boards-d4 rule-boards-d5]}]
   [:main
@@ -80,7 +95,10 @@
    [:div.rules
     (for [chips rule-boards-d3]
       [:div.container
-       (vis/el-chateau nil chips)])]
+       [::vis/board.board
+        {::vis/chips chips}
+        [:circle.shadow]
+        [:circle]]])]
 
    (when rule-boards-d4
      (list
@@ -89,7 +107,10 @@
        (for [boards rule-boards-d4]
          [:div.container.rules
           (for [board boards]
-            (vis/el-chateau nil board))])]))
+            [::vis/board.board
+             {::vis/chips board}
+             [:circle.shadow]
+             [:circle]])])]))
 
    (when rule-boards-d5
      (list
@@ -98,7 +119,10 @@
        (for [boards rule-boards-d5]
          [:div.container.rules
           (for [board boards]
-            (vis/el-chateau nil board))])]))])
+            [::vis/board.board
+             {::vis/chips board}
+             [:circle.shadow]
+             [:circle]])])]))])
 
 (comment
 
